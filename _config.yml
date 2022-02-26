@@ -1,0 +1,10 @@
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "default"
+
+footer-links:
+    github: StevenLwcz
