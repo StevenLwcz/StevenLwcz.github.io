@@ -127,7 +127,7 @@ If you do
 
 ``` (gdb) tui disable ```
 
-then gdb removes the window and goes back to command line mode. Any use of self.tui in the HelloWindow class will throw an exception (except for is_valid()). This is important later when you end up tying your render() method to gdb events. To protect ourselves we can check the is_valid() method. 
+then gdb removes the window and goes back to command line mode. Any use of self.tui in the HelloWindow class will throw an exception (except for `is_valid()`). This is important later when you end up tying your render() method to gdb events. To protect ourselves we can check the is_valid() method. 
 
 ```
     def render(self):
@@ -135,7 +135,7 @@ then gdb removes the window and goes back to command line mode. Any use of self.
             self.tui.write(f'{GREEN}Hello World{RESET}{NL}')
 ```
 
-Except it does not work for me, again I think fixed in a later version of gdb. If gdb goes a bit wobbly because your window threw an exception, (gdb) layout src will put it back to normal. And when you quit gdb and discover your shell is not displaying properly. Then:
+Except it does not work for me, again I think fixed in a later version of gdb. If gdb goes a bit wobbly because your window threw an exception, *(gdb) layout src* will put it back to normal. And when you quit gdb and discover your shell is not displaying properly. Then:
 
 ``` $ stty sane ```
 
