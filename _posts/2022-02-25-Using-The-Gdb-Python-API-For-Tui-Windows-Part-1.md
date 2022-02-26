@@ -1,6 +1,6 @@
 ## Using The Gdb Python API For Tui Windows Part 1
 
-Gdb added a Python API in 8.0 and probably the most used scenario is for pretty printers. In 10.0 they added support for creating TUI (Text User Interface) windows. This allows us to create a new window, define our own layout and put anything we like in our window while debugging our program.
+Gdb added a Python API in 8.0 and probably the most used scenario, is for pretty printers. In 10.0 they added support for creating TUI (Text User Interface) windows. This allows us to create a new window, define our own layout and put anything we like in our window while debugging our program.
 
 - Part 1 of this blog will go over the basics to create a window to display some text.
 - Part 2 will add a custom gdb command to allow us to add any text to the window.
@@ -57,7 +57,7 @@ NL = "\n\n"
 
 I think my version of gdb has a few bugs which might be fixed in a later version.
 
-To put all this together with our “Hello World” text we shall use Python f-strings. Our render method now becomes:
+To put all this together with our “Hello World” text we shall use Python [f-strings](https://saralgyaan.com/posts/f-string-in-python-usage-guide). Our render method now becomes:
 
 ```
     def render(self):
@@ -112,7 +112,7 @@ We can change the window height.
 
 At this point it might be useful to put our gdb tui commands in a gdb command text file.
 
-**hello.gdb:**
+**hello.gdb**
 ```
 source hellotui.py
 tui new-layout mylayout hello 1 cmd 1
@@ -141,4 +141,4 @@ Except it does not work for me, again I think fixed in a later version of gdb. I
 
 Will restore it back to normal. Little things you might experience while developing your Tui window.
 
-Part 2 will do something more interesting like allow us to add some text to the window using a custom gdb command. Even that might not be so exciting but it is all building blocks for greater things in future blogs.
+Part 2 will do something more interesting like allow us to add some text to the window using a custom gdb command. Even that might not be so exciting but it is all building blocks for greater things in future blogs. To be honest I am really excited about this feature and even feel inspired enough to write some blogs!
