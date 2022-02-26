@@ -13,7 +13,7 @@ Before we get started if you are not aware of some common config files which can
 
 First we are going to create a tui window to display “Hello World”.
 
-Looking at the gdb Python API for {Implementing new TUI Windows}[https://sourceware.org/gdb/onlinedocs/gdb/TUI-Windows-In-Python.html]. The 1st thing you need is a class which implements the Tui window protocol. Here is a template class.
+Looking at the gdb Python API for [Implementing new TUI Windows](https://sourceware.org/gdb/onlinedocs/gdb/TUI-Windows-In-Python.html). The 1st thing you need is a class which implements the Tui window protocol. Here is a template class.
 
 **hellotui.py**
 
@@ -39,13 +39,11 @@ class HelloWindow(object):
     def click(self, x, y, button):
         pass
 ```
-
-
 The class will get passed a tui object which allows us to get hold of properties for the window and write to it. So we save that away in our `__init__()` method. This is a good place to set a title. But you can update the title at any time.
 
 The `render()` method is where we will write text to the window using the Tui write(string) method. We may as well dive in and get fancy and use colour. The docs say *string can contain ANSI terminal escape styling sequences*. 
 
-You can read all about them from this blog {Build your own Command Line with ANSI escape codes}[https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html}. Note the gdb does not support the navigation codes.
+You can read all about them from this blog [Build your own Command Line with ANSI escape codes](https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html). Note the gdb does not support the navigation codes.
 
 Let's use some green. You can change the colour by changing 47 to something else.
 
@@ -71,9 +69,7 @@ To put all this together with our “Hello World” text we shall use Python f-s
 
 To register the window with gdb we need to use a gdb global method. The 1st parameter is the name of the window which will be used in gdb tui commands.
 
-```
-gdb.register_window_type("hello", HelloWinFactory)
-```
+``` gdb.register_window_type("hello", HelloWinFactory) ```
 
 
 The last parameter is a factory function. This funcrion needs 1 parameter which will be a tui object. We want to pass this object to our HellowWindow class and return the instance of this class back to gdb. Gdb will be able to invoke the various methods render(), as needed.
@@ -85,24 +81,17 @@ def HelloWinFactory(tui):
     return HelloWindow(tui)
 ```
 
-You can get the complete code from my {git hub repository}[https://github.com/StevenLwcz/gdb-python-blog]. Now is time to give it a go in gdb.
+You can get the complete code from my [git hub repository](https://github.com/StevenLwcz/gdb-python-blog). Now is time to give it a go in gdb.
 
-```
-$ gdb -q
-```
+``` $ gdb -q ```
 
 Read in the python file using the source command
 
-```
-(gdb) so hellotui.py
-
-```
+``` (gdb) so hellotui.py ```
 
 To use the window we need to create a new layout using the tui new-layout command.
 
-```
-(gdb) tui new-layout mylayout hello 1 cmd 1
-```
+``` (gdb) tui new-layout mylayout hello 1 cmd 1 ```
 
 Any new layout must contain the cmd window and the numbers are weights gdb will use to split the windows between the available space.
 
@@ -116,38 +105,30 @@ layout mylayout -- Apply the "mylayout" layout.
 layout next -- Apply the next TUI layout.  ```
 
 To activate our new layout
-```
-(gdb) layout hello
-```
+``` (gdb) layout hello ```
 
 This will cause gdb to go into Tui mode and display our window with the title and “Hello World” text.
 
 We can change the window height.
 
-```
-(gdb) winheight hello -10
-```
+``` (gdb) winheight hello -10 ```
 
 At this point it might be useful to put our gdb tui commands in a gdb command text file.
 
-hello.gdb:
+**hello.gdb:**
 ```
 source hellotui.py
 tui new-layout mylayout hello 1 cmd 1
 layout mylayout
 ```
 Which we can use with
-```
-$ gdb -q -x hello.gdb
-```
+``` $ gdb -q -x hello.gdb ```
 
 You can put it in a shell script or use the command history. 
 
 If you do
 
-```
-(gdb) tui disable 
-```
+``` (gdb) tui disable ```
 
 then gdb removes the window and goes back to command line mode. Any use of self.tui in the HelloWindow class will throw an exception (except for is_valid()). This is important later when you end up tying your render() method to gdb events. To protect ourselves we can check the is_valid() method. 
 
@@ -160,9 +141,7 @@ then gdb removes the window and goes back to command line mode. Any use of self.
 Except it does not work for me, again I think fixed in a later version of gdb. If gdb goes a bit wobbly because your window threw an exception, (gdb) layout src will put it back to normal. 
 And when you quit gdb and discover your shell is not displaying properly. Then
 
-```
-$ stty sane
-```
+``` $ stty sane ```
 
 Will restore it back to normal. Little things you might experience while developing your Tui window.
 
