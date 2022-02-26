@@ -9,15 +9,13 @@ Gdb added a Python API in 8.0 and probably the most used scenario is for pretty 
 
 As we go we will explore the various gdb Python APis to make all of this happen.
 
-
 Before we get started if you are not aware of some common config files which can help make using gdb more productive then please check out Gdb Basic Setup.
 
 First we are going to create a tui window to display “Hello World”.
 
-Looking at the gdb Python API for Implementing new TUI windows. The 1st thing you need is a class which implements the Tui window protocol. Here is a template class.
+Looking at the gdb Python API for {Implementing new TUI Windows}[https://sourceware.org/gdb/onlinedocs/gdb/TUI-Windows-In-Python.html]. The 1st thing you need is a class which implements the Tui window protocol. Here is a template class.
 
-hellotui.py
-
+**hellotui.py**
 
 ```
 class HelloWindow(object):
@@ -43,10 +41,11 @@ class HelloWindow(object):
 ```
 
 
-The class will get passed a tui object which allows us to get hold of properties for the window and write to it. So we save that away in our __init__ method. This is a good place to set a title. But you can update the title at any time.
+The class will get passed a tui object which allows us to get hold of properties for the window and write to it. So we save that away in our `__init__()` method. This is a good place to set a title. But you can update the title at any time.
 
-The render method is where we will write text to the window using the Tui write(string) method. We may as well dive in and get fancy and use colour. The docs say “string can contain ANSI terminal escape styling sequences”. You can read all about them from this blog Build your own Command Line with ANSI escape codes. Note the gdb does not support the navigation codes.
+The `render()` method is where we will write text to the window using the Tui write(string) method. We may as well dive in and get fancy and use colour. The docs say *string can contain ANSI terminal escape styling sequences*. 
 
+You can read all about them from this blog {Build your own Command Line with ANSI escape codes}[https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html}. Note the gdb does not support the navigation codes.
 
 Let's use some green. You can change the colour by changing 47 to something else.
 
@@ -86,9 +85,7 @@ def HelloWinFactory(tui):
     return HelloWindow(tui)
 ```
 
-
-
-You can get the complete code from the git hub repository. Now is time to give it a go in gdb.
+You can get the complete code from my {git hub repository}[https://github.com/StevenLwcz/gdb-python-blog]. Now is time to give it a go in gdb.
 
 ```
 $ gdb -q
@@ -111,19 +108,14 @@ Any new layout must contain the cmd window and the numbers are weights gdb will 
 
 We can check gdb has registered our layout with the layout command
 
-```
-(gdb) layout
-```
+``` (gdb) layout ```
 
 ```
 layout asm -- Apply the "asm" layout.
 layout mylayout -- Apply the "mylayout" layout.
-layout next -- Apply the next TUI layout.
-```
-
+layout next -- Apply the next TUI layout.  ```
 
 To activate our new layout
-
 ```
 (gdb) layout hello
 ```
@@ -144,10 +136,7 @@ source hellotui.py
 tui new-layout mylayout hello 1 cmd 1
 layout mylayout
 ```
-
-
 Which we can use with
-
 ```
 $ gdb -q -x hello.gdb
 ```
