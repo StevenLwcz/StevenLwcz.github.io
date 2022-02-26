@@ -127,7 +127,7 @@ If you do
 
 ``` (gdb) tui disable ```
 
-then gdb removes the window and goes back to command line mode. Any use of self.tui in the HelloWindow class will throw an exception (except for `is_valid()`). This is important later when you end up tying your render() method to gdb events. To protect ourselves we can check the is_valid() method. 
+then gdb removes the window and goes back to command line mode. Any use of self.tui in the HelloWindow class will throw an exception (except for `is_valid()`). This is important later when you end up tying your `render()` method to gdb events. To protect ourselves we shall check the `is_valid()` method. 
 
 ```
     def render(self):
