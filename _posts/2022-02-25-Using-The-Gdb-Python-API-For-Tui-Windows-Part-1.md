@@ -9,7 +9,7 @@ Gdb added a Python API in 8.0 and probably the most used scenario is for pretty 
 
 As we go we will explore the various gdb Python APis to make all of this happen.
 
-Before we get started if you are not aware of some common config files which can help make using gdb more productive then please check out Gdb Basic Setup.
+Before we get started if you are not aware of some common config files which can help make using gdb more productive then please check out [Gdb Basic Setup](https://github.com/StevenLwcz/gdb-python/wiki/Gdb-Basic-Setup).
 
 First we are going to create a tui window to display “Hello World”.
 
@@ -46,14 +46,11 @@ The `render()` method is where we will write text to the window using the Tui wr
 You can read all about them from this blog [Build your own Command Line with ANSI escape codes](https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html). Note the gdb does not support the navigation codes.
 
 Let's use some green. You can change the colour by changing 47 to something else.
-
 ```
 GREEN = "\x1b[38;5;47m"
 RESET = "\x1b[0m"
 ```
-
 For some reason to get a new line you need two \n. 
-
 ```
 NL = "\n\n"
 ```
@@ -85,24 +82,25 @@ You can get the complete code from my [git hub repository](https://github.com/St
 
 ``` $ gdb -q ```
 
-Read in the python file using the source command
+Read in the python file using the *source* command
 
 ``` (gdb) so hellotui.py ```
 
-To use the window we need to create a new layout using the tui new-layout command.
+To use the window we need to create a new layout using the *tui new-layout* command.
 
 ``` (gdb) tui new-layout mylayout hello 1 cmd 1 ```
 
 Any new layout must contain the cmd window and the numbers are weights gdb will use to split the windows between the available space.
 
-We can check gdb has registered our layout with the layout command
+We can check gdb has registered our layout with the *layout* command
 
 ``` (gdb) layout ```
 
 ```
 layout asm -- Apply the "asm" layout.
 layout mylayout -- Apply the "mylayout" layout.
-layout next -- Apply the next TUI layout.  ```
+layout next -- Apply the next TUI layout.  
+```
 
 To activate our new layout
 ``` (gdb) layout hello ```
