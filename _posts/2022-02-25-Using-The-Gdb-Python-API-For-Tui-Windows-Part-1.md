@@ -41,7 +41,7 @@ class HelloWindow(object):
 ```
 The class will get passed a tui object which allows us to get hold of properties for the window and write to it. So we save that away in our `__init__()` method. This is a good place to set a title. But you can update the title at any time.
 
-The `render()` method is where we will write text to the window using the Tui write(string) method. We may as well dive in and get fancy and use colour. The docs say *string can contain ANSI terminal escape styling sequences*. 
+The `render()` method is where we will write text to the window using the Tui `write(string)` method. We may as well dive in and get fancy and use colour. The docs say *string can contain ANSI terminal escape styling sequences*. 
 
 You can read all about them from this blog [Build your own Command Line with ANSI escape codes](https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html). Note the gdb does not support the navigation codes.
 
@@ -57,20 +57,19 @@ NL = "\n\n"
 
 I think my version of gdb has a few bugs which might be fixed in a later version.
 
-To put all this together with our “Hello World” text we shall use Python f-strings. Our render method now becomes
+To put all this together with our “Hello World” text we shall use Python f-strings. Our render method now becomes:
 
 ```
     def render(self):
         self.tui.write(f'{GREEN}Hello World{RESET}{NL}')
 ```
 
-To register the window with gdb we need to use a gdb global method. The 1st parameter is the name of the window which will be used in gdb tui commands.
+To register the window with gdb we need to use a gdb global function. The 1st parameter is the name of the window which will be used in gdb tui commands.
 
 ``` gdb.register_window_type("hello", HelloWinFactory) ```
 
 
-The last parameter is a factory function. This funcrion needs 1 parameter which will be a tui object. We want to pass this object to our HellowWindow class and return the instance of this class back to gdb. Gdb will be able to invoke the various methods render(), as needed.
-
+The last parameter is a factory function. This funcrion needs 1 parameter which will be a tui object. We want to pass this object to our HellowWindow class and return the instance of this class back to gdb. Gdb will be able to invoke the various methods `render()`, etc as needed.
 
 ```
 # Factory Method
@@ -136,8 +135,7 @@ then gdb removes the window and goes back to command line mode. Any use of self.
             self.tui.write(f'{GREEN}Hello World{RESET}{NL}')
 ```
 
-Except it does not work for me, again I think fixed in a later version of gdb. If gdb goes a bit wobbly because your window threw an exception, (gdb) layout src will put it back to normal. 
-And when you quit gdb and discover your shell is not displaying properly. Then
+Except it does not work for me, again I think fixed in a later version of gdb. If gdb goes a bit wobbly because your window threw an exception, (gdb) layout src will put it back to normal. And when you quit gdb and discover your shell is not displaying properly. Then:
 
 ``` $ stty sane ```
 
