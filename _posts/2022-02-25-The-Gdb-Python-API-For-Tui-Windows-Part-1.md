@@ -105,7 +105,7 @@ layout next -- Apply the next TUI layout.
 
 To activate our new layout use `(gdb) layout hello` and gdb will go into Tui mode and display our window with the title and “Hello World” text.
 
-![](./Screenshot 2022-02-27 14.46.43.png)
+![](/images/TuiWindow1.png)
 
 We can change the window height.
 
