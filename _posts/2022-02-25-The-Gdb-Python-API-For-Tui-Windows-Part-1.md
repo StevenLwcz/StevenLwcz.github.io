@@ -1,5 +1,6 @@
 ---
 author: StevenLwcz
+layout: post
 ---
 
 ## The Gdb Python API For Tui Windows Part 1
