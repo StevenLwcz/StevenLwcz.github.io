@@ -2,9 +2,6 @@
 author: StevenLwcz
 layout: post
 ---
-
-## The Gdb Python API For Tui Windows Part 2
-
 In this part we will extend our HelloWindow class to be able to display any text from a custom GDB command. 
 The [Commands in Python](https://sourceware.org/gdb/onlinedocs/gdb/Commands-In-Python.html#Commands-In-Python) docs give us a code snippet which we can build on.
 
