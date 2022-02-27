@@ -103,7 +103,7 @@ layout mylayout -- Apply the "mylayout" layout.
 layout next -- Apply the next TUI layout.  
 ```
 
-To activate our new layout use `(gdb) layout hello` and gdb will go into Tui mode and display our window with the title and “Hello World” text.
+To activate our new layout use `(gdb) layout mylayout` and gdb will go into Tui mode and display our window with the title and “Hello World” text.
 
 ![](/images/TuiWindow1.png)
 
