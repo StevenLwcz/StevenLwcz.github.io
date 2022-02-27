@@ -1,4 +1,4 @@
-title: Using the GDB Python API
+title: Blogs on Using the GDB Python API
 github_username: StevenLwcz
 
 defaults:
@@ -9,5 +9,3 @@ defaults:
     values:
       layout: "default"
 
-footer-links:
-    github: StevenLwcz
