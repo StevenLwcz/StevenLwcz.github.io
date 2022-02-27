@@ -144,3 +144,5 @@ Except it does not work for me, again I think fixed in a later version of gdb. I
 Will restore it back to normal. Little things you might experience while developing your Tui window.
 
 Part 2 will do something more interesting like allow us to add some text to the window using a custom gdb command. Even that might not be so exciting but it is all building blocks for greater things in future blogs. To be honest I am really excited about this feature and even feel inspired enough to write some blogs!
+
+{% include footer.html %}
