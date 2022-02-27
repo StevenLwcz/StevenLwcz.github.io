@@ -130,6 +130,7 @@ Gdb goes into Tui mode and displays our windows. Now we can add more text to the
 (gdb) addtext hello world 1
 (gdb) addtext hello world 2
 ```
+![](/images/TuiWindow1.png)
 
 We can clear the window before each write by using `erase().
 
