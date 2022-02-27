@@ -26,7 +26,7 @@ addTextCmd = addTextCmd = AddTextCmd()
 
 The class name can be anything but must inherit from `gdb.Command`. The rather complex `super()` line defines the actual command we want to use and registers everything with gdb. When we enter our command in gdb the `invoke()` method gets called. To make gsb aware of our class we create an instance of our class. 
 
-We can load this into gdb and check our command got registered by checking the help.
+We can load this into gdb and check our command gets registered by checking the help.
 
 ```
 $ gdb -q
@@ -77,6 +77,7 @@ Class AddTextCmd
     def set_win(self, win):
         self.win = win
 ```
+Then give a way to set the text to display in the HellowWindow class.
 ```
 Class HelloWindow
 
@@ -84,14 +85,13 @@ Class HelloWindow
         self.text = text
 ```
 
-Then we change the `render()` method to display the text.
-
+Now we change the `render()` method to display the text.
 ```
      def render(self):
         self.tui.write(f'{GREEN}{self.text}{RESET}{NL}')
 ```
 
-Now in our `invoke()` method for our command we can set the text and call the `render()` method.
+For our command's `invoke()` method we can set the text and call the `render()` method.
 
 ```
 def invoke(self, arguments, from_tty):
@@ -110,21 +110,19 @@ def HelloWinFactory(tui):
     # pass back our WIndow class to gdb
     return win
 ```
+Now everything is linked together. The complete example can be found in my [GitHub repository](https://github.com/StevenLwcz/gdb-python-blog).
 
-The complete example can be found in my [GitHub repository](https://github.com/StevenLwcz/gdb-python-blog).
-
-Lets tweak our hello.gdb from the previous blog.
+Lets tweak our **hello.gdb** from the previous blog.
 
 ```
 source hellotuicmd.py
 tui new-layout mylayout hello 1 cmd 1
 layout mylayout
 ```
-
 ```
 $ gdb -q -x hello.gdb
 ```
-Gdb goes into Tui mode and displays our windows. Now we can add more text to the window.
+Gdb goes into Tui mode and displays our window. Now we can add more text to the window.
 
 ```
 (gdb) addtext hello world 1
@@ -141,7 +139,7 @@ We can clear the window before each write by using `erase().
 
 The `render()` method gets called each time gdb is resized and I think this grows gdb's view of the window and odd things start happening incluing crashing with a core file. Adding the `erase()` method helps. So if we want to add to the window we need to store the contents in a list or other collection and rewrite the window contents from that. We will see this in the next blog.
 
-I'm completely ignoring the `scroll()` methods. Again holding the contents in a collection and displaying based on keeping track of an internal line number is probably what's needed. Something else to explore in a future blog.
+I'm completely ignoring the `scroll()` methods. Again holding the contents in a collection and displaying based on keeping track of an internal position is probably what is needed. Something else to explore in a future blog.
 
 In the next part we will build on this framework to create a gdb command to display variables in our Tui window. This will also involve looking deeper into what the Gdb Python API has to offer.
 
