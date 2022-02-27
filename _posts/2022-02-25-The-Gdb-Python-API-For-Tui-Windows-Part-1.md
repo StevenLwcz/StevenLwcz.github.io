@@ -85,19 +85,17 @@ You can get the complete code from my [git hub repository](https://github.com/St
 
 ``` $ gdb -q ```
 
-Read in the python file using the *source* command
+Read in the python file using the `source` command
 
 ``` (gdb) so hellotui.py ```
 
-To use the window we need to create a new layout using the *tui new-layout* command.
+To use the window we need to create a new layout using the `tui new-layout` command.
 
 ``` (gdb) tui new-layout mylayout hello 1 cmd 1 ```
 
 Any new layout must contain the cmd window and the numbers are weights gdb will use to split the windows between the available space.
 
-We can check gdb has registered our layout with the *layout* command
-
-``` (gdb) layout ```
+We can check gdb has registered our layout with `(gdb) layout`.
 
 ```
 layout asm -- Apply the "asm" layout.
@@ -105,10 +103,7 @@ layout mylayout -- Apply the "mylayout" layout.
 layout next -- Apply the next TUI layout.  
 ```
 
-To activate our new layout
-``` (gdb) layout hello ```
-
-This will cause gdb to go into Tui mode and display our window with the title and “Hello World” text.
+To activate our new layout use `(gdb) layout hello` and gdb will go into Tui mode and display our window with the title and “Hello World” text.
 
 We can change the window height.
 
