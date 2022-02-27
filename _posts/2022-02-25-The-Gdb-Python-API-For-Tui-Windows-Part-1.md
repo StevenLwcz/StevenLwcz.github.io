@@ -2,9 +2,6 @@
 author: StevenLwcz
 layout: post
 ---
-
-## The Gdb Python API For Tui Windows Part 1
-
 Gdb added a Python API in 8.0 and probably the most used scenario, is for pretty printers. In 10.0 they added support for creating TUI (Text User Interface) windows. This allows us to create a new window, define our own layout and put anything we like in our window while debugging our program.
 
 - Part 1 of this blog will go over the basics to create a window to display some text.
