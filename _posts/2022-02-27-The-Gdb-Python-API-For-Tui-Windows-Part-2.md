@@ -99,10 +99,10 @@ def invoke(self, arguments, from_tty):
     self.win.render()
 ```
 
-We let both classes know about each other in the factory function. We previously set up `addTextCmd` to be an instance of our command class `AddTextCmd`. We will use it in the factory method. And  we get an instance of the HelloWinow class and use the `set_win()` method to let the command class know about it.
+In our factory function We let the AddTextCmd class know about the HelloWinow class by using `addTextCmd.set_win()`.
 
 ```
-# Factory Method
+# Factory Function
 def HelloWinFactory(tui):
     win =  HelloWindow(tui)
     # register the Window class with the addtext command
@@ -130,7 +130,7 @@ Gdb goes into Tui mode and displays our windows. Now we can add more text to the
 (gdb) addtext hello world 1
 (gdb) addtext hello world 2
 ```
-![](/images/TuiWindow1.png)
+![](/images/TuiWindow2.png)
 
 We can clear the window before each write by using `erase().
 
