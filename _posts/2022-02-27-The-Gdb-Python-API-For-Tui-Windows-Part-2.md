@@ -74,12 +74,12 @@ This is great but how do we tie it back to our HelloWindow class?
 
 First of all we want to register the HelloWindow class with the AddTextCmd class. We can do this by adding a little method to each class.
 
-'''
+```
 Class AddTextCmd
 
     def set_win(self, win):
         self.win = win
-'''
+```
 ```
 Class HelloWindow
 
@@ -141,7 +141,9 @@ We can clear the window before each write by using `erase().
     self.tui.write(f'{GREEN}{self.text}{RESET}{NL}')
 ````
 
-The `render()` method also gets called each time gdb is resized and odd things start happening. I'm sure there is a good reason however the `erase()` stops gdb eventually creating a core dump! One day I'll figure it out and do another blog.
+The `render()` method gets called each time gdb is resized and I think this grows gdb's view of the window and odd things start happening incluing crashing with a core file. Adding the `erase()` method helps. So if we want to add to the window we need to store the contents in a list or other collection and rewrite the window contents from that. We will see this in the next blog.
+
+I'm completely ignoring the `scroll()` methods. Again holding the contents in a collection and displaying based on keeping track of an internal line number is probably what's needed. Something else to explore in a future blog.
 
 In the next part we will build on this framework to create a gdb command to display variables in our Tui window. This will also involve looking deeper into what the Gdb Python API has to offer.
 
