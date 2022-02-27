@@ -5,3 +5,8 @@
   </li>
  {% endfor %}
 </ul>
+
+*** 
+<ul>
+<li><a href="https://github.com/{{ site.github_username }}">GitHub</a></li>
+</ul>
