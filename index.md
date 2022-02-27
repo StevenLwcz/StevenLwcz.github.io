@@ -1,5 +1,3 @@
-## Blogs on Using the Gdb Python API
-
 <ul>
   {% for post in site.posts %}
   <li>
