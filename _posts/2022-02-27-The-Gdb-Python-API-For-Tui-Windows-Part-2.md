@@ -20,7 +20,7 @@ string = text to be displayed"""
         print(arguments)
 
 # create an instance of our command class to register with gdb and keep a reference for later.
-addTextCmd = addTextCmd = AddTextCmd()
+addTextCmd = AddTextCmd()
 
 ```
 
@@ -69,7 +69,7 @@ world
 
 This is great but how do we tie it back to our HelloWindow class?
 
-First of all we want to register the HelloWindow class with the AddTextCmd class. We can do this by adding a little method to each class.
+First of all we want to register the HelloWindow class with the AddTextCmd class. We can do this by adding a little method.
 
 ```
 Class AddTextCmd
