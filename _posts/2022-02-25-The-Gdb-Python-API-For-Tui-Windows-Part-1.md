@@ -19,7 +19,7 @@ Looking at the gdb Python API for [Implementing new TUI Windows](https://sourcew
 
 **hellotui.py**
 
-```
+{% highlight python %} 
 class HelloWindow(object):
 
     def __init__(self, tui):
@@ -40,7 +40,8 @@ class HelloWindow(object):
 
     def click(self, x, y, button):
         pass
-```
+{% endhighlight %}
+
 The class will get passed a tui object which allows us to get hold of properties for the window and write to it. So we save that away in our `__init__()` method. This is a good place to set a title. But you can update the title at any time.
 
 The `render()` method is where we will write text to the window using the Tui `write(string)` method. We may as well dive in and get fancy and use colour. The docs say *string can contain ANSI terminal escape styling sequences*. 
