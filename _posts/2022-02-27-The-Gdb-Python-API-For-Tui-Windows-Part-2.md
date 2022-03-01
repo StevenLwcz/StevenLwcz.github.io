@@ -7,7 +7,7 @@ The [Commands in Python](https://sourceware.org/gdb/onlinedocs/gdb/Commands-In-P
 
 **hellotuicmd.py**
 
-{% highlight python %}
+```python
 class AddTextCmd(gdb.Command):
     """Add text to the Tui window hello
 addtext [string]
@@ -21,7 +21,7 @@ string = text to be displayed"""
 
 # create an instance of our command class to register with gdb and keep a reference for later.
 addTextCmd = AddTextCmd()
-{% endhighlight %}
+```
 
 The class name can be anything but must inherit from `gdb.Command`. The rather complex `super()` line defines the actual command we want to use and registers everything with gdb. When we enter our command in gdb the `invoke()` method gets called. To make gsb aware of our class we create an instance of our class. 
 
