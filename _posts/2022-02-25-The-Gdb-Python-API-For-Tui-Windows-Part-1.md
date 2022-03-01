@@ -62,7 +62,7 @@ I think my version of gdb has a few bugs which might be fixed in a later version
 
 To put all this together with our “Hello World” text we shall use Python [f-strings](https://saralgyaan.com/posts/f-string-in-python-usage-guide). Our render method now becomes:
 
-```
+```python
     def render(self):
         self.tui.write(f'{GREEN}Hello World{RESET}{NL}')
 ```
@@ -74,7 +74,7 @@ To register the window with gdb we need to use a gdb global function. The 1st pa
 
 The last parameter is a factory function. This funcrion needs 1 parameter which will be a tui object. We want to pass this object to our HellowWindow class and return the instance of this class back to gdb. Gdb will be able to invoke the various methods `render()`, etc as needed.
 
-```
+```python
 # Factory Method
 def HelloWinFactory(tui):
     return HelloWindow(tui)
@@ -129,7 +129,7 @@ If you do
 
 then gdb removes the window and goes back to command line mode. Any use of `self.tui` in the HelloWindow class will throw an exception (except for `is_valid()`). This is important later when you end up tying your `render()` method to gdb events. To protect ourselves we shall check the `is_valid()` method. 
 
-```
+```python
     def render(self):
         if self.tui.is_valid():
             self.tui.write(f'{GREEN}Hello World{RESET}{NL}')
