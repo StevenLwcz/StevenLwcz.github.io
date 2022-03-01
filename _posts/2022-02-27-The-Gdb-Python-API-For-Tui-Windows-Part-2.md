@@ -7,7 +7,7 @@ The [Commands in Python](https://sourceware.org/gdb/onlinedocs/gdb/Commands-In-P
 
 **hellotuicmd.py**
 
-{& highlight python %}
+{% highlight python %}
 class AddTextCmd(gdb.Command):
     """Add text to the Tui window hello
 addtext [string]
