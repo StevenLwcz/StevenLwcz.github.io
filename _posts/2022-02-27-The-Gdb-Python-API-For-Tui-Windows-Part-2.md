@@ -7,7 +7,6 @@ The [Commands in Python](https://sourceware.org/gdb/onlinedocs/gdb/Commands-In-P
 
 **hellotuicmd.py**
 
-```
 {& highlight python %}
 class AddTextCmd(gdb.Command):
     """Add text to the Tui window hello
@@ -23,7 +22,6 @@ string = text to be displayed"""
 # create an instance of our command class to register with gdb and keep a reference for later.
 addTextCmd = AddTextCmd()
 {% endhighlight %}
-```
 
 The class name can be anything but must inherit from `gdb.Command`. The rather complex `super()` line defines the actual command we want to use and registers everything with gdb. When we enter our command in gdb the `invoke()` method gets called. To make gsb aware of our class we create an instance of our class. 
 
@@ -57,13 +55,13 @@ hello world
 
 Arguments is just a string of what was given to the command. This will suit us fine for now. But can be broken down into space separated and converted to a list using `gdb.string_to_argv()`.
 
-```
 {% highlight python %}
 def invoke(self, arguments, from_tty):
     args = gdb.string_to_argv(arguments)
     for a in args:
         print(a)
 {% endhighlight %}
+```
 (gdb) addtext hello world
 hello
 world
@@ -75,35 +73,35 @@ First of all we want to register the HelloWindow class with the AddTextCmd class
 
 ```
 Class AddTextCmd
-
+{% highlight python %}
     def set_win(self, win):
         self.win = win
-```
+{% endhighlight %}
 Then give a way to set the text to display in the HellowWindow class.
-```
-Class HelloWindow
 
+Class HelloWindow
+{% highlight python %}
    def set_text(self, text):
         self.text = text
-```
+{% endhighlight %}
 
 Now we change the `render()` method to display the text.
-```
+{% highlight python %}
      def render(self):
         self.tui.write(f'{GREEN}{self.text}{RESET}{NL}')
-```
+{% endhighlight %}
 
 For our command's `invoke()` method we can set the text and call the `render()` method.
 
-```
+{% highlight python %}
 def invoke(self, arguments, from_tty):
     self.win.set_text(arguments)
     self.win.render()
-```
+{% endhighlight %}
 
 In our factory function We let the AddTextCmd class know about the HelloWinow class by using `addTextCmd.set_win()`.
 
-```
+{% highlight python %}
 # Factory Function
 def HelloWinFactory(tui):
     win =  HelloWindow(tui)
@@ -111,7 +109,8 @@ def HelloWinFactory(tui):
     addTextCmd.set_win(win)
     # pass back our WIndow class to gdb
     return win
-```
+{% endhighlight %}
+
 Now everything is linked together. The complete example can be found in my [GitHub repository](https://github.com/StevenLwcz/gdb-python-blog).
 
 Lets tweak our **hello.gdb** from the previous blog.
