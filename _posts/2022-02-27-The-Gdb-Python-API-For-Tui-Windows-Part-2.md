@@ -71,16 +71,17 @@ This is great but how do we tie it back to our HelloWindow class?
 
 First of all we want to register the HelloWindow class with the AddTextCmd class. We can do this by adding a little method.
 
-```
-Class AddTextCmd
 {% highlight python %}
+Class AddTextCmd
+
     def set_win(self, win):
         self.win = win
 {% endhighlight %}
 Then give a way to set the text to display in the HellowWindow class.
 
-Class HelloWindow
 {% highlight python %}
+Class HelloWindow
+
    def set_text(self, text):
         self.text = text
 {% endhighlight %}
