@@ -136,7 +136,7 @@ Gdb goes into Tui mode and displays our window. Now we can add more text to the 
 
 We can clear the window before each write by using `erase()`.
 
-```
+```python
     self.tui.erase()
     self.tui.write(f'{GREEN}{self.text}{RESET}{NL}')
 ````
