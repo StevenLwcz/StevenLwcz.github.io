@@ -72,7 +72,7 @@ This is great but how do we tie it back to our HelloWindow class?
 First of all we want to register the HelloWindow class with the AddTextCmd class. We can do this by adding a little method.
 
 {% highlight python %}
-Class AddTextCmd
+class AddTextCmd(gdb.Command)
 
     def set_win(self, win):
         self.win = win
@@ -80,7 +80,7 @@ Class AddTextCmd
 Then give a way to set the text to display in the HellowWindow class.
 
 {% highlight python %}
-Class HelloWindow
+Class HelloWindow(object)
 
    def set_text(self, text):
         self.text = text
