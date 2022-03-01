@@ -77,6 +77,7 @@ class AddTextCmd(gdb.Command)
     def set_win(self, win):
         self.win = win
 {% endhighlight %}
+
 Then give a way to set the text to display in the HellowWindow class.
 
 {% highlight python %}
@@ -87,6 +88,7 @@ Class HelloWindow(object)
 {% endhighlight %}
 
 Now we change the `render()` method to display the text.
+
 {% highlight python %}
      def render(self):
         self.tui.write(f'{GREEN}{self.text}{RESET}{NL}')
