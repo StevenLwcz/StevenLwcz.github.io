@@ -7,7 +7,7 @@
 </ul>
 
 ### Resources
-[Gdb Basic Setup]{{ site.github_url }}gdb-python/wiki/Gdb-Basic-Setup)
+[Gdb Basic Setup]({{ site.github_url }}gdb-python/wiki/Gdb-Basic-Setup)
 
 *** 
 <nav>
