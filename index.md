@@ -7,9 +7,11 @@
 </ul>
 
 ### Resources
-[Gdb Basic Setup]{{ site.github.url}}gdb-python/wiki/Gdb-Basic-Setup)
+[Gdb Basic Setup]{{ site.github_ur l}}gdb-python/wiki/Gdb-Basic-Setup)
 
 *** 
-<ul>
-<li><a href="{{ site.github_url }}">StevenLwcz on GitHub</a></li>
-</ul>
+<nav>
+  <ul>
+    <li><a href="{{ site.github_url }}">StevenLwcz on GitHub</a></li>
+  </ul>
+</nav>
