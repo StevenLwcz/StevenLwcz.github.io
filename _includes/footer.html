@@ -4,10 +4,10 @@
     <li><a href="https://stevenlwcz.github.io/">Home</a></li>
     <li><a href="https://github.com/{{ site.github_username }}">GitHub</a></li>
     {% if page.previous %}
-        <li><a href="{{ site.url }}/{{ page.previous }}">Previous Post</a></li>
+        <li><a href="{{ site.url }}{{ page.previous.url }}">Previous Post</a></li>
     {% endif %}
     {% if page.next %}
-        <li><a href="{{ site.url }}/{{ page.next }}">Next Post</a></li>
+        <li><a href="{{ site.url }}{{ page.next.url }}">Next Post</a></li>
     {% endif %}
   </ul>
 </nav>
