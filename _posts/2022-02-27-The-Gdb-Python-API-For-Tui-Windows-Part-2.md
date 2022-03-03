@@ -147,4 +147,3 @@ We have not looked at the two `scroll()` methods or the `click()` method. Holdin
 
 In the next part we will build on this framework to create a gdb command to display variables in our Tui window. This will also involve looking deeper into what the Gdb Python API has to offer.
 
-{% include footer.html %}
