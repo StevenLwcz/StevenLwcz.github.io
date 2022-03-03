@@ -1,7 +1,7 @@
 <ul>
   {% for post in site.posts %}
   <li>
-      <a href="{{ post.url }}">{{ post.title }}{{ post.date }}</a>
+      <a href="{{ post.url }}">{{ post.title }}{{ post.date | date: '%B %d, %Y' }}</a>
   </li>
  {% endfor %}
 </ul>
@@ -11,5 +11,5 @@
 
 *** 
 <ul>
-<li><a href="{{ site.url }}{{ site.github_username }}">StevenLwcz on GitHub</a></li>
+<li><a href="{{ site.github_url }}{{ site.github_username }}">StevenLwcz on GitHub</a></li>
 </ul>
