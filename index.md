@@ -9,7 +9,7 @@ I've been exploring the Python API for GDB and want to consolidate what I've lea
 <ul>
   {% for post in site.posts %}
   <li>
-      <a href="{{ post.url }}">{{ post.title }} {{ post.date | date: '%B %d, %Y' }}</a>
+      <a href="{{ post.url }}">{{ post.title }} - {{ post.date | date: '%d %b %Y' }}</a>
   </li>
  {% endfor %}
 </ul>
@@ -17,7 +17,6 @@ I've been exploring the Python API for GDB and want to consolidate what I've lea
 ### Resources
 [Gdb Basic Setup]({{ site.github_url }}gdb-python/wiki/Gdb-Basic-Setup)
 
-*** 
 <nav>
   <ul>
     <li><a href="{{ site.github_url }}">StevenLwcz on GitHub</a></li>
