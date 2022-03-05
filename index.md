@@ -19,7 +19,7 @@ If you are interested in GDB, Python and Arm Assembler, I hope this will be an i
 
 <nav>
   <ul>
-    <li><a href="{{ site.github_url }}">StevenLwcz on GitHub</a></li> |
-    <li><a href="{{ site.url }}/about">About/Contact</a></li>
+    <li><a href="{{ site.github_url }}">GitHub</a></li> |
+    <li><a href="{{ site.url }}/about">About & Contact</a></li>
   </ul>
 </nav>
