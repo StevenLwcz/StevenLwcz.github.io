@@ -20,5 +20,6 @@ I've been exploring the Python API for GDB and want to consolidate what I've lea
 <nav>
   <ul>
     <li><a href="{{ site.github_url }}">StevenLwcz on GitHub</a></li>
+    <li><a href="{{ site.url }}/about">About/Contact</a></li>
   </ul>
 </nav>
