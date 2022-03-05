@@ -14,8 +14,9 @@ In looking to find a good place to store my projects under a source control syst
 
 <nav>
 <ul>
-<li><a href="https://www.linkedin.com/in/steven-lalewicz-5b586649">LinkedIn</a></li>
-<li><a href="https://github.com/StevenLwcz">GitHub</a></li>
-<li><a href="mailto:StevenLwcz1@virginmedia.com">Email</a></li>
+<li><a href="https://www.linkedin.com/in/steven-lalewicz-5b586649">LinkedIn</a></li> |
+<li><a href="https://github.com/StevenLwcz">GitHub</a></li> |
+<li><a href="mailto:StevenLwcz1@virginmedia.com">Email</a></li> |
+<li><a href="https://stevenlwcz.github.io/">Home</a></li>
 </ul>
 </nav>
