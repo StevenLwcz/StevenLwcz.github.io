@@ -119,7 +119,7 @@ layout debug1
 $ gdb -q ./circle1
 (gdb) watch s1 s2 buff p1 area length
 ```
-![](/images/TuiWindow2.png)
+![](/images/TuiWindow3.png)
 
 Great! We are done. Well not quite, there is still some work to be done to improve this.
 
@@ -149,7 +149,7 @@ Now we can remove the `render()` line from the WatchCmd `invoke()` function.
 
 To stop the `render()` method being called when the window has been closed due to a change of layout we need to use the `disconnect()` method in the WatchWindow `close()` method.
 
-'''python
+```python
    def close(self):
         … 
         # stop rendor() being called when the window has been closed
@@ -164,7 +164,7 @@ The next obvious problem is when the variable goes out of scope, Python will thr
 (gdb) Python Exception <class 'ValueError'> Variable 's1' not found
 ```
 
-One way to solve this problem is to simply catch the `gdb.ValueError`. We could grey out the variable and when it comes back into scope again it will be restored.
+One way to solve this problem is to simply catch the `gdb.ValueError`. We will grey out the variable and when it comes back into scope again it will be restored.
 
 ```python
             try:
