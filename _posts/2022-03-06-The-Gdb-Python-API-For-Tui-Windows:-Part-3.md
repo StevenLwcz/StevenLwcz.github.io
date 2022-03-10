@@ -4,7 +4,7 @@ layout: post
 ---
 In this post we will learn how to read variables using the Python API and hook our Tui Window up to a Gdb event and use them to implement a watch window.
 
-Gdb already has many ways to print variables and several methods to print them automatically to the cmd window (link). A watch window approach can free up some space in the cmd window and help us focus on variables which we are most interested in.
+Gdb already has many ways to print variables and several methods to print them automatically to the cmd window. See [Printing Variables in GDB]({{ site.github_url }}gdb-python/wiki/Printing-Variables-in-GDB). A watch window approach can free up some space in the cmd window and help us focus on variables which we are most interested in.
 
 Building on the framework from the last post, we will start with this skeleton which defines our new gdb command `(gdb) watch` and a Tui window to place the variables. `(gdb) watch` will take the arguments and turn them into a list to pass to the WatchWindow object.
 
