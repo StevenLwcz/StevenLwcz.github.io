@@ -25,7 +25,7 @@ addTextCmd = AddTextCmd()
 
 The class name can be anything but must inherit from `gdb.Command`. The rather complex `super()` line defines the actual command we want to use and registers everything with GDB. When we enter our command in GDB the `invoke()` method gets called. To make GDB aware of our class we create an instance of our class. 
 
-We can load this into GDB and check our command gets registered by checking the help.
+Load this into GDB and check our command gets registered by checking the help.
 
 ```
 $ gdb -q
@@ -46,7 +46,7 @@ addtext [string]
 string = text to be displayed
 ```
 
-It is always good to create help for our commands. Especially if you want others to use your code. Does our command work?
+It is always good to create help for our commands. Especially if you want others to use your code. Does the command work?
 
 ```
 (gdb) addtext hello world
