@@ -80,7 +80,7 @@ We can add this to our `render()` method.
             self.tui.write(f'{GREEN}{name:<10}{RESET}{val}{NL}')
 ```
 
-We have to be careful however. Before the program has run or after execution has finished there will be no frame and Python will throw a: 
+Care is needed however. Before the program has run or after execution has finished there will be no frame and Python will throw a: 
 
 ```
 Python Exception <class 'gdb.error'> No frame is currently selected.:
