@@ -15,7 +15,7 @@ The Python APIs We will be looking at are from these three categories.
 1. [Blocks in Python](https://sourceware.org/gdb/onlinedocs/gdb/Blocks-In-Python.html)
 1. [Symbols in Python](https://sourceware.org/gdb/onlinedocs/gdb/Symbols-In-Python.html)
 
-Each frame has a block and the Block object will contain all the symbols for that current code block. We can quickly look at what is in a block by using the Python command line within Gdb. We will use [circle1.c](https://github.com/StevenLwcz/gdb-python-blog/blob/main/circle1.c) from the previous blog.
+Each frame has a block and the Block object will contain all the symbols for that current code block. We can quickly look at what is in a block by using the Python command line within GDB. We will use [circle1.c](https://github.com/StevenLwcz/gdb-python-blog/blob/main/circle1.c) from the previous blog.
 
 **circle1-gdb.gdb**
 ```
@@ -25,7 +25,7 @@ r
 ```
 ```
 $ gcc -g -o circle1 circle1 c
-gdb -q ./cricle1
+$ gdb -q ./cricle1
 ```
 ```
 (gdb) python
@@ -229,7 +229,7 @@ class AutoWindow(object):
 
         self.render()
 ```
-We have added some colour as before and indicated any arguments with an asterisk. This can be tested with a bit of Python from the gdb command prompt.
+We have added some colour as before and indicated any arguments with an asterisk. This can be tested with a bit of Python from the GDB command prompt.
 
 ```
 (gdb) so auto-win.py
@@ -247,7 +247,7 @@ We have added some colour as before and indicated any arguments with an asterisk
  42    float           area      1.77964905e-43
  43    float           length    -9.39612088e+33
 ```
-The `render()` method is simplifed to just write the list to the Tui window. `self.start` indicates which line to start from and will be updated by the `vscroll()` method later. Since Gdb calls `render()` on a resize of the window, this is a good approach.
+The `render()` method is simplifed to just write the list to the Tui window. `self.start` indicates which line to start from and will be updated by the `vscroll()` method later. Since GDB calls `render()` on a resize of the window, this is a good approach.
 
 ```python
    def render(self):
@@ -266,7 +266,7 @@ Our factory method will register the `create_auto()` method with the `before_pro
 ```python
 def AutoWinFactory(tui):
     win = AutoWindow(tui)
-    # register create_auto() to be called each time the gdb prompt will be displayed
+    # register create_auto() to be called each time the GDB prompt will be displayed
     gdb.events.before_prompt.connect(win.create_auto)
     return win
 
@@ -305,7 +305,7 @@ In order to make our auto window scroll, we will first examine the behaviour of 
         print(num)
 ```
 
-Gdb will call this method when the window has focus and we use the up and down cursor keys. This method is also called on page-up and page-down and the window height is passed.
+GDB will call this method when the window has focus and we use the up and down cursor keys. This method is also called on page-up and page-down and the window height is passed.
 
 ```
 (gdb) focus auto
@@ -315,7 +315,7 @@ Gdb will call this method when the window has focus and we use the up and down c
 (gdb) +10
 ```
 
-All we need `vscroll()` to do is update `self.start` and stay within the bounds of the list. Gdb does not call `render()` after `vscroll()` so we need to do this ourselves.
+All we need `vscroll()` to do is update `self.start` and stay within the bounds of the list. GDB does not call `render()` after `vscroll()` so we need to do this ourselves.
 
 ```python
     def vscroll(self, num):
@@ -354,9 +354,9 @@ The final version of [auto-win.py](https://github.com/StevenLwcz/gdb-python-blog
 
 ### Final Thoughts
 
-Having an auto window could help reduce the amount of items in the command window and improve the experiance over Gdbs normal ways of displaying variables automatically.
+Having an auto window could help reduce the amount of items in the command window and improve the experiance over GDB's normal ways of displaying variables automatically.
 
-If we wanted to configure the auto window, say control how many parent blocks are displayed, we can add a new custom Gdb command to pass the information to `create_auto()`. We might want to only display variables and values like `(gdb) info locals` or add a hex mode. I might add a few of these features in a future blog.
+If we wanted to configure the auto window, say control how many parent blocks are displayed, we can add a new custom GDB command to pass the information to `create_auto()`. We might want to only display variables and values like `(gdb) info locals` or add a hex mode. I might add a few of these features in a future blog.
 
 Lastly you can have multiple Tui Windows and layouts and use `(gdb) layout [layout]` to switch between them as needed.
 
@@ -372,6 +372,6 @@ tui new-layout debug2 watch 1 src 1 status 0 cmd 1
 tui new-layout debug3 watch 1 auto 1 src 1 status 0 cmd 1 
 ```
 
-This series of blogs gives a framework for creating Tui Windows in gdb. You can write anything to a Tui Window which makes it quite a powerful feature. If you have Python scripts for frame filters, etc you could now consider using a Tui Window as well.
+This series of blogs gives a framework for creating Tui Windows in GDB. You can write anything to a Tui Window which makes it quite a powerful feature. If you have Python scripts for frame filters, etc you could now consider using a Tui Window as well.
 
 I've been using it to create custom register windows for assembler programming which will be the subject of the next few blogs.

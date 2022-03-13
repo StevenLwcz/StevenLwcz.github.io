@@ -126,7 +126,7 @@ layout mylayout
 ```
 $ gdb -q -x hello.gdb
 ```
-Gdb goes into Tui mode and displays our window. Now we can add more text to the window.
+GDB goes into Tui mode and displays our window. Now we can add more text to the window.
 
 ```
 (gdb) addtext hello world 1
@@ -141,9 +141,9 @@ We can clear the window before each write by using `erase()`.
     self.tui.write(f'{GREEN}{self.text}{RESET}{NL}')
 ````
 
-The `render()` method gets called each time gdb is resized and I think this grows gdb's view of the window and odd things start happening incluing crashing with a core file. Adding the `erase()` method helps. So if we want to add to the window we need to store the contents in a list or other collection and rewrite the window contents from that. We will see this in action in the next blog.
+The `render()` method gets called each time gdb is resized and I think this grows GDB's view of the window and odd things start happening incluing crashing with a core file. Adding the `erase()` method helps. So if we want to add to the window we need to store the contents in a list or other collection and rewrite the window contents from that. We will see this in action in the next blog.
 
 We have not looked at the two `scroll()` methods or the `click()` method. Holding the contents in a collection and displaying based on keeping track of an internal position is probably what is needed. Something else to explore in a future blog. The `close()` method we will look at soon.
 
-In the next part we will build on this framework to create a gdb command to display variables in our Tui window. This will also involve looking deeper into what the Gdb Python API has to offer.
+In the next part we will build on this framework to create a GDB command to display variables in our Tui window. This will also involve looking deeper into what the GDB Python API has to offer.
 

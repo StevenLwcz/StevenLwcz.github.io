@@ -2,7 +2,7 @@
 author: StevenLwcz
 layout: post
 ---
-Gdb added a Python API in 8.0 and probably the most used scenario, is for pretty printers. In 10.0 they added support for creating TUI (Text User Interface) windows. This allows us to create a new window, define our own layout and put anything we like in our window while debugging our program.
+GDB added a Python API in 8.0 and probably the most used scenario, is for pretty printers. In 10.0 they added support for creating TUI (Text User Interface) windows. This allows us to create a new window, define our own layout and put anything we like in our window while debugging our program.
 
 - Part 1 of this blog will go over the basics to create a window to display some text.
 - Part 2 will add a custom gdb command to allow us to add any text to the window.
@@ -11,7 +11,7 @@ Gdb added a Python API in 8.0 and probably the most used scenario, is for pretty
 
 As we go we will explore the various gdb Python APis to make all of this happen.
 
-Before we get started if you are not aware of some common config files which can help make using gdb more productive then please check out [Gdb Basic Setup](https://github.com/StevenLwcz/gdb-python/wiki/Gdb-Basic-Setup).
+Before we get started if you are not aware of some common config files which can help make using gdb more productive then please check out [GDB Basic Setup](https://github.com/StevenLwcz/gdb-python/wiki/Gdb-Basic-Setup).
 
 First we are going to create a tui window to display “Hello World”.
 
@@ -72,7 +72,7 @@ To register the window with gdb we need to use a gdb global function. The 1st pa
 ``` gdb.register_window_type("hello", HelloWinFactory) ```
 
 
-The last parameter is a factory function. This funcrion needs 1 parameter which will be a tui object. We want to pass this object to our HellowWindow class and return the instance of this class back to gdb. Gdb will be able to invoke the various methods `render()`, etc as needed.
+The last parameter is a factory function. This funcrion needs 1 parameter which will be a tui object. We want to pass this object to our HellowWindow class and return the instance of this class back to gdb. GDB will be able to invoke the various methods `render()`, etc as needed.
 
 ```python
 # Factory Method
