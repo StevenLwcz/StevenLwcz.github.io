@@ -356,7 +356,7 @@ The final version of [auto-win.py](https://github.com/StevenLwcz/gdb-python-blog
 
 Having an auto window could help reduce the amount of items in the command window and improve the experiance over GDB's normal ways of displaying variables automatically.
 
-If we wanted to configure the auto window, say control how many parent blocks are displayed, we can add a new custom GDB command to pass the information to `create_auto()`. We might want to only display variables and values like `(gdb) info locals` or add a hex mode. I might add a few of these features in a future blog.
+If we wanted to configure the auto window, say control how many parent blocks are displayed, we can add a new custom GDB command to pass the information to `create_auto()`. We might want to only display variables and values like `(gdb) info locals` or add a hex mode. I might add a few of these features in a future blog. Check out the [dev branch](https://github.com/StevenLwcz/gdb-python-blog/tree/dev) for my work in progress in this area.
 
 Lastly you can have multiple Tui Windows and layouts and use `(gdb) layout [layout]` to switch between them as needed.
 
