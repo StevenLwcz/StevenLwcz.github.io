@@ -223,6 +223,11 @@ To change `v0` from showing unsigned to signed and since there are no other gdb 
 ```
 (gdb) v v0.b.u
 ```
+And use the `/x` option to show a register to show in hex. Repeat without the `/x` option to go back to normal.
+```
+(gdb) v /x v0.b.u
+```
+
 With various `vector reg-list` in your GDB command file, as you step through your assembly program, it should now be much easier to see what is going as you explore vector instructions in AArch64.
 
 `(gdb) vector /d reg-list` allows you to delete registers and `/c` clear the whole window. `(gdb) help vector` for more info.
