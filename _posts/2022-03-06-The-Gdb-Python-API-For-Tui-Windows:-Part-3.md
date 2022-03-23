@@ -121,7 +121,8 @@ $ gdb -q ./circle1
 ```
 (gdb) watch s1 s2 buff p1 area length
 ```
-![](/images/TuiWindow3.png)
+
+![Watch Window](/images/TuiWindow3.png)
 
 Great! We are done. Well not quite, there is still some work to be done to improve this.
 

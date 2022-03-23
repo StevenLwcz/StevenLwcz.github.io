@@ -219,7 +219,7 @@ $ gdb -q ./blog5
 (gdb) s
 ```
 
-![Vector Regoster Window](/images/TuiWindow5.png)
+![Vector Register Window](/images/TuiWindow5.png)
 
 To change `v0` from showing unsigned to signed and since there are no other gdb commands which begin with v:
 ```shell
