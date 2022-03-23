@@ -10,7 +10,7 @@ In this post we are going to look at displaying NEON SIMD vector registers in GD
 
 Before we can start looking at GDB and vector registers we need to start debugging a small assembly program. Use [blog5.s](https://github.com/StevenLwcz/gdb-python-blog/blob/main/blog5.s), [makefile.blog5](https://github.com/StevenLwcz/gdb-python-blog/blob/main/makefile.blog5).
 
-```
+```shell
 $ make -f makefile.blog5
 ```
 
