@@ -5,7 +5,7 @@ layout: post
 ### Introduction
 A command you might use a lot is `(gdb) info locals` and in this article we will implement a Tui Window which does something similar but also updates automatically after each step. We will look at the `vscroll()` method in the Tui Window protocol to make our window scrollable. 
 
-`(gfb) info locals` prints the variables from the current code block and the parent block up to but not including the static block. We will see how to achieve the same behaviour.
+`(gdb) info locals` prints the variables from the current code block and the parent block up to but not including the static block. We will see how to achieve the same behaviour.
 
 ### Python APIs for Variables
 
@@ -23,7 +23,7 @@ b 40
 b 73
 r
 ```
-```
+```shell
 $ gcc -g -o circle1 circle1 c
 $ gdb -q ./cricle1
 ```
@@ -290,7 +290,7 @@ so auto-win.py
 tui new-layout debug1 auto 1 src 2 status 0 cmd 1
 layout debug1
 ```
-```
+```shell
 $ gdb -q ./circle1
 ```
 

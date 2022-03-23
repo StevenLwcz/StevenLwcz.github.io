@@ -27,8 +27,11 @@ The class name can be anything but must inherit from `gdb.Command`. The rather c
 
 Load this into GDB and check our command gets registered by checking the help.
 
-```
+```shell
 $ gdb -q
+```
+
+```
 (gdb) so hellotuicmd.py
 (gdb) help user-defined
 
@@ -123,7 +126,7 @@ source hellotuicmd.py
 tui new-layout mylayout hello 1 cmd 1
 layout mylayout
 ```
-```
+```shell
 $ gdb -q -x hello.gdb
 ```
 GDB goes into Tui mode and displays our window. Now we can add more text to the window.

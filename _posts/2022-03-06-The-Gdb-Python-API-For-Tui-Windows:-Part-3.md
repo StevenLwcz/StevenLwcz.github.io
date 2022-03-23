@@ -102,7 +102,7 @@ The frame object has a method `name` for the current frame, which we can use to 
 ```
 For this blog I have a small C program [circle1.c](https://github.com/StevenLwcz/gdb-python-blog/blob/main/circle1.c) which you can download and compile.
 
-```
+```shell
 $ gcc -o circle -g circle.c
 ```
 GDB can auto load GDB command files in the format of myapp-gdb.gdb. We will put our `tui` and `layout` commands in there. Note you need to make sure autoload is set in your `$HOME/.gdbinit` file. See [GDB Basic Setup](https://github.com/StevenLwcz/gdb-python/wiki/Gdb-Basic-Setup) for more info.
@@ -115,8 +115,10 @@ so watchwin-basic.py
 tui new-layout debug1 watch 1 src 1 status 0 cmd 1
 layout debug1
 ```
-```
+``shell
 $ gdb -q ./circle1
+```
+```
 (gdb) watch s1 s2 buff p1 area length
 ```
 ![](/images/TuiWindow3.png)
