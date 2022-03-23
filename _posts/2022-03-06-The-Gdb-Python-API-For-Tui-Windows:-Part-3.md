@@ -2,11 +2,11 @@
 author: StevenLwcz
 layout: post
 ---
-In this post we will learn how to read variables using the Python API and hook our Tui Window up to a Gdb event and use them to implement a watch window.
+In this post we will learn how to read variables using the Python API and hook our Tui Window up to a GDB event and use them to implement a watch window.
 
-Gdb already has many ways to print variables and several methods to print them automatically to the cmd window. See [Printing Variables in GDB]({{ site.github_url }}gdb-python/wiki/Printing-Variables-in-GDB). A watch window approach can free up some space in the cmd window and help us focus on variables which we are most interested in.
+GDB already has many ways to print variables and several methods to print them automatically to the cmd window. See [Printing Variables in GDB]({{ site.github_url }}gdb-python/wiki/Printing-Variables-in-GDB). A watch window approach can free up some space in the cmd window and help us focus on variables which we are most interested in.
 
-Building on the framework from the last post, we will start with this skeleton which defines our new gdb command `(gdb) watch` and a Tui window to place the variables. `(gdb) watch` will take the arguments and turn them into a list to pass to the WatchWindow object.
+Building on the framework from the last post, we will start with this skeleton which defines our new GDB command `(gdb) watch` and a Tui window to place the variables. `(gdb) watch` will take the arguments and turn them into a list to pass to the WatchWindow object.
 
 **watchwin-basic.py**
 
@@ -80,13 +80,13 @@ We can add this to our `render()` method.
             self.tui.write(f'{GREEN}{name:<10}{RESET}{val}{NL}')
 ```
 
-We have to be careful however. Before the program has run or after execution has finished there will be no frame and Python will throw a: 
+Care is needed however. Before the program has run or after execution has finished there will be no frame and Python will throw a: 
 
 ```
 Python Exception <class 'gdb.error'> No frame is currently selected.:
 ```
 
-We can simply catch this exception and return back to gdb..
+We can simply catch this exception and return back to GDB.
 
 ```python
         try:
@@ -105,7 +105,7 @@ For this blog I have a small C program [circle1.c](https://github.com/StevenLwcz
 ```
 $ gcc -o circle -g circle.c
 ```
-Gdb can auto load gdb command files in the format of myapp-gdb.gdb. We will put our `tui` and `layout` commands in there. Note you need to make sure autoload is set in your `$HOME/.gdbinit` file. See [GDB Basic Setup](https://github.com/StevenLwcz/gdb-python/wiki/Gdb-Basic-Setup) for more info.
+GDB can auto load GDB command files in the format of myapp-gdb.gdb. We will put our `tui` and `layout` commands in there. Note you need to make sure autoload is set in your `$HOME/.gdbinit` file. See [GDB Basic Setup](https://github.com/StevenLwcz/gdb-python/wiki/Gdb-Basic-Setup) for more info.
 
 **circle1-gdb.gdb**
 ```
@@ -128,7 +128,7 @@ Great! We are done. Well not quite, there is still some work to be done to impro
 1. It would be nice if the variable was highlighted in some way when the value changed.
 1. Variables are lost when the layout is changed.
 
-To solve the 1st problem we need to hook our `render()` method to a suitable gdb event. Looking at 
+To solve the 1st problem we need to hook our `render()` method to a suitable GDB event. Looking at 
 [Events In Python](https://sourceware.org/gdb/onlinedocs/gdb/Events-In-Python.html) we see `events.before_prompt`.
 
 ```
