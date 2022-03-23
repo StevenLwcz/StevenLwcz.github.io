@@ -21,11 +21,11 @@ b _start
 r
 layout src
 ```
-```
+```shell
 $ gdb -q ./blog5
 ```
 The vector registers `v0-v31` can be used with `print`, `display` and other commands.
-```
+```shell
 (gdb) print $v0
 $1 = {d = {f = {0, 0}, u = {0, 0}, s = {0, 0}}, s = {f = {0, 0, 0, 0}, u = {0, 0, 0, 0}, s = {0, 0, 0, 0}},
   h = {f = {0, 0, 0, 0, 0, 0, 0, 0}, u = {0, 0, 0, 0, 0, 0, 0, 0}, s = {0, 0, 0, 0, 0, 0, 0, 0}}, b = {u = {
@@ -35,7 +35,7 @@ $1 = {d = {f = {0, 0}, u = {0, 0}, s = {0, 0}}, s = {f = {0, 0, 0, 0}, u = {0, 0
 GDB displays a rather large collection of unions. There are unions for 128 bits: q, 64 bits: d, 32 bits: s, 16 bits: h and 8 bits: b. 
 C’s structure member syntax can be used to display the inner unions.
 
-```
+```shell
 (gdb) p $v0.d
 $3 = {f = {0, 0}, u = {0, 0}, s = {0, 0}}
 (gdb) p $v0.s.f
@@ -44,12 +44,13 @@ $9 = {0, 0, 0, 0}
 
 Individual elements can use accessed using the array syntax.
 
-```
+```shell
 (gdb) p $v0.s.f[2]
 $10 = 0
 ```
+
 `(gdb) set` can be used to set elements or whole unions.
-```
+```shell
 (gdb) set $v0.s.f[2] = 1
 (gdb) set $v0.s.f = {1,1,1,1}
 (gdb) p $v0.s
@@ -61,7 +62,7 @@ You can view all the vector registers with `(gdb) info`. This produces a rather 
 
 You can also use the Tui Windows to display all the vector registers.
 
-```
+```shell
 (gdb) layout reg
 (gdb) tui reg vector
 ```
@@ -73,7 +74,7 @@ What would be nice is a register window where we can add the specific vector reg
 
 The Python API to read a register value is `read_register()` which needs a frame object.
 
-```
+```shell
 (gdb) python 
 >frame = gdb.selected_frame()
 >val = frame.read_register("v0")
@@ -97,7 +98,7 @@ print("b.u", val['b']['u'])
 print("d.s[0] ", val['d']['s'][0])
 print("d.s[1] ", val['d']['s'][1])
 ```
-```
+```python
 (gdb) so blog5.py
 d.f {0, 0}
 s.u {0, 0, 0, 0}
@@ -112,7 +113,7 @@ See [Values From Inferior](https://sourceware.org/gdb/onlinedocs/gdb/Values-From
 
 **blog5.py**
 
-```
+```python
 print("d.u ", val['d']['u'].format_string(format="x"))
 d.u  {0x0, 0x0}
 ```
@@ -123,7 +124,7 @@ To create a new Tui Window we use the framework build up in [Tui Windows Part 1-
 To add vector registers to the window, we will use similar syntax already used by GDB.
 Print needs the $ to differentiate from a variable, but we don’t need to worry about that. 
 
-```
+```shell
 (gdb) vector v0 v1.d.f v2.s.u  b3.u h4.f s5.f d7.u 
 ```
 
@@ -204,10 +205,11 @@ vector v4.h.f v5.s.f v6.d.f
 
 focus vector
 ```
-```
+```shell
 $ gdb -q ./blog5
 ```
-```
+
+```shell
 (gdb) s
 (gdb) s
 (gdb) s
@@ -220,11 +222,11 @@ $ gdb -q ./blog5
 ![Vector Regoster Window](/images/TuiWindow5.png)
 
 To change `v0` from showing unsigned to signed and since there are no other gdb commands which begin with v:
-```
+```shell
 (gdb) v v0.b.u
 ```
 And use the `/x` option to show a register to show in hex. Repeat without the `/x` option to go back to normal.
-```
+```shell
 (gdb) v /x v0.b.u
 ```
 
