@@ -291,8 +291,6 @@ With various `vector reg-list` in your GDB command file, as you step through you
 
 What next? Allowing array syntax `v0.s.u[0]`. Perhaps an option `vector /fdu v0 v1` to specify the width and type for all the registers on the command line.
 
-There are a lot of ways to set up your vector registers. AArch64 adds new instructions over Armv8-a and
-introduced a lot of aliased instructions. You use mov for most things, but it is just an alias for other instructions and sometimes you need to use more specific instructions to do certain things.
+In Armv8-a the various forms of *fmov* and *fdup* can be used to set up vector register. In AArch64 they have been expanded into *fmov*, *orr*, *dup*, *smov*, *umov*, *movi* and *ins*. Lucikly you can use *mov* as an alias for most. *ins* is also more powerful than *fmov* by allowing direct element to element moves.
 
 In the next blog we will look at some of these instructions and we can use our brand new vector window to navigate through them.
-
