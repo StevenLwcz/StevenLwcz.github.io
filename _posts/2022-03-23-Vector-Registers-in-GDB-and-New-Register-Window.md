@@ -3,7 +3,9 @@ layout: post
 author: StevenLwcz
 ---
 
-In this post we are going to look at displaying NEON SIMD vector registers in GDB, how to do the same with the Python API and then create an improved vector register window.
+In this post we are going to look at displaying NEON SIMD vector registers in GDB, how to do the same with the Python API and then create an improved vector register window. It will mostly talk about AArch64 but will cover Armv8-a at the end.
+
+### AArch64
 
 [Code In Arm Assembly Lanes and Loads in NEON](https://eclecticlight.co/2021/08/23/code-in-arm-assembly-lanes-and-loads-in-neon
 ) is a great introduction to NEON SIMD in AArch64. 
@@ -211,12 +213,7 @@ $ gdb -q ./blog5
 
 ```shell
 (gdb) s
-(gdb) s
-(gdb) s
-(gdb) s
-(gdb) s
-(gdb) s
-(gdb) s
+[Press Return 6 times to repeat]
 ```
 
 ![Vector Register Window](/images/TuiWindow5.png)
@@ -230,13 +227,66 @@ And use the `/x` option to show a register to show in hex. Repeat without the `/
 (gdb) v /x v0.b.u
 ```
 
-With various `vector reg-list` in your GDB command file, as you step through your assembly program, it should now be much easier to see what is going as you explore vector instructions in AArch64.
+### Armv8-a
+
+[blog5_32.s](https://github.com/StevenLwcz/gdb-python-blog/blob/main/blog5_32.s) for the 32 bit assembly version.
+[makefile.blog5](https://github.com/StevenLwcz/gdb-python-blog/blob/main/makefile.blog5) has a ***32*** target.
+
+**blog5-gdb.gdb** auto load command file.
+```
+b _start
+r
+layout src
+```
+
+```shell
+$ make -f makefile.blog5 32
+$ gdb -q blog5 -x blog5_32.gdb
+```
+
+There are only 2 vector registers in Armv9-a d and q. There is only one level of unions for each.
+
+```
+(gdb) print $q0
+(gdb) print $q0.u16
+(gdb) print $q0.f64[1]
+(gdb) print $d0
+(gdb) print $d0.u8
+(gdb) print $d0.f32[[0]
+```
+
+All the existing framework in ***vector.py*** will work, it just needs a new routine to parse the 32 bit registers.
+
+Python has an API to give the machine architecture, which ***vector.py*** uses to be able to work with both 32 and 64 bit.
+
+```python
+import machine from platform
+print(machine())
+```
+
+The `vector` command again follows the GDB syntax for accessing the unions for the d and q registers. Download
+[blog5_32.gdb]](https://github.com/StevenLwcz/gdb-python-blog/blob/main/blog5_32.gdb) which has all the Tui and vector commands needed.
+
+```shell
+$ gdb -q blog5 -x blog5_32.gdb
+```
+```
+(gdb) s
+[Press Return to continue to step through the program]
+```
+
+![Vector Register Window 32bit](/images/TuiWindow5_32.png)
+
+### Final Thoughts
+
+With various `vector reg-list` in your GDB command file, as you step through your assembly program, it should now be much easier to see what is going as you explore vector instructions.
 
 `(gdb) vector /d reg-list` allows you to delete registers and `/c` clear the whole window. `(gdb) help vector` for more info.
 
-What next? A version for 32 bit Arm, allowing array syntax `v0.s.u[0]`. Perhaps an option `vector /fdu v0 v1` to specify the width and type for all the registers on the command line.
+What next? Allowing array syntax `v0.s.u[0]`. Perhaps an option `vector /fdu v0 v1` to specify the width and type for all the registers on the command line.
 
-In AArch64 there are a lot of ways to set up your vector registers. Most is done with mov, but mov is just an alias for other instructions and sometimes you need to use more specific instructions to do certain things.
+There are a lot of ways to set up your vector registers. AArch64 adds new instructions over Armv8-a and
+introduced a lot of aliased instructions. You use mov for most things, but it is just an alias for other instructions and sometimes you need to use more specific instructions to do certain things.
 
 In the next blog we will look at some of these instructions and we can use our brand new vector window to navigate through them.
 
