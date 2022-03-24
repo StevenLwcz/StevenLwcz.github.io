@@ -210,19 +210,17 @@ focus vector
 ```shell
 $ gdb -q ./blog5
 ```
-
 ```shell
 (gdb) s
 [Press Return 6 times to repeat]
 ```
-
 ![Vector Register Window](/images/TuiWindow5.png)
 
-To change `v0` from showing unsigned to signed and since there are no other gdb commands which begin with v:
+Change `v0` from showing unsigned to signed and since there are no other gdb commands which begin with v:
 ```shell
 (gdb) v v0.b.u
 ```
-And use the `/x` option to show a register to show in hex. Repeat without the `/x` option to go back to normal.
+Use the `/x` option to show a register in hex. Repeat withoushow t the `/x` option to go back to normal.
 ```shell
 (gdb) v /x v0.b.u
 ```
@@ -241,32 +239,40 @@ layout src
 
 ```shell
 $ make -f makefile.blog5 32
-$ gdb -q blog5 -x blog5_32.gdb
+$ gdb -q blog5
 ```
 
-There are only 2 vector registers in Armv9-a d and q. There is only one level of unions for each.
+There are only 2 vector registers in Armv8-a d and q. There is only one level of unions for each.
 
-```
+```shell
 (gdb) print $q0
+$1 = {u8 = {0 <repeats 16 times>}, u16 = {0, 0, 0, 0, 0, 0, 0, 0}, u32 = {0, 0, 0, 0}, u64 = {0, 0}, f32 = {0, 0, 0, 0}, f64 = {0, 0}}
 (gdb) print $q0.u16
+$2 = {0, 0, 0, 0, 0, 0, 0, 0}
 (gdb) print $q0.f64[1]
+$3 = 0
 (gdb) print $d0
+$4 = {u8 = {0, 0, 0, 0, 0, 0, 0, 0}, u16 = {0, 0, 0, 0}, u32 = {0, 0}, u64 = 0, f32 = {0, 0}, f64 = 0}
 (gdb) print $d0.u8
-(gdb) print $d0.f32[[0]
+$5 = {0, 0, 0, 0, 0, 0, 0, 0}
+(gdb) print $d0.f32[0]
+$6 = 0 
 ```
 
-All the existing framework in ***vector.py*** will work, it just needs a new routine to parse the 32 bit registers.
-
-Python has an API to give the machine architecture, which ***vector.py*** uses to be able to work with both 32 and 64 bit.
+All the existing code in *vector.py* works fine, it just needs a new routine to parse the 32 bit registers. Python has an API to give the machine architecture, which is used to be able to work with both 32 and 64 bit.
 
 ```python
 import machine from platform
 print(machine())
 ```
 
-The `vector` command again follows the GDB syntax for accessing the unions for the d and q registers. Download
-[blog5_32.gdb]](https://github.com/StevenLwcz/gdb-python-blog/blob/main/blog5_32.gdb) which has all the Tui and vector commands needed.
+The `vector` command again follows the GDB syntax for accessing the unions for the d and q registers. 
+```shell
+(gdb) vector q0.u8 q1.u16
+(gdb) v /x q3.u64
 
+```
+Download [blog5_32.gdb](https://github.com/StevenLwcz/gdb-python-blog/blob/main/blog5_32.gdb) which has all the Tui and vector commands needed for the demo.
 ```shell
 $ gdb -q blog5 -x blog5_32.gdb
 ```
@@ -279,7 +285,7 @@ $ gdb -q blog5 -x blog5_32.gdb
 
 ### Final Thoughts
 
-With various `vector reg-list` in your GDB command file, as you step through your assembly program, it should now be much easier to see what is going as you explore vector instructions.
+With various `vector reg-list` in your GDB command file, as you step through your assembly program, it should now be much easier to see what is going as you explore Arm vector instructions.
 
 `(gdb) vector /d reg-list` allows you to delete registers and `/c` clear the whole window. `(gdb) help vector` for more info.
 
