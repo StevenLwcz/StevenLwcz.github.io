@@ -1,9 +1,8 @@
 url: https://stevenlwcz.github.io
-title: Blogs on The GDB Python API
+title: A Blog on The GDB Python API and ARM Assembler
 email: StevenLwcz1@virginmedia.com
 description: #>
-  Creating blogs about the GDB Python API starting with the TUI Window
-  and Arm Assembler.
+  Creating posts about the GDB Python API and ARM Assembler.
 github_username: StevenLwcz
 github_url: https://github.com/StevenLwcz/
 
