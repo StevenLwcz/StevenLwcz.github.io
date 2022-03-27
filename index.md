@@ -4,7 +4,7 @@
 
 If you are interested in GDB, Python and Arm Assembler, I hope this will be an intereting place to be.
 
-### Blogs 
+### Posts 
 
 <ul>
   {% for post in site.posts %}
@@ -15,7 +15,7 @@ If you are interested in GDB, Python and Arm Assembler, I hope this will be an i
 </ul>
 
 ### Resources
-1. [Gdb Basic Setup]({{ site.github_url }}gdb-python/wiki/Gdb-Basic-Setup)
+1. [GDB Basic Setup]({{ site.github_url }}gdb-python/wiki/Gdb-Basic-Setup)
 1. [Printing Variables in GDB]({{ site.github_url }}gdb-python/wiki/Printing-Variables-in-GDB)
 
 <nav>
