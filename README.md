@@ -1,3 +1,3 @@
 ## StevenLwcz.github.io
 
-[Blogs on GDB and the Python API](https://stevenlwcz.github.io/)
+[Blog on GDB and the Python API and ARM Assembler](https://stevenlwcz.github.io/)
