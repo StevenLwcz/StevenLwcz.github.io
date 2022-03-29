@@ -8,9 +8,11 @@ I wanted to learn about Arm Assembler and I've heard good things about Python. I
 
 To debug assembler on a Raspberry PI, there is GDB. And at looking more into GDB I discovered there was a Python API.
 
-Well they added the Python API so you could enhance your debug experiance. That is exactly what I have been doing. My primary focus has been on assembler. I've read a lot of great blogs on the Python API but noticed a few gaps. Maybe I can fill some of them and sneak in a fiew links to a good blog as the occastion occurs.
+Well they added the Python API so you could enhance your debug experiance. That is exactly what I have been doing. My primary focus has been on assembler. I've read a lot of great blogs on the Python API but noticed a few gaps. Maybe I can fill some of them and sneak in a fiew links to a good blog as the occasion occurs.
 
-In looking to find a good place to store my projects under a source control system, I discovered GitHub. Always good to have an offline backup strategy especially with SD cards. Then on GitHub is GitHub Pages and here we are.
+In looking to find a good place to store my projects under a source control system, I discovered GitHub. Always good to have an offline backup strategy. Then on GitHub is GitHub Pages and here we are.
+
+I'm just getting started with GitHub Pages and Jekyll. I've got Jekyll installed on my Raspberry Pi so one day I'll move to a more swish theme. But I kind of like it the way it is at the moment.
 
 <nav>
 <ul>
