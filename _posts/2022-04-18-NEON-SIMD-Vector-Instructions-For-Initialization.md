@@ -76,13 +76,13 @@ Other instructions which take an immediate value are vmvn/mvni. vorr/forr and vb
 
 ##### armv8a
 
-```
+```nasm
     vmov.f32 q4, -2.5
 ```
 
 ##### aarch64
 
-```
+```nasm
     fmov v8.8h, 1.5      // cortex-76
     fmov v10.4s, -2.5
     fmov v12.2d, 3.5
@@ -102,14 +102,14 @@ for i in range(0,16):
 ### Vector from Vector
 
 ##### armv8a
-```
+```nasm
 vmov q5, q2
 vmov d12, d8
 ```
 
 ##### aarch64
 
-```
+```nasm
 mov v3.16b. v2.16b
 mov v9.8b. v8.8b         // move lower 64 bits.
 ```
@@ -119,7 +119,7 @@ Move all 128 bits or 64 bits in one go.
 ### Vector from general
            
 ##### armv8a
-```
+```nasm
     mov r0, #10
     vdup.8 q0, r0
     vdup.16 q1, r0
@@ -127,7 +127,7 @@ Move all 128 bits or 64 bits in one go.
 ```
  
 ##### aarch64
-```
+```nasm
     mov x0, 129
     dup v0.16b, w0
     dup v2.8h, w0
@@ -143,7 +143,7 @@ NEON SIMD allows you to use C array syntax to specify a cell or element in the v
 
 ##### armv8a
 
-```
+```nasm
     vdup.8 q7, d0[7]
     vdup.16 q8, d1[3]
     vdup.32 q9, d2[1]
@@ -154,7 +154,7 @@ NEON SIMD allows you to use C array syntax to specify a cell or element in the v
 
 ##### aarch64
 
-```
+```nasm
     dup v1.16b, v0.b[9]
     dup v3.8h, v4.h[4]
     dup v5.4s, v5.s[3]
@@ -167,7 +167,7 @@ In AArch64 you can move an element from one vector straight to another without c
 
 ##### aarch64
 
-```
+```nasm
     ins v0.b[1], v1.b[15]
     ins v2.h[2], v3.h[7]
     ins v4.s[3], v5.s[3]
@@ -180,7 +180,7 @@ In AArch64 you can move an element from one vector straight to another without c
 
 To do the same you need to use `vmov` and transfer using a general register.
 
-```
+```nasm
     vmov.u8 r0, d0[5]
     vmov.8 d14[4], r0
     vmov.u16 r0, d1[2]
@@ -195,7 +195,7 @@ In Armv8a since the scaler floating point registers Sn overlap with the vector y
 
 ##### aarch64
 
-```
+```nasm
     movz x0, 0x6666
     ins v0.b[2], x0
     ins v2.h[2], x0
@@ -205,7 +205,7 @@ In Armv8a since the scaler floating point registers Sn overlap with the vector y
 
 ##### armv8a
 
-```
+```nasm
     vmov.8  d0[3], r0
     vmov.16 d0[3], r0
     vmov    d0[3], r0   // 32
@@ -217,7 +217,7 @@ Using the signed forms will do signed expansion preseving negative values.
 
 ##### aarch64
 
-```
+```nasm
     smov w0, v0.b[7]   // b or h                                                                    │
     smov x1, v0.b[7]   // b, h or s                                                                 │
     umov w2, v0.b[7]   // b, h or s                                                                 │
@@ -236,7 +236,7 @@ $4 = -1
 
 ##### armv8a
 
-```
+```nasm
     vmov s8 r0, d0[15]
     vmov.u8 r1, d0[15]
 ```
@@ -251,7 +251,7 @@ $2 = 255
 
 ##### aarch64
 
-```
+```nasm
     dup b2, v0.b[0]
     dup h5, v3.h[3]
     dup s8, v6.s[2]
@@ -272,5 +272,4 @@ In AArch64 normal instruction mnemonics are often aliases for other instructions
 ```shell
 $ objdump -d exename -M no-aliases
 ```
-
 
