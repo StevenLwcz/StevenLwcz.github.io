@@ -31,8 +31,8 @@ This post comes with two demos
 [blog6_32.s](https://github.com/StevenLwcz/gdb-python-blog/blob/main/blog6_32.s) and
 [blog6_64.s](https://github.com/StevenLwcz/gdb-python-blog/blob/main/blog6_64.s) which can be build with 
 [makefile.blog6](https://github.com/StevenLwcz/gdb-python-blog/blob/main/makefile.blog6). Plus two GDB command files
-[blog6_32-gdb.gdb](https://github.com/StevenLwcz/gdb-python-blog/blob/main/blog6_gdb.gdb) and
-[blog6_64-gdb.gdb](https://github.com/StevenLwcz/gdb-python-blog/blob/main/blog6_gdb.gdb).
+[blog6_32-gdb.gdb](https://github.com/StevenLwcz/gdb-python-blog/blob/main/blog6-gdb.gdb) and
+[blog6_64-gdb.gdb](https://github.com/StevenLwcz/gdb-python-blog/blob/main/blog6-gdb.gdb).
 You also need [vector.py](https://github.com/StevenLwcz/gdb-python/blob/main/vector.py) from the previous post.
 
 ```shell
@@ -67,10 +67,10 @@ $ gdb -q blog6_64
 
 These instructions have 8 bits allocated to store the immediate value and 4 bits are used for various shifting modes. The 64 bit immediate uses a different scheme. Each bit in the instruction is expanded to 8 bytes: 0b10110110 = 0xff00ffff00ffff00.
 
-For 64 bits if you have a value which repeats every 8, 16 or 32 bits and can be broken down into the immediate form for 8, 16 or 32 then vmov/movi can be used with a smaller data size to fill the 64 bits. `vmov.u64 q3, 0x11ff11ff11ff11ff` under Armv8 the assembler will convert this to a `vmov.u16 q3, 0x11ff`.
+For 64 bits if you have a value which repeats every 8, 16 or 32 bits and can be broken down into the immediate form for 8, 16 or 32 then `vmov`/`movi` can be used with a smaller data size to fill the 64 bits. `vmov.u64 q3, 0x11ff11ff11ff11ff` under Armv8 the assembler will convert this to a `vmov.u16 q3, 0x11ff`.
 Under AArch64 you would have to code a `movi v3,4s 11, msl 8`.
 
-Other instructions which take an immediate value are vmvn/mvni. vorr/forr and vbic/fbic could be used in combination to boost the range of immediate to 16 bit and some 32 bit values.
+Other instructions which take an immediate value are `vmvn`/`mvni`. `vorr`/`forr` and `vbic`/`fbic` could be used in combination to boost the range of immediate to 16 bit and some 32 bit values.
 
 ### Immediate Float
 
