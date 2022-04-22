@@ -46,23 +46,24 @@ $ gdb -q blog6_64
 ### Immediate Integer
 
 ##### armv8a
-```
+{% highlight nasm linenos %}
     vmov.u8 q0, 1
     vmov.u16 q1, 0x100
     vmov.u32 q2, 0x10000
     vmov.u32 q2, 0x1ff
     vmov.u32 q2, 0x1ffff
     vmov.u64 q3, 0x00ff00ff
-```
+{% endhighlight %}
+
 ##### aarch64:
-```
+{% highlight nasm linenos %}
     movi v0.16b, 1
     movi v2.8h,  1, lsl 8      // 0x100
     movi v4.4s,  1, lsl 24     // 0x1000000
     movi v6.4s,  1, msl 8      // 0x1ff          shift ones
     movi v4.4s,  1, msl 16     // 0x1ffff        shift ones
     movi v6.2d,  0x00ff00ff
-```
+{% endhighlight %}
 
 These instructions have 8 bits allocated to store the immediate value and 4 bits are used for various shifting modes. The 64 bit immediate uses a different scheme. Each bit in the instruction is expanded to 8 bytes: 0b10110110 = 0xff00ffff00ffff00.
 
