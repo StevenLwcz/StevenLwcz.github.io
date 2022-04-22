@@ -31,8 +31,8 @@ This post comes with two demos
 [blog6_32.s](https://github.com/StevenLwcz/gdb-python-blog/blob/main/blog6_32.s) and
 [blog6_64.s](https://github.com/StevenLwcz/gdb-python-blog/blob/main/blog6_64.s) which can be build with 
 [makefile.blog6](https://github.com/StevenLwcz/gdb-python-blog/blob/main/makefile.blog6). Plus two GDB command files
-[blog6_32-gdb.gdb](https://github.com/StevenLwcz/gdb-python-blog/blob/main/blog6-gdb.gdb) and
-[blog6_64-gdb.gdb](https://github.com/StevenLwcz/gdb-python-blog/blob/main/blog6-gdb.gdb).
+[blog6_32-gdb.gdb](https://github.com/StevenLwcz/gdb-python-blog/blob/main/blog6_32-gdb.gdb) and
+[blog6_64-gdb.gdb](https://github.com/StevenLwcz/gdb-python-blog/blob/main/blog6_64-gdb.gdb).
 You also need [vector.py](https://github.com/StevenLwcz/gdb-python/blob/main/vector.py) from the previous post.
 
 ```shell
@@ -55,7 +55,7 @@ $ gdb -q blog6_64
     vmov.u64 q3, 0x00ff00ff
 ```
 
-##### AArch64:
+##### AArch64
 ```nasm
     movi v0.16b, 1
     movi v2.8h,  1, lsl 8      // 0x100
@@ -88,7 +88,7 @@ Other instructions which take an immediate value are `vmvn`/`mvni`. `vorr`/`forr
     fmov v12.2d, 3.5
 ```
 
-vmov/fmov allows for a floating point values which can be expressed with a 3 bit exponent and 4 bit significant (plus 1 bit for the sign). Basically this means any of the floating point values you can generate in this Python script.
+`vmov`/`fmov` allows for floating point values which can be expressed with a 3 bit exponent and 4 bit significant (plus 1 bit for the sign). Basically this means any of the floating point values you can generate in this Python script.
 
 ```python
 for i in range(0,16):
@@ -116,7 +116,7 @@ mov v9.8b. v8.8b         // move lower 64 bits.
 
 Move all 128 bits or 64 bits in one go.
 
-### Vector from general
+### Vector from General
            
 ##### Armv8a
 ```nasm
