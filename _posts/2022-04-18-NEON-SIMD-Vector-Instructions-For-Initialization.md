@@ -45,25 +45,25 @@ $ gdb -q blog6_64
 ```
 ### Immediate Integer
 
-##### armv8a
-{% highlight nasm linenos %}
+##### Armv8a
+```nasm
     vmov.u8 q0, 1
     vmov.u16 q1, 0x100
     vmov.u32 q2, 0x10000
     vmov.u32 q2, 0x1ff
     vmov.u32 q2, 0x1ffff
     vmov.u64 q3, 0x00ff00ff
-{% endhighlight %}
+```
 
-##### aarch64:
-{% highlight nasm linenos %}
+##### AArch64:
+```nasm
     movi v0.16b, 1
     movi v2.8h,  1, lsl 8      // 0x100
     movi v4.4s,  1, lsl 24     // 0x1000000
     movi v6.4s,  1, msl 8      // 0x1ff          shift ones
     movi v4.4s,  1, msl 16     // 0x1ffff        shift ones
     movi v6.2d,  0x00ff00ff
-{% endhighlight %}
+```
 
 These instructions have 8 bits allocated to store the immediate value and 4 bits are used for various shifting modes. The 64 bit immediate uses a different scheme. Each bit in the instruction is expanded to 8 bytes: 0b10110110 = 0xff00ffff00ffff00.
 
@@ -74,13 +74,13 @@ Other instructions which take an immediate value are vmvn/mvni. vorr/forr and vb
 
 ### Immediate Float
 
-##### armv8a
+##### Armv8a
 
 ```nasm
     vmov.f32 q4, -2.5
 ```
 
-##### aarch64
+##### AArch64
 
 ```nasm
     fmov v8.8h, 1.5      // cortex-76
@@ -90,7 +90,7 @@ Other instructions which take an immediate value are vmvn/mvni. vorr/forr and vb
 
 vmov/fmov allows for a floating point values which can be expressed with a 3 bit exponent and 4 bit significant (plus 1 bit for the sign). Basically this means any of the floating point values you can generate in this Python script.
 
-```Python
+```python
 for i in range(0,16):
     n = i + 0x10
     s = ""
@@ -101,13 +101,13 @@ for i in range(0,16):
 
 ### Vector from Vector
 
-##### armv8a
+##### Armv8a
 ```nasm
 vmov q5, q2
 vmov d12, d8
 ```
 
-##### aarch64
+##### AArch64
 
 ```nasm
 mov v3.16b. v2.16b
@@ -118,7 +118,7 @@ Move all 128 bits or 64 bits in one go.
 
 ### Vector from general
            
-##### armv8a
+##### Armv8a
 ```nasm
     mov r0, #10
     vdup.8 q0, r0
@@ -126,7 +126,7 @@ Move all 128 bits or 64 bits in one go.
     vdup.32 q2, r0
 ```
  
-##### aarch64
+##### AArch64
 ```nasm
     mov x0, 129
     dup v0.16b, w0
@@ -137,11 +137,11 @@ Move all 128 bits or 64 bits in one go.
 
 If you want to load your vector lanes with any value then you can use vdup/dup with a general register. In AArch64 for the targets < 64 bits the source must be a Wn register. 
 
-### Vector From Vector element
+### Vector from Vector element
 
 NEON SIMD allows you to use C array syntax to specify a cell or element in the vector.  
 
-##### armv8a
+##### Armv8a
 
 ```nasm
     vdup.8 q7, d0[7]
@@ -152,7 +152,7 @@ NEON SIMD allows you to use C array syntax to specify a cell or element in the v
     vdup.32 d18, d2[0]
 ```
 
-##### aarch64
+##### AArch64
 
 ```nasm
     dup v1.16b, v0.b[9]
@@ -165,7 +165,7 @@ NEON SIMD allows you to use C array syntax to specify a cell or element in the v
 
 In AArch64 you can move an element from one vector straight to another without changing other parts of the vector.
 
-##### aarch64
+##### AArch64
 
 ```nasm
     ins v0.b[1], v1.b[15]
@@ -176,7 +176,7 @@ In AArch64 you can move an element from one vector straight to another without c
 
 `mov` can be used as an alias for `ins`.
 
-##### armv8a
+##### Armv8a
 
 To do the same you need to use `vmov` and transfer using a general register.
 
@@ -193,7 +193,7 @@ In Armv8a since the scaler floating point registers Sn overlap with the vector y
 
 ### Vector Element from General Register
 
-##### aarch64
+##### AArch64
 
 ```nasm
     movz x0, 0x6666
@@ -203,7 +203,7 @@ In Armv8a since the scaler floating point registers Sn overlap with the vector y
     ins v8.d[2], x0
 ```
 
-##### armv8a
+##### Armv8a
 
 ```nasm
     vmov.8  d0[3], r0
@@ -215,7 +215,7 @@ In Armv8a since the scaler floating point registers Sn overlap with the vector y
 
 Using the signed forms will do signed expansion preseving negative values.
 
-##### aarch64
+##### AArch64
 
 ```nasm
     smov w0, v0.b[7]   // b or h                                                                    │
@@ -234,7 +234,7 @@ $3 = 255
 $4 = -1
 ```
 
-##### armv8a
+##### Armv8a
 
 ```nasm
     vmov s8 r0, d0[15]
@@ -247,9 +247,9 @@ $1 = -1
 $2 = 255
 ```
 
-### Scalar From Vector Register Element
+### Scalar from Vector Register Element
 
-##### aarch64
+##### AArch64
 
 ```nasm
     dup b2, v0.b[0]
