@@ -7,8 +7,7 @@ In this post we are going to look at displaying NEON SIMD vector registers in GD
 
 ### AArch64
 
-[Code In Arm Assembly Lanes and Loads in NEON](https://eclecticlight.co/2021/08/23/code-in-arm-assembly-lanes-and-loads-in-neon
-) is a great introduction to NEON SIMD in AArch64. 
+[Code In Arm Assembly Lanes and Loads in NEON](https://eclecticlight.co/2021/08/23/code-in-arm-assembly-lanes-and-loads-in-neon:) is a great introduction to NEON SIMD in AArch64. 
 
 Before we can start looking at GDB and vector registers we need to start debugging a small assembly program. Use [blog5.s](https://github.com/StevenLwcz/gdb-python-blog/blob/main/blog5.s), [makefile.blog5](https://github.com/StevenLwcz/gdb-python-blog/blob/main/makefile.blog5).
 
