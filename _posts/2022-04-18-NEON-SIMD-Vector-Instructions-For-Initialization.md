@@ -70,7 +70,7 @@ These instructions have 8 bits allocated to store the immediate value and 4 bits
 For 64 bits if you have a value which repeats every 8, 16 or 32 bits and can be broken down into the immediate form for 8, 16 or 32 then `vmov`/`movi` can be used with a smaller data size to fill the 64 bits. `vmov.u64 q3, 0x11ff11ff11ff11ff` under Armv8 the assembler will convert this to a `vmov.u16 q3, 0x11ff`.
 Under AArch64 you would have to code a `movi v3,4s 11, msl 8`.
 
-Other instructions which take an immediate value are `vmvn`/`mvni`. `vorr`/`forr` and `vbic`/`fbic` could be used in combination to boost the range of immediate to 16 bit and some 32 bit values.
+Other instructions which take an immediate value are `vmvn`/`mvni`. And with `vorr`/`forr`, `vbic`/`fbic` could be used in combination to boost the range of immediate to 16 bit and some 32 bit values.
 
 ### Immediate Float
 
@@ -88,7 +88,7 @@ Other instructions which take an immediate value are `vmvn`/`mvni`. `vorr`/`forr
     fmov v12.2d, 3.5
 ```
 
-`vmov`/`fmov` allows for floating point values which can be expressed with a 3 bit exponent and 4 bit significant (plus 1 bit for the sign). Basically this means any of the floating point values you can generate in this Python script.
+`vmov`/`fmov` allows for floating point values which can be expressed with a 3 bit exponent and 4 bit significant (plus 1 bit for the sign). Basically this means any of the floating point values you can generate with this Python script.
 
 ```python
 for i in range(0,16):
@@ -103,15 +103,15 @@ for i in range(0,16):
 
 ##### Armv8a
 ```nasm
-vmov q5, q2
-vmov d12, d8
+    vmov q5, q2
+    vmov d12, d8
 ```
 
 ##### AArch64
 
 ```nasm
-mov v3.16b. v2.16b
-mov v9.8b. v8.8b         // move lower 64 bits.
+    mov v3.16b. v2.16b
+    mov v9.8b. v8.8b         // move lower 64 bits.
 ```
 
 Move all 128 bits or 64 bits in one go.
@@ -135,7 +135,7 @@ Move all 128 bits or 64 bits in one go.
     dup v6.2d, x0
 ```
 
-If you want to load your vector lanes with any value then you can use vdup/dup with a general register. In AArch64 for the targets < 64 bits the source must be a Wn register. 
+If you want to load your vector lanes with any value then you can use `vdup`/`dup` with a general register. In AArch64 for the targets < 64 bits the source must be a Wn register. 
 
 ### Vector from Vector element
 
