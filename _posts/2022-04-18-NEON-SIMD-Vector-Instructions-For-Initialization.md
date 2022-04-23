@@ -9,10 +9,10 @@ In this post we are going to look at a selection of instructions to move data to
 
 This post was written with a Cortex-A53 (Raspberry Pi 3B+ 32 bit) and a Cortex-A76 (Acer 513 64 bit). The Raspberry Pi 4 uses a Cortex-A72 and neither Raspberry Pi models support half precision floating point which the Cortex-A76 does.
 
-There are many ways to initialise vector registers in Armv8a and even more in AArch64. Armv8a has `vmov` and `vdup` but AArch64 has `fmov`, `movi`, `orr`, `dup`, `ins`. `smov` and `umov`. Under AArch64 you can use `mov` as an alias for some.
+There are many ways to initialise vector registers in Armv8a and even more in AArch64. Armv8a has `vmov` and `vdup` but AArch64 has `fmov`, `movi`, `orr`, `dup`, `ins`. `smov` and `umov`. Under AArch64 `mov` can be used as an alias for most which can help with the readability of your code.
 
 |                                      | Armv8a | AArch64   |
-| -------------------------------------|--------------------|
+| -------------------------------------|:-------|:----------|
 | vector register from integer imm     | vmov   | movi      |
 | vector register from float imm       | vmov   | fmov      |
 | vector register from vector register | vmov   | mov (orr) |
@@ -237,7 +237,7 @@ $4 = -1
 ##### Armv8a
 
 ```nasm
-    vmov s8 r0, d0[15]
+    vmov.s8 r0, d0[15]
     vmov.u8 r1, d0[15]
 ```
 ```
