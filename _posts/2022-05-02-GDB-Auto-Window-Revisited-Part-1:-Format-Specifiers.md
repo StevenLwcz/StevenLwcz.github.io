@@ -21,7 +21,7 @@ Format letters are o(octal), x(hex), d(decimal), u(unsigned decimal),
 
 In Python values for variables are held in [gdb.Value](https://sourceware.org/gdb/onlinedocs/gdb/Values-From-Inferior.html) objects and can be converted to strings with the `format_string()` method. This method has a key argument `format` which allows you to specify the exact same specifiers as for the `print` command.
 
-In the `create_auto()` method of (autowin.py)[https://github.com/StevenLwcz/gdb-python-blog/blob/main/auto-win.py] we can add logic to say if there is a specifier then use that. We will store the format specifier in a dictionary with the variable as a key.
+In the `create_auto()` method of [autowin.py](https://github.com/StevenLwcz/gdb-python-blog/blob/main/auto-win.py) we can add logic to check if there is a specifier then use that. We will store the format specifier in a dictionary with the variable as a key.
 
 ```python
                 if name in self.format:
@@ -30,9 +30,9 @@ In the `create_auto()` method of (autowin.py)[https://github.com/StevenLwcz/gdb-
                 self.list.append(f'{arg}{line:<6}{YELLOW}{type:<16}{GREEN}{name:<10}{hint}{val}{RESET}{NL}')
 ```
 
-All we need to do then is create a custom GDB command `auto` to allow us to specify a format and a variable list and add it to the dictionary. Additional logic is required to check the command line is correct and the format specifier is valid.
+We shall create a custom GDB command `auto` to allow us to specify a format and a variable list and add it to the dictionary. Additional logic is required to check the command line is correct and the format specifier is valid.
 
-It is also a good idea to validate the variable name. Looking at [Symbols in Python)(https://sourceware.org/gdb/onlinedocs/gdb/Symbols-In-Python.html) this can be done by using 
+It is also a good idea to validate the variable name. Looking at [Symbols in Python](https://sourceware.org/gdb/onlinedocs/gdb/Symbols-In-Python.html) this can be done by using 
 `gdb.lookup_symbol()` to check if the variable is in the current frame. Since this method will also find typedefs and other things we need to check it is a variable using `is_variable` and `is_argument` properties. The method returns a tuple but we are only interested in the 1st which is the Symbol object or `None` if it does not exist.
 
 
