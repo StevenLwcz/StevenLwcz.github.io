@@ -3,9 +3,9 @@ layout: post
 author: StevenLwcz
 ---
 
-Horizontal scrolling on TUI Windows is useful if the line will exceed the right column. This is most likely with source lines and of course long values for variables.
+[The GDB Python API for Tui Windows Part4](https://stevenlwcz.github.io/2022/03/13/The-Gdb-Python-API-For-Tui-Windows-Part-4.html) showed how to add vertical scrolling to Tui Windows we create. In this post we will look at adding horizontal scrolling.
 
-Horizontal scrolling is available on most Tui Windows. You can display the list of windows with `(gdb) info win`.
+Horizontal scrolling on TUI Windows is useful if the line will exceed the right column. This is most likely with source lines and of course long values for variables. Horizontal scrolling is available on most Tui Windows. You can display the list of windows with `(gdb) info win`.
 
 ```
 (gdb) info win
