@@ -3,7 +3,7 @@ layout: post
 author: StevenLwcz
 ---
 
-[The GDB Python API for Tui Windows Part4](https://stevenlwcz.github.io/2022/03/13/The-Gdb-Python-API-For-Tui-Windows-Part-4.html) showed how to add vertical scrolling to Tui Windows we create. In this post we will look at adding horizontal scrolling.
+[The GDB Python API for Tui Windows Part 4](https://stevenlwcz.github.io/2022/03/13/The-Gdb-Python-API-For-Tui-Windows-Part-4.html) showed how to add vertical scrolling to Tui Windows we create. In this post we will look at adding horizontal scrolling.
 
 Horizontal scrolling on TUI Windows is useful if the line will exceed the right column. This is most likely with source lines and of course long values for variables. Horizontal scrolling is available on most Tui Windows. You can display the list of windows with `(gdb) info win`.
 
@@ -39,7 +39,7 @@ Now it is simply a matter of applying  `self.horiz` in the `render()` method to 
                 self.tui.write(l[self.horiz:])
 ```
 
-If we were dealing with plan text then the job is done. However we are using ANSI escape sequences to colour various parts of the line and this simple approach will lead to the ANSI escape sequences being corrupted.
+If we were dealing with plain text then the job is done. However we are using ANSI escape sequences to colour various parts of the line and this simple approach will lead to the ANSI escape sequences being corrupted.
 
 We could solve this in many ways and any approach I have thought about means adding logic to the `render()` method to know something about the structure of the contents it is displaying.
 
@@ -121,6 +121,7 @@ In order not to populate our code with magic numbers, we will define some consta
 ```python
 class AutoWindow(object):
 
+    # see the padding values used in the F-String in create_auto()
     TypeOffset = 7
     NameOffset = TypeOffset + 16
     ValueOffset = NameOffset + 10
@@ -171,11 +172,11 @@ See [auto.py](https://github.com/StevenLwcz/gdb-python-blog/blob/dev/auto.py) fo
 
 In the end we have introduced knowledge about the layout of the contents in the `render()` method, but in a very adaptable way. But then we have chosen to define the horizontal scroll behaviour based on the known columns of the data.
 
-Just as a thought, one could go to town and add an option to the `auto` command to change between horizontal scroll effects. 
+Just as a thought, if there is a desire to be able to change the scroll effect during debugging, we could add an option to the `auto` command to change between horizontal scroll effects. 
 
 ```
 auto /NUM
- 0: normal horizontal scrolling
+ 0: Normal horizontal scrolling
  1: Line column fixed
  2: Scroll values only
  3: Quick scroll method
