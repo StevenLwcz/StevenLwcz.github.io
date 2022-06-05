@@ -77,7 +77,7 @@ def substr_end_with_ansi(start_off, st):
 
 We are going to take a simple approach to detecting the ANSI escape sequence, which always starts with `0x1b` and end with an `m`. A more rigorous one might be to use a regular expression which also includes checking the contents.
 
-Another complication is if the horizontal offset goes beyond the end of the string, we return an empty string. The contents of the Tui Window will become messed up because the `write()` method relies on the end of line characters to position the text in the window.
+Another complication is if the horizontal offset goes beyond the end of the string, we return an empty string. The contents of the Tui Window will become messed up because the `write()` method relies on the end of line characters to position the text in the window. So we make sure we return the end of line characters.
 
 With all that, we just need to add the function to the [auto.py](https://github.com/StevenLwcz/gdb-python-blog/blob/dev/auto.py) and change the `render()` method:
 
