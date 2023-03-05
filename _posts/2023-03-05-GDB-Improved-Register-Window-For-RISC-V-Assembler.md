@@ -4,14 +4,12 @@ author: StevenLwcz
 ---
 ### Introduction
 
-
 One of my main motivations for learning the Python API for GDB is precisely this. GDB is great for debugging assembler on low memory single board computers. The register window in GDB (layout src, layout reg) displays all registers in all formats. It may be complete but it makes keeping track of specific registers difficult when debugging assembler. Better would be a window just like you can in normal IDEs just to add the registers you are interested in at any particular moment. 
-
 
 This is what we will develop in this post. We will build on all the techniques of the previous posts so we will just focus on how to access registers in Python in GDB and develop a Python class to help display them in a versatile way, in hex or binary as desired. I have already written something similar for ARM but as of late I have also been exploring RISC-V assembler. All the Python APIs work for ARM as well.
 
 
-I have various files in [post10](https://github.com/StevenLwcz/gdb-python-blog/tree/post10) which I will use as part of this post.
+I have various files in my [git hub repostitory](https://github.com/StevenLwcz/gdb-python-blog/tree/post10) which will be used as part of this post.
 
 Included is blog10.s, a small assembler program to convert a number from binary to ascii and display it to the screen.
 
@@ -23,7 +21,7 @@ $ gdb -q blog10
 
 ### Reading Registers in Python
 
-To read registers using the GDB Python API we call the ‘read_register(name)’ method. The name can be the number based register x0-x31 or the ABI alias (a0,t0,...).. read_register() returns a gdb.Value object and can be converted to a string using `format_string(format=FMT)` where FMT is one of `(gdb) print /FMT` options. Some registers predominantly hold addresses (pc, ra, sp) and so display in hex by default.
+To read registers using the GDB Python API we call the `(read_register(name))[https://sourceware.org/gdb/onlinedocs/gdb/Frames-In-Python.html#Frames-In-Python]` method. The name can be the number based register x0-x31 or the ABI alias (a0,t0,...).. `read_register()` returns a gdb.Value object and can be converted to a string using `format_string(format=FMT)` where FMT is one of `(gdb) print /FMT` options. Some registers predominantly hold addresses (pc, ra, sp) and so display in hex by default.
 
 
 ```
@@ -42,6 +40,7 @@ print("ra", r4)
 print("sp", r5)
 print("a1", r6.format_string(format='z'))
 ```
+
 ```
 (gdb) so blog10.py
 a2 0xd
@@ -52,13 +51,12 @@ sp 0x3ffffff5c0
 a1 0x000000000001116c
 ```
 
-Framework for a Custom Register Window
+### Framework for a Custom Register Window
 
 What we shall do is hold all the registers to display in a Python dictionary which is created by the command line handling part of the program. I won’t look into this since it is just all normal Python programming.
 
 
 For the register window we want to iterate through this dictionary and build up lines of text to render to the window later. In my previous applications I’ve had a lot of logic in these ‘create window’ functions to handle lots of scenarios. In this one I take a different approach which is to delegate such logic to a class which knows how to deal with the specific kind of value we want to handle.
-
 
 ```python
     def create_register(self):
@@ -72,7 +70,6 @@ For the register window we want to iterate through this dictionary and build up 
 ```
 
 We are going to handle all the colour, formatting, value updating in a class called Register.
-
 
 ```shell
 (gdb) shell cat blog10b.py
@@ -131,7 +128,7 @@ which is just another way of saying it seems to me, gdb.Value does not support `
 We can test it out
 
 
-**[blog10.py](https://github.com/StevenLwcz/gdb-python-blog/blob/post10/blog10.py)**
+**[blog10b.py](https://github.com/StevenLwcz/gdb-python-blog/blob/post10/blog10b.py)**
 ```
 Register.frame = gdb.selected_frame()
 r1.update_value()
@@ -153,9 +150,7 @@ print(f"{GREEN}{r2.name:<5}{r2:<24}{RESET}X")
 (gdb) so blog10b.py
 ```
 
-
 ### Other Register Type
-
 
 The a, t and s registers normally we would want to display them as signed integers and for pc, sp, etc in hex using the ‘a’ address format specifier. We will introduce a new class to do this
 
@@ -172,7 +167,6 @@ Other classes with the fine grain needed can be created to support single and fl
 
 ### Custom Register Window
 
-
 As per the patterns we have used in previous posts on GDB Tui Python programming we are ready to create our new register window. Window scrolling, saving the Register state to reload later are all included: [general-riscv.py](https://github.com/StevenLwcz/gdb-python/blob/main/general-riscv.py). To use this just uncomment all the commented lines in blog10.gdb.gdb. 
 
 ```shell
@@ -186,7 +180,6 @@ You can view the help with  `(gdb) help reg`.
 ![GDB Window Help](/images/RegisterWindowHelp10.png)
 
 ### Conclusion
-
 
 This post shows how to write a register window for RISC-V which matches features you would find in a modern IDE, allowing greater ease when debugging assembler. Reading registers in Python in GDB is straightforward and formatting  (hex, binary) is pretty easy. There is not much code because we are building up on and refining patterns from previous posts. Check out other GDB programs for ARM on my github repository. Happy assembler debugging,
 
