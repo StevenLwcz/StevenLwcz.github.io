@@ -21,7 +21,7 @@ $ gdb -q blog10
 
 ### Reading Registers in Python
 
-To read registers using the GDB Python API we call the `(read_register(name))[https://sourceware.org/gdb/onlinedocs/gdb/Frames-In-Python.html#Frames-In-Python]` method. The name can be the number based register x0-x31 or the ABI alias (a0,t0,...).. `read_register()` returns a gdb.Value object and can be converted to a string using `format_string(format=FMT)` where FMT is one of `(gdb) print /FMT` options. Some registers predominantly hold addresses (pc, ra, sp) and so display in hex by default.
+To read registers using the GDB Python API we call the `[read_register(name)](https://sourceware.org/gdb/onlinedocs/gdb/Frames-In-Python.html#Frames-In-Python)` method. The name can be the number based register x0-x31 or the ABI alias (a0,t0,...).. `read_register()` returns a `gdb.Value` object and can be converted to a string using `format_string(format=FMT)` where FMT is one of `(gdb) print /FMT` options. Some registers predominantly hold addresses (pc, ra, sp) and so display in hex by default.
 
 
 ```
@@ -178,7 +178,7 @@ You can view the help with  `(gdb) help reg`.
 
 ### Conclusion
 
-This post shows how to write a register window for RISC-V which matches features you would find in a modern IDE, allowing greater ease when debugging assembler. Reading registers in Python in GDB is straightforward and formatting  (hex, binary) is pretty easy. There is not much code because we are building up on and refining patterns from previous posts. The next post will mention floating point registers in RISV-V.
+This post shows how to write a register window for RISC-V which matches features you would find in a modern IDE, allowing greater ease when debugging assembler. Reading registers in Python in GDB is straightforward and formatting  (hex, binary) is pretty easy. There is not much code because we are building up on and refining patterns from previous posts. The next post will quickly mention floating point registers in RISC-V.
 
 Check out other GDB Python programs for ARM on my github repository. Happy assembler debugging,
 
