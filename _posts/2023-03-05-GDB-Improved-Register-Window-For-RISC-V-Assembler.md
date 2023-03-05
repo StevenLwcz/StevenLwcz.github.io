@@ -122,10 +122,7 @@ It you try to use a gdb.Value object in a f-string you will get a error like thi
     #  Typerror: unsupported format string passed to gdb.Value.__format__
 
 
-which is just another way of saying it seems to me, gdb.Value does not support `__format__`.
-
-
-We can test it out
+which is just another way of saying it seems to me, gdb.Value does not support `__format__`.  We can test it out
 
 
 **[blog10b.py](https://github.com/StevenLwcz/gdb-python-blog/blob/post10/blog10b.py)**
@@ -155,13 +152,13 @@ print(f"{GREEN}{r2.name:<5}{r2:<24}{RESET}X")
 The a, t and s registers normally we would want to display them as signed integers and for pc, sp, etc in hex using the ‘a’ address format specifier. We will introduce a new class to do this
 
 
-‘’’python
+```python
 class AdReg(Register):
 
     def __init__(self, name):
         super().__init__(name)
         self.fmt = 'a'
-‘’’
+```
 
 Other classes with the fine grain needed can be created to support single and floating point registers and other special cases.
 
@@ -181,6 +178,8 @@ You can view the help with  `(gdb) help reg`.
 
 ### Conclusion
 
-This post shows how to write a register window for RISC-V which matches features you would find in a modern IDE, allowing greater ease when debugging assembler. Reading registers in Python in GDB is straightforward and formatting  (hex, binary) is pretty easy. There is not much code because we are building up on and refining patterns from previous posts. Check out other GDB programs for ARM on my github repository. Happy assembler debugging,
+This post shows how to write a register window for RISC-V which matches features you would find in a modern IDE, allowing greater ease when debugging assembler. Reading registers in Python in GDB is straightforward and formatting  (hex, binary) is pretty easy. There is not much code because we are building up on and refining patterns from previous posts. The next post will mention floating point registers in RISV-V.
+
+Check out other GDB Python programs for ARM on my github repository. Happy assembler debugging,
 
 
