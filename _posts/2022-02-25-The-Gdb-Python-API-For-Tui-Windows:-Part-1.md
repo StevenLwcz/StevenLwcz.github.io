@@ -48,7 +48,7 @@ The `render()` method is where text is written to the window using the Tui `writ
 
 You can read all about them from this blog [Build your own Command Line with ANSI escape codes](https://www.lihaoyi.com/post/BuildyourownCommandLinewithANSIescapecodes.html). Note the GDB does not support the navigation codes.
 
-You can change the colour by changing 47 to something else.
+Using the 256 colour mode, you can change the colour by changing 47 to something else.
 ```
 GREEN = "\x1b[38;5;47m"
 RESET = "\x1b[0m"
@@ -58,7 +58,7 @@ For some reason to get a new line you need two \n.
 NL = "\n\n"
 ```
 
-I think my version of GDB has a few bugs which might be fixed in a later version.
+My version of GDB has a few bugs which are fixed in a later version.
 
 To put all this together with our “Hello World” text we shall use Python [f-strings](https://saralgyaan.com/posts/f-string-in-python-usage-guide). Our render method now becomes:
 
