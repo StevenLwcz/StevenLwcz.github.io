@@ -15,7 +15,6 @@ If you are interested in GDB, Python and Arm Assembler, I hope this will be an i
 </ul>
 
 ### Future Posts
-- A Memory Window for GDB
 - RISC-V GDB and Assembler
 
 ### Resources
