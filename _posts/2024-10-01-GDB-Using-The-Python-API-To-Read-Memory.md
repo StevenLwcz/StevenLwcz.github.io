@@ -6,7 +6,7 @@ author: StevenLwcz
 
 In this series of posts we will explore some of the functions from [Inferiors In Python](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Inferiors-In-Python.html#Inferiors-In-Python).
 
-The first few will look at how we can read memory from a process and display it in a memory view TUi, Future posts will look at seaching memory and writting to memory.
+The first few will look at how we can read memory from a process and display it in a memory view TUI, Future posts will look at seaching and writing to memory and a few other interesting things along the way.
 
 ### GDB Inferiors
 
@@ -15,7 +15,7 @@ GDB inferiors are just another name for a process. You can see the status of all
 ```
 (gdb) info inferior
   Num  Description       Connection           Executable        
-* 1    process 2592      1 (native)           /home/stevenlz/post11/gdb-python-blog/a 
+* 1    process 2592      1 (native)           /home/StevenLwcz/post11/a 
 ```
 
 Using the Python API:
@@ -42,10 +42,10 @@ The primary use we will put this to later, is to know we have a process running.
 
 ### Reading Memory
 
-The Python API '''mv=infe.read_memory(addr, numi, )''' is used to read memory from a running inferior. infe: the object from selected_inferior, addr the address to read and the number of bytes to read.
+The Python API ```mv=infe.read_memory(addr, numi, )``` is used to read memory from a running inferior. infe: the object from selected_inferior, addr the address to read and the number of bytes to read.
 Returned is a [MemoryView](https://docs.python.org/3/c-api/memoryview.html) object.
 
-Addr in the API needs to be an integer,  0x5555550000. If you want to find the memory at the address of a variable or expression like you can with the GDB x command, then we can use '''gdb.parse_and_eval()''' function which will return a gdb.Value object which has an address property.
+Addr in the API needs to be an integer, for example: 0x5555550000. If you want to find the memory at the address of a variable or expression like you can with the GDB x command, then we can use ```gdb.parse_and_eval()``` function which will return a gdb.Value object which has an address property.
 ```
 (gdb) python
 >expr = gdb.parse_and_eval('a')
@@ -84,7 +84,7 @@ ValueError: embedded null character
 Error while executing Python code.
 ```
 
-One approach is to replace all the control characters with a . using regulart expressions (link to book)
+One approach is to replace all the control characters with a . using regulart expressions.
 
 ```python
 import re
@@ -119,7 +119,6 @@ GDB Python APIs and Python classes make it easy to read memory and display the o
 
 We will use these basics to develop a TUI window and add more features like scrolling through the memory in future posts.
 
-#note a-gdb.gdb not needed
 In my github you can get [the python code and C demo](https://github.com/StevenLwcz/gdb-python-blog/tree/post11).
 
 ```shell
