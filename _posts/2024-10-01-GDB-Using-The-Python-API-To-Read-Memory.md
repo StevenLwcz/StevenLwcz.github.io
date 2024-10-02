@@ -30,10 +30,10 @@ If there is no inferior running, GDB returns a default one with pid=0.
 
 ```
 (gdb) python
-infe = gdb.selected_inferior()
-print(infe.pid)
-print(infe.num)
-end
+>infe = gdb.selected_inferior()
+>print(infe.pid)
+>print(infe.num)
+>end
 2592
 1
 ```
@@ -56,13 +56,13 @@ Addr in the API needs to be an integer, for example: 0x5555550000. If you want t
 ```
 ```
 (gdb) python
-mv = infe.read_memory(addr, 32)
-print(mv)
-end
+>mv = infe.read_memory(addr, 32)
+>print(mv)
+>end
 <memory at 0x7f98201300>
 ```
 
-If the memory at addr can't be read, the API will theow a ```gdb.MemoryError```. When dealing with user input this is something you will need to check and we will use in future.
+If the memory at addr can't be read, the API will throw a ```gdb.MemoryError```. When dealing with user input this is something you will need to check and we will use in future.
 
 ### The MemView Obejct
 
@@ -78,9 +78,9 @@ If we want a text respresentation of the memory then we can convert to bytes and
 
 ```python
 (gdb)python
-text = mv.tobytes().decode('latin-1')
-print(text)
-end
+>text = mv.tobytes().decode('latin-1')
+>print(text)
+>end
 ValueError: embedded null character
 Error while executing Python code.
 ```
@@ -88,12 +88,12 @@ Error while executing Python code.
 One approach is to replace all the control characters with a . using regulart expressions.
 
 ```python
-import re
-pattern = re.compile(r'[\x00-\x1f\x7f-\x9f]')
-text =  pattern.sub('.', text)
-print(text)
-end
-abcdef.. ```d```.ðÿÿ```..xâ÷```.
+>import re
+>pattern = re.compile(r'[\x00-\x1f\x7f-\x9f]')
+>text =  pattern.sub('.', text)
+>print(text)
+>end
+abcdef.. ...d....ðÿÿ.....xâ÷....
 ```
 
 ### Memory View Display
@@ -103,20 +103,20 @@ The MemoryView object allows slicing, so we can easily iterate our way over it
 
 ```python
 (gdb) python
-for i in range(0, 32, 8):
-    m = mv[i:i + 8]
-    text = pattern.sub('.', m.tobytes().decode('latin-1'))
-    print(f"{hex(addr + i)}: {m.hex(' ')} {text}")
-end
+>for i in range(0, 32, 8):
+>    m = mv[i:i + 8]
+>    text = pattern.sub('.', m.tobytes().decode('latin-1'))
+>    print(f"{hex(addr + i)}: {m.hex(' ')} {text}")
+>end
 0x7fffffef70: 61 62 63 64 65 66 00 00 abcdef..
-0x7fffffefa0: 20 00 00 00 64 00 00 00  ```d```
-0x7fffffefd0: 90 f0 ff ff 7f 00 00 00 .ðÿÿ```.
-0x7ffffff000: 18 78 e2 f7 7f 00 00 00 .xâ÷```.
+0x7fffffefa0: 20 00 00 00 64 00 00 00  ...d...
+0x7fffffefd0: 90 f0 ff ff 7f 00 00 00 .ðÿÿ....
+0x7ffffff000: 18 78 e2 f7 7f 00 00 00 .xâ÷....
 ```
 
 ### Assembly Programming
 
-```db.parse_and_eval()``` also works with registers. It will return the value of the register which you can use as an address to ```read_memory()`` as well.
+```gdb.parse_and_eval()``` also works with registers. It will return the value of the register which you can use as an address to ```read_memory()``` as well.
 
 ```gdb.parse_and_eval('$x0')```
 
