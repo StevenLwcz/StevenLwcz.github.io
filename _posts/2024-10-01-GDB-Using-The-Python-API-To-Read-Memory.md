@@ -118,7 +118,12 @@ The MemoryView object allows slicing, so we can easily iterate our way over it
 
 ```gdb.parse_and_eval()``` also works with registers. It will return the value of the register which you can use as an address to ```read_memory()```.
 
-```expr=gdb.parse_and_eval("$x0")```
+```python
+(gdb) python
+>addr=gdb.parse_and_eval("$x0")
+>mv=infe.read_memory(addr, 32)
+>end
+```
 
 ### Conclusion
 
