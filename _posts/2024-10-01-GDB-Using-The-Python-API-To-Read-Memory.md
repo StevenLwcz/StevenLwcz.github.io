@@ -116,9 +116,9 @@ The MemoryView object allows slicing, so we can easily iterate our way over it
 
 ### Assembly Programming
 
-```gdb.parse_and_eval()``` also works with registers. It will return the value of the register which you can use as an address to ```read_memory()``` as well.
+```gdb.parse_and_eval()``` also works with registers. It will return the value of the register which you can use as an address to ```read_memory()```.
 
-```gdb.parse_and_eval('$x0')```
+```expr=gdb.parse_and_eval("$x0")```
 
 ### Conclusion
 
