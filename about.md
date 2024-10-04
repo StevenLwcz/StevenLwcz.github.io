@@ -12,8 +12,6 @@ Well they added the Python API so you could enhance your debug experiance. That 
 
 In looking to find a good place to store my projects under a source control system, I discovered GitHub. Always good to have an offline backup strategy. Then on GitHub is GitHub Pages and here we are.
 
-I'm just getting started with GitHub Pages and Jekyll. I've got Jekyll installed on my Raspberry Pi so one day I'll move to a more swish theme. But I kind of like it the way it is at the moment.
-
 <nav>
 <ul>
 <li><a href="https://www.linkedin.com/in/steven-lalewicz-5b586649">LinkedIn</a></li> |

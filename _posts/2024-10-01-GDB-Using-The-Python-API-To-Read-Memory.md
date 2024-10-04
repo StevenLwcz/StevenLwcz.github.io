@@ -26,7 +26,6 @@ Using the Python API:
 (<gdb.Inferior num=1, pid=2592>,)
 ```
 
-If there is no inferior running, GDB returns a default one with pid=0.
 
 ```
 (gdb) python
@@ -38,7 +37,7 @@ If there is no inferior running, GDB returns a default one with pid=0.
 1
 ```
 
-The primary use we will put this to later, is to know we have a process running.
+If there is no inferior running, GDB returns a default one with pid=0. The primary use we will put this to later, is to know we have a process running.
 
 ### Reading Memory
 
@@ -74,18 +73,20 @@ The memview object has several methods:
 61 62 63 64 65 66 00 00 20 00 00 00 64 00 00 00 90 f0 ff ff 7f 00 00 00 18 78 e2 f7 7f 00 00 00
 ```
 
-If we want a text respresentation of the memory then we can convert to bytes and convert to an ANSI code page. One problem here is text will contrain control characters which GDB will compain about
+If we want a text respresentation of the memory then we can convert to bytes and convert to an ANSI code page. One problem here is text will contain control characters which GDB will compain about
 
 ```python
 (gdb)python
 >text = mv.tobytes().decode('latin-1')
 >print(text)
 >end
+```
+```
 ValueError: embedded null character
 Error while executing Python code.
 ```
 
-One approach is to replace all the control characters with a . using regulart expressions.
+One approach is to replace all the control characters with a . using regular expressions.
 
 ```python
 >import re
@@ -93,6 +94,8 @@ One approach is to replace all the control characters with a . using regulart ex
 >text =  pattern.sub('.', text)
 >print(text)
 >end
+```
+```
 abcdef.. ...d....ðÿÿ.....xâ÷....
 ```
 
@@ -108,6 +111,8 @@ The MemoryView object allows slicing, so we can easily iterate our way over it
 >    text = pattern.sub('.', m.tobytes().decode('latin-1'))
 >    print(f"{hex(addr + i)}: {m.hex(' ')} {text}")
 >end
+```
+```
 0x7fffffef70: 61 62 63 64 65 66 00 00 abcdef..
 0x7fffffefa0: 20 00 00 00 64 00 00 00  ...d...
 0x7fffffefd0: 90 f0 ff ff 7f 00 00 00 .ðÿÿ....

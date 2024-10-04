@@ -14,9 +14,6 @@ If you are interested in GDB, Python and Arm Assembler, I hope this will be an i
  {% endfor %}
 </ul>
 
-### Future Posts
-- RISC-V GDB and Assembler
-
 ### Resources
 1. [GDB Basic Setup]({{ site.github_url }}gdb-python/wiki/Gdb-Basic-Setup)
 1. [Printing Variables in GDB]({{ site.github_url }}gdb-python/wiki/Printing-Variables-in-GDB)
