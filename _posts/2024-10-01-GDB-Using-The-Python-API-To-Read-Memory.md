@@ -139,8 +139,8 @@ We will use these basics to develop a TUI window and add more features like scro
 In my github you can get [the python code and C demo](https://github.com/StevenLwcz/gdb-python-blog/tree/post11).
 
 ```shell
-gcc -g -o a a.c
-gdb -q a
+$ gcc -g -o a a.c
+$ gdb -q a
 (gdb) b main
 (gdb) r
 (gdb) n
