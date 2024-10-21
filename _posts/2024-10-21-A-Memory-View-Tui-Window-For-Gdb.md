@@ -8,7 +8,7 @@ As normal, we will build on the framework we have developed in previous posts. T
 
 Memory addresses may not be valid. The process has stopped running or the address is out of the memory range allowed by the process from user input or by scrolling through the memory. In these cases ```read_memory()``` throws a ```gdb.MemoryView``` exception which we can catch. The ```return``` will keep the current display on the TUI window.
 
-Here we have the same code we created in the previous post using slices in to the ```MemoryView``` object.
+Here is the same code we created in the previous post using slices in to the ```MemoryView``` object.
 
 ```Python
 
@@ -54,7 +54,7 @@ tui new-layout memview  memview 1 src 1 status 0  cmd 1
 Here we will create a GDB user command called ```memview``` which will take an expression just like ```(gdb) x```.
 The expression can be a variable, address, register or exprsssion. If it is a variable we will find its address else just use the expression as the address.
 
-Assuming that you don't want the top third of GDB taken up by a blank window if you are not intersted in a memory view right now, it will try its best to detect if the memview layout is not active and use ```gdb.execute("layout memview")``` to switch into it. 
+Assuming that you don't want the top third of GDB taken up by a blank window if you are not interested in a memory view right now, it will try its best to detect if the memview layout is not active and use ```gdb.execute("layout memview")``` to switch into it. 
 
 ```Python
 class MemViewCmd(gdb.Command):
@@ -97,7 +97,7 @@ You can use ```(gdb) layout src``` or ``(gdb) tui disable``` to switch back to y
 
 ### Vertical Scrolling
 
-This will allow us to explore the memory around the initial view and explore the whole region of the current memory block. Scroll
+This will allow us to explore the memory around the initial view and explore the whole region of the current memory block.
 
 ```Python
     def vscroll(self, num):
@@ -109,7 +109,7 @@ To get focus of the view and use the up and down arrow keys to scroll ```(gdb) f
 
 ### Auto Update of the Memory View
 
-(https://sourceware.org/gdb/current/onlinedocs/gdb.html/Events-In-Python.html#Events-In-Python)[Events In Python].
+[Events In Python](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Events-In-Python.html#Events-In-Python).
 
 As you debug through the program and change the item you have selected to view the memory of, it would be handy to see the changes in the memory view. We can use GBB event handling to auto update the view after each GDB command.
 
@@ -144,7 +144,7 @@ Now as you step through the program and the memory changes, it will get updated.
 
 We have turned the initial POC ```mv.py``` using the ```read_memory()``` API into another little tool we can use to help debug our applications in GDB in a more friendly way. One of the hidden little challanges is catching exceptions Python could throw which would stop the debug session, especially when the memory address is not or no longer valid.
 
-(My github repository has the full code and demos)[https://github.com/StevenLwcz/gdb-python-blog/blob/post12].
+[My github repository has the full code and demos](https://github.com/StevenLwcz/gdb-python-blog/blob/post12).
 
 ```
 $ gdb -q -a a.c
