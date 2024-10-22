@@ -1,14 +1,12 @@
 ### Introduction
 
-In this post we will turn the ```mv.py``` developed in the previous post to display the memory view in a TUI window.
-
-As normal, we will build on the framework we have developed in previous posts. The first thing to write is ```set_display()``` which takes an address to read and display.
+In this post we will turn the ```mv.py``` developed in the previous post to display the memory view in a TUI window. As normal, we will build on the framework we have developed in previous posts.
 
 ### Creating the Memory View
 
 Memory addresses may not be valid. The process has stopped running or the address is out of the memory range allowed by the process from user input or by scrolling through the memory. In these cases ```read_memory()``` throws a ```gdb.MemoryView``` exception which we can catch. The ```return``` will keep the current display on the TUI window.
 
-Here is the same code we created in the previous post using slices in to the ```MemoryView``` object.
+The first thing to write is ```set_display()``` which takes an address to read and display. Here is the same code we created in the previous post using slices in to the ```MemoryView``` object.
 
 ```Python
 
