@@ -1,3 +1,7 @@
+---
+layout: post
+author: StevenLwcz
+---
 ### Introduction
 
 In this post we will turn the ```mv.py``` developed in the previous post to display the memory view in a TUI window. As normal, we will build on the framework we have developed in previous posts.
@@ -9,7 +13,6 @@ Memory addresses may not be valid. The process has stopped running or the addres
 The first thing to write is ```set_display()``` which takes an address to read and display. Here is the same code we created in the previous post using slices in to the ```MemoryView``` object.
 
 ```Python
-
 class MemView(object):
 
     def set_display(self, addr):
@@ -28,7 +31,6 @@ class MemView(object):
 
         self.render()
 ```
-
 In this version of GDB 13.1 I'm now able to write the entire buffer to the TUI using the True paramter of ```write()```.
 
 ```Python
@@ -113,12 +115,11 @@ As you debug through the program and change the item you have selected to view t
 
 Here we register ```auto_view()``` to be called after each command. It will just cause the memory to be re-read and displayed in the TUI window.
 
-```connect()``` allows multiple functions to be called on the event. To stop ```auto_view{}``` being repeatedly added to the chain, we protect with the variable ```auto```.
+```connect()``` allows multiple functions to be called on the event. To stop ```auto_view{}``` being repeatedly added to the chain (which could cause problems), we protect with the variable ```auto```.
 
-If no events have been registered then ```disconnect()``` throws ```SystemError```, which will mess up the debug session.
+If no events have been registered then ```disconnect()``` throws ```SystemError```, which will mess up the debug session. We just catch and ignore.
 
-Due to the many ways you can swich layouts, end processes and so on it is difficult to protect against
-multiple ```close()```. If nothing is registered we just catch the ```SystemError``` and ignore.
+There are many ways you can swich layouts, end processes and so on. This simple approach will keep the GDB debug session stable.
 
 ```Python
         if not self.win.auto:
@@ -140,8 +141,7 @@ Now as you step through the program and the memory changes, it will get updated.
 
 ### Conclusion
 
-We have turned the initial POC ```mv.py``` using the ```read_memory()``` API into another little tool we can use to help debug our applications in GDB in a more friendly way. One of the hidden little challanges is catching exceptions Python could throw which would stop the debug session, especially when the memory address is not or no longer valid.
-
+We have turned the initial POC ```mv.py``` using the ```read_memory()``` API into another little tool we can use to help debug our applications in GDB in a more friendly way. 
 [My github repository has the full code and demos](https://github.com/StevenLwcz/gdb-python-blog/blob/post12).
 
 ```
