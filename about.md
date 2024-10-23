@@ -2,7 +2,7 @@
 ---
 ### About Me
 
-A few years ago I bought a Raspberry Pi and that has re-ignited my desire for programming as a hobby rather than a profession.
+A few years ago I bought a Raspberry Pi and that has re-ignited my desire for programming as a hobby as well as a profession.
 
 I wanted to learn about Arm Assembler and I've heard good things about Python. I think it reminded me of BASIC from my days of ZX81 and Amstrad 6128.
 

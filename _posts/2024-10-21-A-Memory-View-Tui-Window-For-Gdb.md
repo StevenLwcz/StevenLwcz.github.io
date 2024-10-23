@@ -8,9 +8,11 @@ In this post we will turn the ```mv.py``` developed in the previous post to disp
 
 ### Creating the Memory View
 
-Memory addresses may not be valid. The process has stopped running or the address is out of the memory range allowed by the process from user input or by scrolling through the memory. In these cases ```read_memory()``` throws a ```gdb.MemoryView``` exception which we can catch. The ```return``` will keep the current display on the TUI window.
+Memory addresses may not be valid. The process has stopped running or the address is out of the memory range allowed by the process, either from user input or by scrolling through the memory. In these cases ```read_memory()``` throws a ```gdb.MemoryView``` exception which we can catch. 
 
 The first thing to write is ```set_display()``` which takes an address to read and display. Here is the same code we created in the previous post using slices in to the ```MemoryView``` object.
+
+The ```return``` will keep the current display on the TUI window in the case of the ```MemoryError``` exception.
 
 ```Python
 class MemView(object):
@@ -93,7 +95,7 @@ class MemViewCmd(gdb.Command):
         self.win.set_display(addr)
 ```
 
-You can use ```(gdb) layout src``` or ``(gdb) tui disable``` to switch back to your previous view.
+You can use ```(gdb) layout src``` or ```(gdb) tui disable``` to switch back to your previous view.
 
 ### Vertical Scrolling
 
@@ -142,7 +144,7 @@ Now as you step through the program and the memory changes, it will get updated.
 ### Conclusion
 
 We have turned the initial POC ```mv.py``` using the ```read_memory()``` API into another little tool we can use to help debug our applications in GDB in a more friendly way. 
-[My github repository has the full code and demos](https://github.com/StevenLwcz/gdb-python-blog/blob/post12).
+[My github repository has the full code and demo](https://github.com/StevenLwcz/gdb-python-blog/blob/post12).
 
 ```
 $ gdb -q -a a.c
@@ -151,5 +153,7 @@ $ gdb -q a
 (gdb) layout memview
 (gdb) memview a
 ```
+
+![Memory View](/images/TuiWindow12.png)
 
 In the next post we will use our memview program to do some 'fun things' which will help us understand the memory layout of our running process.

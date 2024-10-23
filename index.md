@@ -2,7 +2,7 @@
 ---
 ### Introduction
 
-If you are interested in GDB, Python and Arm Assembler, I hope this will be an intereting place to be.
+If you are interested in GDB, Python and Arm Assembler, RISC-V and other low level things, I hope this will be an intereting place to be.
 
 ### Posts 
 
