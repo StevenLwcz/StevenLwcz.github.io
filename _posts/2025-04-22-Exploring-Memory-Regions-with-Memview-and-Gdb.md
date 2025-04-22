@@ -48,14 +48,11 @@ This will list a detailed view of ELF for the executable. *.text* our executable
         0x5555570048 - 0x0000005555570070 is .data
         0x5555570070 - 0x0000005555570090 is .bss
 ```
-
-Check out this link for more in depth detail. ELF.....
-
 You can use the addresses with  `(gdb) memview 0x555570070` or `(gdb) memview 0x555570070`.
 
 ### Nm command
 
-Some of these addresses can also be accessed from symbols which either gcc or the ld will add in during the compile and link stages.
+Some of these addresses can also be accessed from symbols which either the C compiler (gcc) or the linker (ld) will add in during the compile and link stages.
 
 ```
 (gdb) shell nm a
@@ -108,8 +105,6 @@ x0000000000020048  __data_start
 
 ```
 (gdb) info var libc
-
-xxxxxxx
 ```
 
 ### Environment Variables and Command Line Arguments
