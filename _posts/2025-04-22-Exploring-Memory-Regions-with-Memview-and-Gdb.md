@@ -162,7 +162,7 @@ In the next post we are going to look at how we can use the GDB Python API to se
 
 ### References
 
-1. [ELF Format Cheatsheet](https://gist.github.com/x0nu11byt3/bcb35c3de461e5fb66173071a2379779)
-2. [(gdb) ELF format]()x](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Memory.html#index-examining-memory)
-3. Stackoverflow has many posts which answer questions about using GDB.
-
+1. [memview](https://stevenlwcz.github.io/2024/10/21/A-Memory-View-Tui-Window-For-Gdb.html)
+2. [ELF Format Cheatsheet](https://gist.github.com/x0nu11byt3/bcb35c3de461e5fb66173071a2379779)
+3. [(gdb) x](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Memory.html#index-examining-memory)
+4. Stackoverflow has many posts which answer questions about using GDB.
