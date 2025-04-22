@@ -1,5 +1,8 @@
-Exploring Memory Regions with Memview and Gdb
 
+---
+layout: post
+author: StevenLwcz
+---
 ### Introduction
 
 Gdb has many commands to help with understanding how memory is laid out and used in a process. It can also show you the internal format of an executable.
