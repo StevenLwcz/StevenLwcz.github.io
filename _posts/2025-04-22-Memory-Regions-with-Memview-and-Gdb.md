@@ -163,5 +163,7 @@ In the next post we are going to look at how we can use the GDB Python API to se
 2. [ELF Format Cheatsheet](https://gist.github.com/x0nu11byt3/bcb35c3de461e5fb66173071a2379779)
 3. [(gdb) x](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Memory.html#index-examining-memory)
 4. [Stackoverflow has many posts which answer questions about using GDB.](https://stackoverflow.com/questions/tagged/gdb)
+6. [Full code and annotated C demo](https://github.com/StevenLwcz/gdb-python-blog/blob/post12).
+
 
 If you want to go even deeper, there are loads of resources on the internet. I'm sure your favourite seach engine can help you. Just be wary of AI. I have found on topics like this, since it is not part of their mainstream training data, they like to make up what they don't know. 
