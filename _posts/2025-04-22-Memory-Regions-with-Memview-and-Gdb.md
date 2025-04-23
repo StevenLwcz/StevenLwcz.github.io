@@ -4,11 +4,11 @@ author: StevenLwcz
 ---
 ### Introduction
 
-Understanding how memory is used in a program can help with many issues, debugging memory leaks, understanding program behaviour, security analysis crash dumps and more.
+Understanding how memory is used in a program can help with many issues, debugging memory leaks, understanding program behaviour, security analysis, crash dumps and more.
 
 Gdb has many commands to help with understanding how memory is laid out and used in a process. It can also show you the internal format of an executable.
 
-What we will find out is the layout of our variables (.data, .bss, .rodata). What is on the heap and the stack? Can we find the environment variables? Can we examine the code areas (.text)? What else can we delve into? Well will explore in this post.
+What we will find out is the layout of our variables (.data, .bss, .rodata). What is on the heap and the stack? Can we find the environment variables? Can we examine the code areas (.text)? What else can we delve into? We will explore in this post.
 
 ```
 # commands to start peeling back the layers
@@ -20,11 +20,11 @@ What we will find out is the layout of our variables (.data, .bss, .rodata). Wha
 
 ### Info proc mappings
 
-Virtual memory is a system in which the OS provides a process a continuous memory address space hiding all the details of physical memory.
+Virtual memory is the system in which the OS provides a process a continuous memory address space, hiding all the details of physical memory.There is a lot we could say about *virtual memory* but this is out of scope for this post.
 
 `info proc mappings` gives a high level view of the *virtual memory* layout of a process. Code exists in the 'x' (executable) area. Normal data will be in the 'rw' (read/write) area. In this example the 'r' only area contains various internal structures for allowing the program to be relocated in physical memory.
 
-If during execution your program uses `malloc()`, then a heap will be created. And every program has a stack for storing local data, function parameters and return values for function calls.
+If during execution your program uses `malloc() to allocate memory`, then a *heap* will be created. And every program has a *stack* for storing local data, function parameters and return values for function calls.
 
 ```
 # edited output
