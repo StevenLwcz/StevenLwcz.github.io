@@ -1,4 +1,4 @@
----
+
 layout: post
 author: StevenLwcz
 ---
@@ -134,6 +134,12 @@ View the code at `main()`, `func1()` and the data on the stack.
 
 You can also use `(gdb) layout asm` to get an assembler view of the code.
 
+If a symbol has non alphanumeric characters in it, you can still use it with `x` or other commands by placing it in single quotes.
+
+```
+memview 'malloc@plt'
+```
+
 ### The Stack
 
 There are many ways to look at the stack, for example `info stack`. For a hex dump view you can use the `$sp` register:
@@ -161,11 +167,6 @@ With a better understanding of the underlying memory layout helps in understandi
 
 You can use `(gdb) x` to view memory in various format and for many things it will be the best option[^5]. With being able to view the memory in a nice hex/text view adds another tool to your debugging repertoire. Explore the demo[^4].
 
-A final tip. If a symbol has non alphanumeric characters in it, you can still use it with `x` or other commands by placing it in single quotes.
-
-```
-memview 'malloc@plt'
-```
 
 This is only the beginning, the deeper you look, the more questions you will have[^2]. Happy debugging!
 
