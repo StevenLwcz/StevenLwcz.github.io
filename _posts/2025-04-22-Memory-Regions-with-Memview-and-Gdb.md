@@ -20,7 +20,7 @@ What we will find out is the layout of our variables (.data, .bss, .rodata). Wha
 
 ### Info proc mappings
 
-Virtual memory is the system in which the OS provides a process a continuous memory address space, hiding all the details of physical memory.There is a lot we could say about *virtual memory* but this is out of scope for this post.
+Virtual memory is the system in which the OS provides a process a continuous memory address space, hiding all the details of physical memory [^7].
 
 `info proc mappings` gives a high level view of the *virtual memory* layout of a process. Code exists in the 'x' (executable) area. Normal data will be in the 'rw' (read/write) area. In this example the 'r' only area contains various internal structures for allowing the program to be relocated in physical memory.
 
@@ -175,6 +175,7 @@ In the next post we are going to look at how we can use the GDB Python API to se
 3. [(gdb) x](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Memory.html#index-examining-memory)
 4. [Stackoverflow has many posts which answer questions about using GDB.](https://stackoverflow.com/questions/tagged/gdb)
 6. [Full code and annotated C demo](https://github.com/StevenLwcz/gdb-python-blog/blob/post12).
+7. [^7]: [Introduction to Virual Memory](https://performanceengineeringin.wordpress.com/2019/11/04/understanding-virtual-memory)
 
 
 If you want to go even deeper, there are loads of resources on the internet. I'm sure your favourite search engine can help you. Just be wary of AI. I have found on topics like this, since it is not part of their mainstream training data, they like to make up what they don't know. 
