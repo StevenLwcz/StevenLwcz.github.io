@@ -56,7 +56,7 @@ You can use the addresses with  `(gdb) memview 0x555570070` or `(gdb) memview 0x
 
 ### Nm command
 
-Nm is an external tool. For convenience we can run using `shell`.
+Nm is an Linux external tool. For convenience we can stay in GDB and run it using the `shell` command.
 
 Some of these addresses can also be accessed from symbols which either the C compiler (gcc) or the linker (ld) will add in during the compile and link stages.
 
@@ -130,6 +130,9 @@ View the code at `main()`, `func1()` and the data on the stack.
 (gdb) memview main
 (gdb) memview func1
 ```
+
+You can also use `(gdb) layout asm` to get an assembler view of the code.
+
 ### The Stack
 
 There are many ways to look at the stack, for example `info stack`. For a hex dump view you can use the `$sp` register:
@@ -137,6 +140,8 @@ There are many ways to look at the stack, for example `info stack`. For a hex du
 ```
 (gdb) memview $sp
 ```
+
+Step through a program and when you do a function call, see if you can spot the return address on the stack.
 
 ### Examining the Heap
 
@@ -146,6 +151,8 @@ There are many ways to look at the stack, for example `info stack`. For a hex du
 (gdb) print /x mp_
 (gdb) memview mp_.sbrk_base
 ```
+
+There is also `(gdb) maint info sections` which does something similar.
 
 ### Conclusion
 
@@ -160,6 +167,8 @@ A final tip. If a symbol has non alphanumeric characters in it, you can still us
 ```
 memview 'malloc@plt'
 ```
+
+This is only the beginning, the deeper you look, the more questions you will have. Happy debugging!
 
 In the next post we are going to look at how we can use the GDB Python API to search memory and I'm sure that will work its way into another TUI app for GDB.
 
