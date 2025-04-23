@@ -173,7 +173,6 @@ In the next post we are going to look at how we can use the GDB Python API to se
 
 -------------------
 If you want to go even deeper, there are loads of resources on the internet. I'm sure your favourite search engine can help you. Just be wary of AI. I have found on topics like this, since it is not part of their mainstream training data, they like to make up what they don't know. 
--------------------
 
 ### References
 
@@ -181,5 +180,5 @@ If you want to go even deeper, there are loads of resources on the internet. I'm
 [^2]: [Stackoverflow has many posts which answer questions about using GDB.](https://stackoverflow.com/questions/tagged/gdb)
 [^3]: [memview](https://stevenlwcz.github.io/2024/10/21/A-Memory-View-Tui-Window-For-Gdb.html)
 [^4]: [Full code and annotated C demo](https://github.com/StevenLwcz/gdb-python-blog/blob/post12)
-[^5] [(gdb) x](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Memory.html#index-examining-memory)
+[^5]: [(gdb) x](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Memory.html#index-examining-memory)
 [^7]: [Introduction to Virual Memory](https://performanceengineeringin.wordpress.com/2019/11/04/understanding-virtual-memory)
