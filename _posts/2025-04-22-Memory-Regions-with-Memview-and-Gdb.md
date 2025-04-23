@@ -4,6 +4,8 @@ author: StevenLwcz
 ---
 ### Introduction
 
+Understanding how memory is used in a program can help with many issues, debugging memory leaks, understanding program behaviour, security analysis and more.
+
 Gdb has many commands to help with understanding how memory is laid out and used in a process. It can also show you the internal format of an executable.
 
 What we want to know is the layout of our variables (.data, .bss, .rodata). What is on the heap and the stack? Can we find the environment variables? Can we examine the code areas (.text)? What else can we delve into?
@@ -20,7 +22,9 @@ This information can help us with resolving more complex bugs or start exploring
 
 ### Info proc mappings
 
-This command gives a high level view of the *virtual* memory layout of a program. Code exists in the 'x' (executable) area. Normal data will be in the 'rw' (read/write) area. In this example the 'r' only area contains various internal structures for allowing the program to be relocated in physical memory.
+Virtual memory is a system in which the OS provides a process a continuous memory address space hiding all the details of physical memory.
+
+`info proc mappings` gives a high level view of the *virtual memory* layout of a process. Code exists in the 'x' (executable) area. Normal data will be in the 'rw' (read/write) area. In this example the 'r' only area contains various internal structures for allowing the program to be relocated in physical memory.
 
 If during execution your program uses `malloc()`, then a heap will be created. And every program has a stack for storing local data, function parameters and return values for function calls.
 
@@ -51,6 +55,8 @@ This will list a detailed view of ELF for the executable. *.text* our executable
 You can use the addresses with  `(gdb) memview 0x555570070` or `(gdb) memview 0x555570070`.
 
 ### Nm command
+
+Nm is an external tool. For convenience we can run using `shell`.
 
 Some of these addresses can also be accessed from symbols which either the C compiler (gcc) or the linker (ld) will add in during the compile and link stages.
 
@@ -145,11 +151,11 @@ There are many ways to look at the stack, for example `info stack`. For a hex du
 
 If you want to start looking deeper into how programs are viewed by the operating system or need more advanced tools to track down memory related issues, these advanced commands can help.
 
-With a bigger picture of how things work under the covers, it helps a lot in understanding crash dumps, stack traces or output from memory analysis tools like Valgrind.
+With a better understanding of the underlying memory layout helps in understanding crash dumps, stack traces or output from memory analysis tools like Valgrind.
 
 You can use `(gdb) x` to view memory in various format and for many things it will be the best option. With being able to view the memory in a nice hex/text view adds another tool to your debugging repertoire.
 
-A last tip. If a symbol has non alphanumeric characters in it, you can still use it with `x` or other commands by placing it in single quotes.
+A final tip. If a symbol has non alphanumeric characters in it, you can still use it with `x` or other commands by placing it in single quotes.
 
 ```
 memview 'malloc@plt'
@@ -166,4 +172,4 @@ In the next post we are going to look at how we can use the GDB Python API to se
 6. [Full code and annotated C demo](https://github.com/StevenLwcz/gdb-python-blog/blob/post12).
 
 
-If you want to go even deeper, there are loads of resources on the internet. I'm sure your favourite seach engine can help you. Just be wary of AI. I have found on topics like this, since it is not part of their mainstream training data, they like to make up what they don't know. 
+If you want to go even deeper, there are loads of resources on the internet. I'm sure your favourite search engine can help you. Just be wary of AI. I have found on topics like this, since it is not part of their mainstream training data, they like to make up what they don't know. 
