@@ -149,6 +149,7 @@ Step through a program and when you do a function call, see if you can spot the 
 ```
 (gdb) print /x mp_
 (gdb) memview mp_.sbrk_base
+```
 
 ### Conclusion
 
@@ -174,7 +175,7 @@ In the next post we are going to look at how we can use the GDB Python API to se
 2. [ELF Format Cheatsheet](https://gist.github.com/x0nu11byt3/bcb35c3de461e5fb66173071a2379779)
 3. [(gdb) x](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Memory.html#index-examining-memory)
 4. [Stackoverflow has many posts which answer questions about using GDB.](https://stackoverflow.com/questions/tagged/gdb)
-6. [Full code and annotated C demo](https://github.com/StevenLwcz/gdb-python-blog/blob/post12).
+6. [Full code and annotated C demo](https://github.com/StevenLwcz/gdb-python-blog/blob/post12)
 7. [^7]: [Introduction to Virual Memory](https://performanceengineeringin.wordpress.com/2019/11/04/understanding-virtual-memory)
 
 
