@@ -10,6 +10,8 @@ Gdb has many commands to help with understanding how memory is laid out and used
 
 What we will find out is the layout of our variables (.data, .bss, .rodata). What is on the heap and the stack? Can we find the environment variables? Can we examine the code areas (.text)? What else can we delve into? We will explore in this post.
 
+I'll be highlighting *memview*[^3] which gives a hex/ascii view of the region from the previous post.
+
 ```
 # commands to start peeling back the layers
 (gdb) info proc mappings
@@ -39,7 +41,7 @@ If during execution your program uses `malloc() to allocate memory`, then a *hea
 
 ### Info file
 
-This will list a detailed view of ELF for the executable. *.text* our executable code. *.rodata* - read only data for constant items or literals. *.data* is for initialized variables. *.bss* is a technique used to reduce the size of an exe. It is expanded at load time and the area is initialized to zero. Data items which are uninitialized or to zero will be allocated here.
+This will list a detailed view of ELF for the executable [^1]. *.text* our executable code. *.rodata* - read only data for constant items or literals. *.data* is for initialized variables. *.bss* is a technique used to reduce the size of an exe. It is expanded at load time and the area is initialized to zero. Data items which are uninitialized or to zero will be allocated here.
 
 
 ```
@@ -157,7 +159,7 @@ If you want to start looking deeper into how programs are viewed by the operatin
 
 With a better understanding of the underlying memory layout helps in understanding crash dumps, stack traces or output from memory analysis tools like Valgrind.
 
-You can use `(gdb) x` to view memory in various format and for many things it will be the best option. With being able to view the memory in a nice hex/text view adds another tool to your debugging repertoire.
+You can use `(gdb) x` to view memory in various format and for many things it will be the best option[^5]. With being able to view the memory in a nice hex/text view adds another tool to your debugging repertoire. Explore the demo[^4].
 
 A final tip. If a symbol has non alphanumeric characters in it, you can still use it with `x` or other commands by placing it in single quotes.
 
@@ -165,20 +167,19 @@ A final tip. If a symbol has non alphanumeric characters in it, you can still us
 memview 'malloc@plt'
 ```
 
-This is only the beginning, the deeper you look, the more questions you will have. Happy debugging!
+This is only the beginning, the deeper you look, the more questions you will have[^2]. Happy debugging!
 
 In the next post we are going to look at how we can use the GDB Python API to search memory and I'm sure that will work its way into another TUI app for GDB.
 
-### References
-
-1. [memview](https://stevenlwcz.github.io/2024/10/21/A-Memory-View-Tui-Window-For-Gdb.html)
-2. [ELF Format Cheatsheet](https://gist.github.com/x0nu11byt3/bcb35c3de461e5fb66173071a2379779)
-3. [(gdb) x](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Memory.html#index-examining-memory)
-4. [Stackoverflow has many posts which answer questions about using GDB.](https://stackoverflow.com/questions/tagged/gdb)
-6. [Full code and annotated C demo](https://github.com/StevenLwcz/gdb-python-blog/blob/post12)
-
-[^7]: [Introduction to Virual Memory](https://performanceengineeringin.wordpress.com/2019/11/04/understanding-virtual-memory)
-
+-------------------
+If you want to go even deeper, there are loads of resources on the internet. I'm sure your favourite search engine can help you. Just be wary of AI. I have found on topics like this, since it is not part of their mainstream training data, they like to make up what they don't know. 
 -------------------
 
-If you want to go even deeper, there are loads of resources on the internet. I'm sure your favourite search engine can help you. Just be wary of AI. I have found on topics like this, since it is not part of their mainstream training data, they like to make up what they don't know. 
+### References
+
+[^1]: [ELF Format Cheatsheet](https://gist.github.com/x0nu11byt3/bcb35c3de461e5fb66173071a2379779)
+[^2]: [Stackoverflow has many posts which answer questions about using GDB.](https://stackoverflow.com/questions/tagged/gdb)
+[^3]: [memview](https://stevenlwcz.github.io/2024/10/21/A-Memory-View-Tui-Window-For-Gdb.html)
+[^4]: [Full code and annotated C demo](https://github.com/StevenLwcz/gdb-python-blog/blob/post12)
+[^5] [(gdb) x](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Memory.html#index-examining-memory)
+[^7]: [Introduction to Virual Memory](https://performanceengineeringin.wordpress.com/2019/11/04/understanding-virtual-memory)
