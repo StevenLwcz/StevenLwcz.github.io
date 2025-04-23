@@ -112,16 +112,18 @@ x0000000000020048  __data_start
 With a bit of digging around, we can start exploring other interesting symbols and memory areas.
 
 ```
-(gdb) memview char **__environ
-(gdb) memview char **__libc_argv
+(gdb) memview **__environ
+(gdb) memview **__libc_argv
 ```
 
 ### Code
 
-View the code at main, func1 and the data on the stack.
+View the code at `main()`, `func1()` and the data on the stack.
+
+```
 (gdb) memview main
 (gdb) memview func1
-
+```
 ### The Stack
 
 There are many ways to look at the stack, for example `info stack`. For a hex dump view you can use the `$sp` register:
@@ -147,7 +149,7 @@ With a bigger picture of how things work under the covers, it helps a lot in und
 
 You can use `(gdb) x` to view memory in various format and for many things it will be the best option. With being able to view the memory in a nice hex/text view adds another tool to your debugging repertoire.
 
-One last tip. If a symbol has non alphanumeric characters in it, you can still use it with `x` or other commands by placing it in single quotes.
+A last tip. If a symbol has non alphanumeric characters in it, you can still use it with `x` or other commands by placing it in single quotes.
 
 ```
 memview 'malloc@plt'
@@ -160,4 +162,6 @@ In the next post we are going to look at how we can use the GDB Python API to se
 1. [memview](https://stevenlwcz.github.io/2024/10/21/A-Memory-View-Tui-Window-For-Gdb.html)
 2. [ELF Format Cheatsheet](https://gist.github.com/x0nu11byt3/bcb35c3de461e5fb66173071a2379779)
 3. [(gdb) x](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Memory.html#index-examining-memory)
-4. Stackoverflow has many posts which answer questions about using GDB.
+4. [Stackoverflow has many posts which answer questions about using GDB.](https://stackoverflow.com/questions/tagged/gdb)
+
+If you want to go even deeper, there are loads of resources on the internet. I'm sure your favourite seach engine can help you. Just be wary of AI. I have found on topics like this, since it is not part of their mainstream training data, they like to make up what they don't know. 
