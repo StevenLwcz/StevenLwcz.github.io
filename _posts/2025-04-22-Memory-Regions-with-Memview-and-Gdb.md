@@ -4,14 +4,12 @@ author: StevenLwcz
 ---
 ### Introduction
 
-Understanding how memory is used in a program can help with many issues, debugging memory leaks, understanding program behaviour, security analysis and more.
+Understanding how memory is used in a program can help with many issues, debugging memory leaks, understanding program behaviour, security analysis crash dumps and more.
 
 Gdb has many commands to help with understanding how memory is laid out and used in a process. It can also show you the internal format of an executable.
 
-What we want to know is the layout of our variables (.data, .bss, .rodata). What is on the heap and the stack? Can we find the environment variables? Can we examine the code areas (.text)? What else can we delve into?
+What we will find out is the layout of our variables (.data, .bss, .rodata). What is on the heap and the stack? Can we find the environment variables? Can we examine the code areas (.text)? What else can we delve into? Well will explore in this post.
 
-This information can help us with resolving more complex bugs or start exploring a program for vulnerabilities, or just help us learn what is behind the scenes in a running process.
- 
 ```
 # commands to start peeling back the layers
 (gdb) info proc mappings
@@ -90,6 +88,7 @@ R .rodata
 
 For more information about the output `man nm`. You can use these symbols with `x` or `memview`.
 
+There is also `(gdb) maint info sections` which does something similar. There are other tools related to `nm` which are `objdump` and `readelf. Check out the command line help for more info.
 ```
 (gdb) memview &__data_start
 ```
@@ -150,9 +149,6 @@ Step through a program and when you do a function call, see if you can spot the 
 ```
 (gdb) print /x mp_
 (gdb) memview mp_.sbrk_base
-```
-
-There is also `(gdb) maint info sections` which does something similar.
 
 ### Conclusion
 
