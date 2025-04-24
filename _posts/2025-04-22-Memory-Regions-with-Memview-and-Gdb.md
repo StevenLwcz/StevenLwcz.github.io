@@ -151,7 +151,7 @@ x0000000000020048  __data_start
 
 33:     int __libc_argc;
 34:     char **__libc_argv;
-` ``
+```
 
 ### Environment Variables and Command Line Arguments
 
