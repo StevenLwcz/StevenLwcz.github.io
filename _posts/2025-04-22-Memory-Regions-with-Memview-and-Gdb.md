@@ -2,11 +2,12 @@
 layout: post
 author: StevenLwcz
 ---
-### Introduction
 
 Have you had to look at a crash dump and don't know where to start?
 
 Understanding how memory is used in a program is crucial for debugging memory leaks, understanding program behaviour, security analysis, crash dumps and more.
+
+### Introduction
 
 Gdb has many commands to help with understanding how memory is laid out and used in a process as well as show you the internal format of an executable.
 
