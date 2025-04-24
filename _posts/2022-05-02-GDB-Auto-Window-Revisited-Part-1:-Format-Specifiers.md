@@ -1,6 +1,7 @@
 ---
 layout: post
 author: StevenLwcz
+description: Enhancing the TUI Auto Window using the GDB Python API. The Auto Window provides similar features in GDB you can find in IDEs.
 ---
 
 In this post we are going to go back to the Auto Window from [Tui Windows Part 4](https://stevenlwcz.github.io/2022/03/13/The-Gdb-Python-API-For-Tui-Windows-Part-4.html) and add the ability to set a format specifier for any variable being shown in the Auto Window.

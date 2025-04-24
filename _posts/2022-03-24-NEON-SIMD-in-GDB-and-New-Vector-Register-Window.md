@@ -1,6 +1,7 @@
 ---
 layout: post
 author: StevenLwcz
+description: How to use the GDB Python API to display ARM SIMD vector registers in a TUI Window for improved assembler debugging experiance.
 ---
 
 In this post we are going to look at displaying NEON SIMD vector registers in GDB, how to do the same with the Python API and then create an improved vector register window. It will mostly talk about AArch64 but will cover Armv8-a at the end.

@@ -1,6 +1,7 @@
 ---
 author: StevenLwcz
 layout: post
+description: How to use the GDB Python API to create a TUI window  local variables view in GDB, just like how you would get in GUI IDEs.
 ---
 ### Introduction
 A command you might use a lot is `(gdb) info locals` and in this article we will implement a Tui Window which does something similar but also updates automatically after each step. We will look at the `vscroll()` method in the Tui Window protocol to make our window scrollable. 

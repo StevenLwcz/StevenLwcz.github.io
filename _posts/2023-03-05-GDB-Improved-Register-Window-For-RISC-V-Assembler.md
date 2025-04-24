@@ -1,6 +1,7 @@
 ---
 layout: post
 author: StevenLwcz
+description: Creating and enhanced register TUI in GDB using the Python API.
 ---
 ### Introduction
 

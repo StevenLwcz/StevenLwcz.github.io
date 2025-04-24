@@ -1,6 +1,7 @@
 ---
 layout: post
 author: StevenLwcz
+description: Adding vertical scrolling to a TUI Window in GDB using the Python API.
 ---
 
 [The GDB Python API for Tui Windows Part 4](https://stevenlwcz.github.io/2022/03/13/The-Gdb-Python-API-For-Tui-Windows-Part-4.html) showed how to add vertical scrolling to Tui Windows we create. In this post we will look at adding horizontal scrolling.

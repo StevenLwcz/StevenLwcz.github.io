@@ -1,6 +1,7 @@
 ---
 author: StevenLwcz
 layout: post
+description: How to use the GDB Python API to create your own TUI windows. This can allow you to add your own extentions to GDB which can help you create custom solutions for your unique debugging scenarios.
 ---
 In this part we will extend our HelloWindow class to be able to display any text from a custom GDB command. 
 The [Commands in Python](https://sourceware.org/gdb/onlinedocs/gdb/Commands-In-Python.html#Commands-In-Python) docs give us a code snippet which we can build on.

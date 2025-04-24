@@ -1,0 +1,1 @@
+description: How to use the GDB Python API to create your own TUI windows. This can allow you to add your own extentions to GDB which can help you create custom solutions for your unique debugging scenarios.

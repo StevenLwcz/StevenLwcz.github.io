@@ -1,6 +1,7 @@
 ---
 layout: post
 author: StevenLwcz
+desciption: Using the GDB Python API to look into processes and read memory and display it in a helpful hex/text view, something which is otherwise challenging to achieve in GDB.
 ---
 ### Introduction
 

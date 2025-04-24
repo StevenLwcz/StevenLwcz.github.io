@@ -1,6 +1,7 @@
 ---
 layout: post
 author: StevenLwcz
+description: Enhancements to the watch TUI window for GDB using the Python API.
 ---
 
 In this post we will go back to the Watch Window created in [Part 3](https://stevenlwcz.github.io/2022/03/06/The-Gdb-Python-API-For-Tui-Windows-Part-3.html). I’ve added the features listed at the end of that post. Some of these features were also added to the Auto Window so we won’t talk about them here.

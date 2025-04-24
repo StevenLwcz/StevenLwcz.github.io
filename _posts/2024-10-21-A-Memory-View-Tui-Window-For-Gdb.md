@@ -1,11 +1,12 @@
 ---
 layout: post
 author: StevenLwcz
+description: Using the GDB Python API to create a memory view, where you can examine variables and other memory regions in a hex/text format similar to that in other IDEs.
 ---
 
-Creating a memory view for GDB using the GDB Python API.
-
 ### Introduction
+
+Creating a memory view for GDB using the GDB Python API.
 
 In this post we will turn the ```mv.py``` developed in the previous post to display the memory view in a TUI window. As normal, we will build on the framework we have developed in previous posts.
 

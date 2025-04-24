@@ -1,6 +1,7 @@
 ---
 author: StevenLwcz
 layout: post
+description: How to use the GDB Python API to create your own TUI windows. This can allow you to add your own extentions to GDB which can help you create custom solutions for your unique debugging scenarios.
 ---
 GDB added a Python API in 7.0 and probably the most used scenario is for pretty printers. In 10.0 they added support for creating TUI (Text User Interface) Windows. This allows us to create new windows, define our own layout and put anything we like in these windows while debugging our program.
 

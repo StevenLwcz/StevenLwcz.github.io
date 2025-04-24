@@ -1,6 +1,7 @@
 ---
 layout: post
 author: StevenLwcz
+description: Introduction to NEON ARM SIMD instructions for AArch64 and Armv8a using GDB debugger.
 ---
 
 ### Introduction

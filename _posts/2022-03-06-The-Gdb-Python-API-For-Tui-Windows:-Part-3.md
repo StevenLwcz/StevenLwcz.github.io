@@ -1,6 +1,7 @@
 ---
 author: StevenLwcz
 layout: post
+desciption: Using the GDB Python API to read variables in your program and display them in a watch window, just like in modern GUI IDEs.
 ---
 In this post we will learn how to read variables using the Python API and hook our Tui Window up to a GDB event and use them to implement a watch window.
 
