@@ -2,6 +2,9 @@
 layout: post
 author: StevenLwcz
 ---
+
+Creating a memory view for GDB using the GDB Python API.
+
 ### Introduction
 
 In this post we will turn the ```mv.py``` developed in the previous post to display the memory view in a TUI window. As normal, we will build on the framework we have developed in previous posts.

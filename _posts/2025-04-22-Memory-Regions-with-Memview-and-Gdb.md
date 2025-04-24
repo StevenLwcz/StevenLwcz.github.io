@@ -3,9 +3,7 @@ layout: post
 author: StevenLwcz
 ---
 
-Have you had to look at a crash dump and don't know where to start?
-
-Understanding how memory is used in a program is crucial for debugging memory leaks, understanding program behaviour, security analysis, crash dumps and more.
+Have you had to look at a crash dump and don't know where to start?  Understanding how memory is used in a program is crucial for debugging memory leaks, understanding program behaviour, security analysis, crash dumps and more.
 
 ### Introduction
 
