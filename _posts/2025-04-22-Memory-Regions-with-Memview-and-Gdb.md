@@ -6,11 +6,11 @@ author: StevenLwcz
 
 Have you had to look at a crash dump and don't know where to start?
 
-Understanding how memory is used in a program can help with many issues, debugging memory leaks, understanding program behaviour, security analysis, crash dumps and more.
+Understanding how memory is used in a program is crucial for debugging memory leaks, understanding program behaviour, security analysis, crash dumps and more.
 
 Gdb has many commands to help with understanding how memory is laid out and used in a process as well as show you the internal format of an executable.
 
-What we will find out is the layout of our variables (.data, .bss, .rodata). What is on the heap and the stack? Can we find the environment variables? Can we examine the code areas (.text)? What else can we delve into? We will explore in this post.
+In this post we will find out the layout of our variables (.data, .bss, .rodata). What is on the heap and the stack? Where we can find the environment variables? How to examine the code areas (.text)? And more. 
 
 I'll be highlighting *memview*[^3] which gives a hex/ascii view of the region from the previous post. All examples can work with `(gdb) x /16c` (might need to tweak the address expression).
 
@@ -57,9 +57,9 @@ You can use the addresses with  `(gdb) memview 0x555570070` or `(gdb) x /16c  0x
 
 ### Nm command
 
-Nm is an Linux external tool. For convenience we can stay in GDB and run it using the `shell` command.
+Nm is an Linux tool for listing symbols in a object file. For convenience we can stay in GDB and run it using the `shell` command.
 
-Some of the addresses like `0x5555570048 .data` can also be accessed from symbols which either the C compiler (gcc) or the linker (ld) will add in during the compile and link stages.
+Some of the addresses like `0x5555570048 .data` can also be accessed from symbols which either the C compiler (gcc) or the linker (ld) will add in during the compile and link stages and *nm* can dump these for us.
 
 ```
 (gdb) shell nm a
@@ -95,7 +95,39 @@ R .rodata
 
 For more information about the output `man nm`. You can use these symbols with `x` or `memview`.
 
-There is also `(gdb) maint info sections` which does something similar. There are other tools related to `nm` which are `objdump` and `readelf. Check out the command line help for more info.
+There is also `(gdb) maint info sections` which does something similar. There are other tools related to `nm` which are `objdump` and `readelf, which also produce similar output.
+
+#### objdump
+
+My favourite option for looking at Arm and Risc-V assembler. Dump the read only section in a hex/text format.
+
+```bash
+$ objdump -d -M no-aliases a
+$ objdump -s -j .rodata a
+```
+```
+a.out:     file format elf64-littleaarch64
+
+Contents of section .rodata:
+ 0990 01000200 00000000 beadcafe 00000000  ................
+ 09a0 11223344 55667788 40205265 64204f72  ."3DUfw.@ Red Or
+ 09b0 616e6765 2059656c 6c6f7720 47726565  ange Yellow Gree
+ 09c0 6e20426c 75652049 6e646967 6f205669  n Blue Indigo Vi
+```
+
+#### readelf
+
+```bash
+$ readelf -x .rodata <object_file>
+```
+Hex dump of section '.rodata':
+  0x000009f0 01000200 00000000 beadcafe 00000000 ................
+  0x00000a00 11223344 55667788 40205265 64204f72 ."3DUfw.@ Red Or
+  0x00000a10 616e6765 2059656c 6c6f7720 47726565 ange Yellow Gree
+  0x00000a20 6e20426c 75652049 6e646967 6f205669 n Blue Indigo Vi
+```
+
+Handy if you don't want to use GDB. Check out the command line help for these commands for more info.
 
 ### Info var
 
@@ -117,7 +149,7 @@ x0000000000020048  __data_start
 
 33:     int __libc_argc;
 34:     char **__libc_argv;
-```
+` ``
 
 ### Environment Variables and Command Line Arguments
 
@@ -172,7 +204,7 @@ It is an advanced topic, but you could start following the chain of blocks alloc
 
 ### Conclusion
 
-If you want to start looking deeper into how programs are viewed by the operating system or need more advanced tools to track down memory related issues, these advanced commands can help.
+For looking deeper into how programs are viewed by the operating system or need more advanced tools to track down memory related issues, these advanced commands can help.
 
 With a better understanding of the underlying memory layout helps in understanding crash dumps, stack traces or output from memory analysis tools like Valgrind.
 
