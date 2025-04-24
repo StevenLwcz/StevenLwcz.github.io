@@ -6,11 +6,11 @@ author: StevenLwcz
 
 Understanding how memory is used in a program can help with many issues, debugging memory leaks, understanding program behaviour, security analysis, crash dumps and more.
 
-Gdb has many commands to help with understanding how memory is laid out and used in a process. It can also show you the internal format of an executable.
+Gdb has many commands to help with understanding how memory is laid out and used in a process as well as show you the internal format of an executable.
 
 What we will find out is the layout of our variables (.data, .bss, .rodata). What is on the heap and the stack? Can we find the environment variables? Can we examine the code areas (.text)? What else can we delve into? We will explore in this post.
 
-I'll be highlighting *memview*[^3] which gives a hex/ascii view of the region from the previous post.
+I'll be highlighting *memview*[^3] which gives a hex/ascii view of the region from the previous post. All examples can work with `(gdb) x /16c` (might need to tweak the address expression).
 
 ```
 # commands to start peeling back the layers
@@ -42,7 +42,6 @@ If during execution your program uses `malloc() to allocate memory`, then a *hea
 ### Info file
 
 This will list a detailed view of ELF for the executable [^1]. *.text* our executable code. *.rodata* - read only data for constant items or literals. *.data* is for initialized variables. *.bss* is a technique used to reduce the size of an exe. It is expanded at load time and the area is initialized to zero. Data items which are uninitialized or to zero will be allocated here.
-
 
 ```
 # edited highlights
@@ -90,16 +89,17 @@ R .rodata
 
 For more information about the output `man nm`. You can use these symbols with `x` or `memview`.
 
-There is also `(gdb) maint info sections` which does something similar. There are other tools related to `nm` which are `objdump` and `readelf. Check out the command line help for more info.
 ```
 (gdb) memview &__data_start
 ```
+
+There is also `(gdb) maint info sections` which does something similar. There are other tools related to `nm` which are `objdump` and `readelf. Check out the command line help for more info.
 
 ### Info var
 
 An executable will be linked with other libraries typically libc. Some of the above commands will also produce a breakdown of such libraries and their place in the virtual memory space.
 
-You explore symbols in your exe and the libraries with  `info var`
+You can explore symbols in your exe and the libraries with `info var`
 
 ```
 (gdb) info var data
@@ -112,6 +112,9 @@ x0000000000020048  __data_start
 
 ```
 (gdb) info var libc
+
+33:     int __libc_argc;
+34:     char **__libc_argv;
 ```
 
 ### Environment Variables and Command Line Arguments
@@ -125,7 +128,7 @@ With a bit of digging around, we can start exploring other interesting symbols a
 
 ### Code
 
-View the code at `main()`, `func1()` and the data on the stack.
+View the code at `main()`, `func1()`.
 
 ```
 (gdb) memview main
@@ -137,7 +140,7 @@ You can also use `(gdb) layout asm` to get an assembler view of the code.
 If a symbol has non alphanumeric characters in it, you can still use it with `x` or other commands by placing it in single quotes.
 
 ```
-memview 'malloc@plt'
+memview 'malloc@plt'  # this routine is a stub into the real routine in libc.
 ```
 
 ### The Stack
@@ -148,7 +151,7 @@ There are many ways to look at the stack, for example `info stack`. For a hex du
 (gdb) memview $sp
 ```
 
-Step through a program and when you do a function call, see if you can spot the return address on the stack.
+Step through a program and when you first enter a function, see if you can spot the return address on the stack. 
 
 ### Examining the Heap
 
@@ -159,6 +162,8 @@ Step through a program and when you do a function call, see if you can spot the 
 (gdb) memview mp_.sbrk_base
 ```
 
+It is an advanced topic, but you could start following the chain of blocks allocated by `malloc()`.
+
 ### Conclusion
 
 If you want to start looking deeper into how programs are viewed by the operating system or need more advanced tools to track down memory related issues, these advanced commands can help.
@@ -166,7 +171,6 @@ If you want to start looking deeper into how programs are viewed by the operatin
 With a better understanding of the underlying memory layout helps in understanding crash dumps, stack traces or output from memory analysis tools like Valgrind.
 
 You can use `(gdb) x` to view memory in various format and for many things it will be the best option[^5]. With being able to view the memory in a nice hex/text view adds another tool to your debugging repertoire. Explore the demo[^4].
-
 
 This is only the beginning, the deeper you look, the more questions you will have[^2]. Happy debugging!
 
