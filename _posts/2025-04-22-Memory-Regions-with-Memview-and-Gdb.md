@@ -4,6 +4,8 @@ author: StevenLwcz
 ---
 ### Introduction
 
+Have you had to look at a crash dump and don't know where to start?
+
 Understanding how memory is used in a program can help with many issues, debugging memory leaks, understanding program behaviour, security analysis, crash dumps and more.
 
 Gdb has many commands to help with understanding how memory is laid out and used in a process as well as show you the internal format of an executable.
@@ -22,7 +24,7 @@ I'll be highlighting *memview*[^3] which gives a hex/ascii view of the region fr
 
 ### Info proc mappings
 
-Virtual memory is the system in which the OS provides a process a continuous memory address space, hiding all the details of physical memory [^7].
+When we start exploring memory regions in GDB or other tools, what we will be looking at is the *virtual memory* view of the process. Virtual memory is the system in which the OS provides a process a continuous memory address space, hiding all the details of physical memory [^7].
 
 `info proc mappings` gives a high level view of the *virtual memory* layout of a process. Code exists in the 'x' (executable) area. Normal data will be in the 'rw' (read/write) area. In this example the 'r' only area contains various internal structures for allowing the program to be relocated in physical memory.
 
@@ -41,7 +43,7 @@ If during execution your program uses `malloc()` to allocate memory, then a *hea
 
 ### Info file
 
-This will list a detailed view of ELF for the executable [^1]. Executable code is in *.text*. *.rodata* - read only data for constant items or literals. *.data* is for initialized variables. *.bss* is a technique used to reduce the size of an exe. It is expanded at load time and the area is initialized to zero. Data items which are uninitialized or to zero will be allocated here.
+You can use this for a detailed view of the executable format (ELF)[^1]. Executable code is in *.text*. *.rodata* - read only data for constant items or literals. *.data* is for initialized variables. *.bss* is a technique used to reduce the size of an exe. It is expanded at load time and the area is initialized to zero. Data items which are uninitialized or to zero will be allocated here.
 
 ```
 # edited highlights
@@ -153,6 +155,8 @@ There are many ways to look at the stack, for example `info stack`. For a hex du
 
 Step through a program and when you first enter a function, see if you can spot the return address on the stack. 
 
+Most security issues are caused by buffer overflows which aim to replace this retrun address with something which will cause execution of malicious code.
+
 ### Examining the Heap
 
 `mp_` is an internal structure which holds information about the heap and it contains `sbrk_base` which is the start of the heap.
@@ -161,8 +165,8 @@ Step through a program and when you first enter a function, see if you can spot 
 (gdb) print /x mp_
 (gdb) memview mp_.sbrk_base
 ```
-
-It is an advanced topic, but you could start following the chain of blocks allocated by `malloc()`.
+ 
+It is an advanced topic, but you could start following the chain of blocks allocated by `malloc()` and see dynamic allocation algorithms in process.
 
 ### Conclusion
 
