@@ -1,8 +1,8 @@
 url: https://stevenlwcz.github.io
-title: Exploring The GDB Python API And Other Things
+title: The GDB Python API, ARM, RISC-V, Low level debugging.
 email: StevenLwcz1@virginmedia.com
 description: #>
-  Creating posts about the GDB Python API and other low level topics, ARM assembler, RISC-V and what I'm currently playing around with.
+  GDB Python API, ARM, RISC-V, Low level debugging, Memory Regions.
 github_username: StevenLwcz
 github_url: https://github.com/StevenLwcz/
 
