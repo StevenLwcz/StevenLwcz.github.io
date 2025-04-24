@@ -26,7 +26,7 @@ Virtual memory is the system in which the OS provides a process a continuous mem
 
 `info proc mappings` gives a high level view of the *virtual memory* layout of a process. Code exists in the 'x' (executable) area. Normal data will be in the 'rw' (read/write) area. In this example the 'r' only area contains various internal structures for allowing the program to be relocated in physical memory.
 
-If during execution your program uses `malloc() to allocate memory`, then a *heap* will be created. And every program has a *stack* for storing local data, function parameters and return values for function calls.
+If during execution your program uses `malloc()` to allocate memory, then a *heap* will be created. Every program has a *stack* for storing local data, function parameters and return values for function calls.
 
 ```
 # edited output
@@ -41,7 +41,7 @@ If during execution your program uses `malloc() to allocate memory`, then a *hea
 
 ### Info file
 
-This will list a detailed view of ELF for the executable [^1]. *.text* our executable code. *.rodata* - read only data for constant items or literals. *.data* is for initialized variables. *.bss* is a technique used to reduce the size of an exe. It is expanded at load time and the area is initialized to zero. Data items which are uninitialized or to zero will be allocated here.
+This will list a detailed view of ELF for the executable [^1]. Executable code is in *.text*. *.rodata* - read only data for constant items or literals. *.data* is for initialized variables. *.bss* is a technique used to reduce the size of an exe. It is expanded at load time and the area is initialized to zero. Data items which are uninitialized or to zero will be allocated here.
 
 ```
 # edited highlights
@@ -51,13 +51,13 @@ This will list a detailed view of ELF for the executable [^1]. *.text* our execu
         0x5555570048 - 0x0000005555570070 is .data
         0x5555570070 - 0x0000005555570090 is .bss
 ```
-You can use the addresses with  `(gdb) memview 0x555570070` or `(gdb) memview 0x555570070`.
+You can use the addresses with  `(gdb) memview 0x555570070` or `(gdb) x /16c  0x555570070`.
 
 ### Nm command
 
 Nm is an Linux external tool. For convenience we can stay in GDB and run it using the `shell` command.
 
-Some of these addresses can also be accessed from symbols which either the C compiler (gcc) or the linker (ld) will add in during the compile and link stages.
+Some of the addresses like `0x5555570048 .data` can also be accessed from symbols which either the C compiler (gcc) or the linker (ld) will add in during the compile and link stages.
 
 ```
 (gdb) shell nm a
@@ -87,11 +87,11 @@ D .data
 R .rodata
 ```
 
-For more information about the output `man nm`. You can use these symbols with `x` or `memview`.
-
 ```
 (gdb) memview &__data_start
 ```
+
+For more information about the output `man nm`. You can use these symbols with `x` or `memview`.
 
 There is also `(gdb) maint info sections` which does something similar. There are other tools related to `nm` which are `objdump` and `readelf. Check out the command line help for more info.
 
