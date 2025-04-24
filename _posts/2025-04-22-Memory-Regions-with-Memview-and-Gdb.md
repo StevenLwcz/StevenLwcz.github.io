@@ -120,6 +120,8 @@ Contents of section .rodata:
 ```bash
 $ readelf -x .rodata <object_file>
 ```
+
+```
 Hex dump of section '.rodata':
   0x000009f0 01000200 00000000 beadcafe 00000000 ................
   0x00000a00 11223344 55667788 40205265 64204f72 ."3DUfw.@ Red Or
