@@ -128,6 +128,8 @@ With a bit of digging around, we can start exploring other interesting symbols a
 (gdb) memview **__libc_argv
 ```
 
+Environment variables may hold sensitive information like passwords and other system configuration. A classic attack on any program is testing out validation of the command line arguments. You may be surprised what you see.
+
 ### Code
 
 View the code at `main()`, `func1()`.
