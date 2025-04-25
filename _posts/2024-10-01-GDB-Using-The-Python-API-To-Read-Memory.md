@@ -1,13 +1,13 @@
 ---
 layout: post
 author: StevenLwcz
-desciption: Using the GDB Python API to look into processes and read memory and display it in a helpful hex/text view, something which is otherwise challenging to achieve in GDB.
+description: Using the GDB Python API to look into processes and read memory and display it in a helpful hex/text view, something which is otherwise challenging to achieve in GDB.
 ---
 ### Introduction
 
 In this series of posts we will explore some of the functions from [Inferiors In Python](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Inferiors-In-Python.html#Inferiors-In-Python).
 
-The first few will look at how we can read memory from a process and display it in a memory view TUI, Future posts will look at seaching and writing to memory and a few other interesting things along the way.
+The first few will look at how we can read memory from a process and display it in a memory view TUI, Future posts will look at searching and writing to memory and a few other interesting things along the way.
 
 ### GDB Inferiors
 
