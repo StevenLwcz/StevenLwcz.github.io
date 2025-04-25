@@ -2,7 +2,6 @@
 layout: post
 author: StevenLwcz
 description: Learn how to use GDB to explore memory regions in detail. This guide covers `info proc mappings`, `info file`, `nm`, the heap, stack, and more. Includes practical examples and `memview` tips.
-categories: [memory]
 ---
 
 ### Introduction

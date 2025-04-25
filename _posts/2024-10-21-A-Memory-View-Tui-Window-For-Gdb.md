@@ -2,7 +2,6 @@
 layout: post
 author: StevenLwcz
 description: Using the GDB Python API to create a memory view, where you can examine variables and other memory regions in a hex/text format similar to that in other IDEs.
-category: [memory]
 ---
 
 ### Introduction
