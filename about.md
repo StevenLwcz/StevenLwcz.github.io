@@ -1,4 +1,5 @@
 ---
+description: Rapberry Pi, ARM, RISC-V, GDB, Assembler, Python, Amstrad 6128
 ---
 ### About Me
 
