@@ -4,6 +4,8 @@ email: stevenlwcz.gh@proton.me
 description: A blog about the GDB Python API, GDB debugger insights, RISC-V and ARM Assembler, Low level debugging
 github_username: StevenLwcz
 github_url: https://github.com/StevenLwcz/
+plugins:
+  - jekyll-sitemap
 
 defaults:
   -
