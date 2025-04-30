@@ -110,9 +110,12 @@ Tui disable messes up GDB. This is because tui.is_valid() is not set to False. I
 
 For better display of vector registers see [vector.py](https://github.com/StevenLwcz/gdb-python/blob/main/vector.py)
 
-* [general.py](https://github.com/StevenLwcz/gdb-python/blob/main/general.py) is a rewrite of 
-* [aarch64pp.py](https://github.com/StevenLwcz/gdb-python/blob/main/aarch64pp.py) and 
+* [general.py](https://github.com/StevenLwcz/gdb-python/blob/main/general.py) is a rewrite of * [aarch64pp.py](https://github.com/StevenLwcz/gdb-python/blob/main/aarch64pp.py) and --
 * [armv8-app.py](https://github.com/StevenLwcz/gdb-python/blob/main/armv8-a.py), which had a lot of code duplication and unwieldy code when building up the register view.
 * [general.py](https://github.com/StevenLwcz/gdb-python/blob/main/general.py) creates classes for each register type which allows each class to deal with the specific `gdb.Value` object returned by `read_register()`
 which mean the main code to build up the register view no longer has to worry to much about what kind of register it is.
 
+
+### addendum
+
+The wiki page was retroactively converted into a post.
