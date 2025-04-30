@@ -18,9 +18,9 @@ If you are interested in GDB, Python and Arm Assembler, RISC-V and other low lev
 ### Wiki Pages
 1. [GDB Basic Setup]({{ site.github_url }}gdb-python/wiki/Gdb-Basic-Setup)
 1. [Printing Variables in GDB]({{ site.github_url }}gdb-python/wiki/Printing-Variables-in-GDB)
-1. [Using The Python API to Help with Assember Programming]({{ site.github_url }}Using-The-Python-API-for-GDB-to-Help-with-Assembler-Programming.mediawiki)
-1. [Improved GDB info command for showing all register classes](Improved-GDB-info-commands-for-general,-single,-double-and-vector-registers-for-Armv8a-and-AArch64.md)
-1. [Using event.frame.read_registers](Using-The-Python-API-event.frame.read_register(-in-Gdb.mediawiki)
+1. [Using The Python API to Help with Assember Programming]({{ site.github_url }}gdb-python/wiki/Using-The-Python-API-for-GDB-to-Help-with-Assembler-Programming.mediawiki)
+1. [Improved GDB info command for showing all register classes](gdb-python/wiki/Improved-GDB-info-commands-for-general,-single,-double-and-vector-registers-for-Armv8a-and-AArch64.md)
+1. [Using event.frame.read_registers](gdb-python/wiki/Using-The-Python-API-event.frame.read_register(-in-Gdb.mediawiki)
 
 <nav>
   <ul>
