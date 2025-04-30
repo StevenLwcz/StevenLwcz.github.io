@@ -118,4 +118,4 @@ which mean the main code to build up the register view no longer has to worry to
 
 ### addendum
 
-The wiki page was retroactively converted into a post.
+The wiki page was retrospectively converted into a post.
