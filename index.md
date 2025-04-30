@@ -18,7 +18,6 @@ If you are interested in GDB, Python and Arm Assembler, RISC-V and other low lev
 ### Wiki Pages
 1. [GDB Basic Setup]({{ site.github_url }}gdb-python/wiki/Gdb-Basic-Setup)
 1. [Printing Variables in GDB]({{ site.github_url }}gdb-python/wiki/Printing-Variables-in-GDB)
-1. [Improved Tui Register for GDB and Arm Assembler]({{ site.github_url }}gdb-python/wiki/Improved-Tui-Register-Window-for-GDB-for-ARM-Assembler)
 
 <nav>
   <ul>
