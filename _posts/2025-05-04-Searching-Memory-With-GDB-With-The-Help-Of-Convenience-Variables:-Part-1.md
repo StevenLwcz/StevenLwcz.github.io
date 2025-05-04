@@ -8,7 +8,7 @@ descriptio: GDB, Low level debugging, searching memory, GDB tips, Conveniance va
 
 Being able to easily search memory and data structures is useful for debugging and exploring programs. It can help you find corrupted data, locate specific code sections or data structures to check they are correct, reverse engineering and more.
 
-In this post we will look at the GDB command `find` [^1] and how it can be used to different types of variables and memory regions. We will also look at GDB convenience variables and they can help in some scenarios.
+In this post we will look at the GDB command `find` [^1] and how it can be used to different types of variables and memory regions. We will also look at GDB convenience variables and how they can help in some scenarios.
 
 ### Find
 
@@ -35,9 +35,9 @@ Note the commas are required, you can get strange error messages if you miss the
 int a1[] = {12,34,56,78,90,34,45,67,89};
 ```
 
-Some quick C basics. `a1` is a pointer to the first element in the array. `a1[0]` and `\*a1` are the same. You can get hold of the 3rd element by `\*(a1 + 2)`. `a1` used in `sizeof(a1)` gives the size of the whole array: 36.
+Some quick C basics. `a1` is a pointer to the first element in the array. `a1[0]` and `\\\*a1` are the same. You can get hold of the 3rd element by `\\\*(a1 + 2)`. `a1` used in `sizeof(a1)` gives the size of the whole array: 36.
 
-`&a`' is the address to the whole array `int (\*)[9]`. This time `&a1 + 1` points to the address directly after the array [^2][^3]. By comparison `sizeof(&a1)` gives us 8 on a 64 bit platform.
+`&a`' is the address to the whole array `int (\\\*)[9]`. This time `&a1 + 1` points to the address directly after the array [^2][^3]. By comparison `sizeof(&a1)` gives us 8 on a 64 bit platform.
 
 This gives us two ways to define the address range for searching an array.
 
@@ -230,11 +230,11 @@ In the next post we will look at some GDB Python APIs and Python scripting to ai
 
 ### References
 
-[^1]: https://sourceware.org/gdb/current/onlinedocs/gdb.html/Searching-Memory.html#index-find
-[^2]: https://www.geeksforgeeks.org/pointer-array-array-pointer/
-[^3]: https://stackoverflow.com/questions/2528318/how-come-an-arrays-address-is-equal-to-its-value-in-c
-[^4]: https://sourceware.org/gdb/current/onlinedocs/gdb.html/Expressions.html#index-_007btype_007d
-[^5]: https://linux.die.net/man/3/malloc_usable_size
-[^6]: https://sourceware.org/gdb/current/onlinedocs/gdb.html/Convenience-Vars.html#Convenience-Vars
-[^7]: https://sourceware.org/gdb/current/onlinedocs/gdb.html/Command-Files.html#index-scripting-commands
+[^1]: [find](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Searching-Memory.html#index-find)
+[^2]: [Pointers in C](https://www.geeksforgeeks.org/pointer-array-array-pointer)
+[^3]: [Pointers in C]([https://stackoverflow.com/questions/2528318/how-come-an-arrays-address-is-equal-to-its-value-in-c)
+[^4]: [{type}](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Expressions.html#index-_007btype_007d)
+[^5]: [malloc_usable_size()](https://linux.die.net/man/3/malloc_usable_size)
+[^6]: [Convenience Variables](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Convenience-Vars.html#Convenience-Vars)
+[^7]: [GDB Scripting](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Command-Files.html#index-scripting-commands)
 
