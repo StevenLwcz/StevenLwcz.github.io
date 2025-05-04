@@ -1,7 +1,7 @@
 ---
 layout: post
 author: StevenLwcz
-descriptio: GDB, Low level debugging, searching memory, GDB tips, Conveniance variables.
+description: GDB, Low level debugging, Searching memory, GDB tips, Convenience variables.
 ---
 
 ### Introduction
@@ -135,7 +135,7 @@ set $mynum=100
 set $mynum+=1
 ```
 
-To see the currently defines one you can use:
+To see the currently defined ones you can use:
 
 ```
 (gdb) show conv
@@ -154,7 +154,7 @@ You can list all the environment variables or list one particular one
 (gdb) show environ HOME
 ```
 
-If you want to use `find` to search this area, you need to know the start which we already know is `\*environ`. We also want either the length or the end address. There are several ways to do this. However we want to use as many GDB features as we can! We will use conveiance variables and GDBs script commands [^7]. Here we will create a GDB script and define a function alled `calc_env_size`.
+If you want to use `find` to search this area, you need to know the start which we already know is `*environ`. We also want either the length or the end address. There are several ways to do this. However we want to use as many GDB features as we can! We will use conveiance variables and GDBs script commands [^7]. Here we will create a GDB script and define a function alled `calc_env_size`.
 
 The environment block is an array of strings with the last one being 0x00. You can use `x` or `memview` to verify this. All we need to do is use `environ` to loop through all the strings and add their lengths.
 
@@ -221,11 +221,11 @@ Other commands  like `x` and `memview` might help you get a better appreciation 
 0x7fffffef40
 ```
 
-Stack corruption is a frequent source of bugs, so being able to find that return address or spot that something is not correct, could help you solve another bug.
+Stack corruption is one source of bugs, so being able to find that return address or spot that something is not correct, could help you solve another problem.
 
 ### Conclusion
 
-We have gone into quite a lot of detail using `find` in various scenarios picking up lots of little tricks along the way with using conveiance variables, scripting and information from the previous post. Even if you are not searching memory or varaibles, they are still useful techniques. Good luck with your low level debugging.
+In this post we have covered a lot of examples of using `find` in various scenarios, picking up lots of little tricks along the way with using conveience variables, scripting and information from the previous post. Even if you are not searching memory or varaibles, they are still useful techniques. Good luck with your low level debugging.
 
 In the next post we will look at some GDB Python APIs and Python scripting to aid with making using `find` more useful and potentially easier to use.
 
