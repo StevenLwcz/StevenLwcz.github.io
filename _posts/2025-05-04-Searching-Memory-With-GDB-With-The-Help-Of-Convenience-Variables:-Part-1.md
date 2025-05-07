@@ -110,7 +110,7 @@ To search the data area in your process, you can use the symbols we looked at in
 
 ### Searching Text and Read Only
 
-If you want to search the text area or the read only area, you can use `info file` to find the addresses.
+If you want to search the text area for some machine code instructions or the read only area for some data, you can use `info file` to find the addresses.
 
 ```
 (gdb) info file
@@ -154,7 +154,7 @@ You can list all the environment variables or list one particular one
 (gdb) show environ HOME
 ```
 
-If you want to use `find` to search this area, you need to know the start which we already know is `*environ`. We also want either the length or the end address. There are several ways to do this. However we want to use as many GDB features as we can! We will use conveiance variables and GDBs script commands [^7]. Here we will create a GDB script and define a function alled `calc_env_size`.
+If you want to use `find` to search this area, you need to know the start which we already know is `*environ`. We also want either the length or the end address. There are several ways to do this. However we want to use as many GDB features as we can! We will use conveiance variables and GDBs script commands [^7]. Here we will create a GDB script and define a user defined command called `calc_env_size` [^8].
 
 The environment block is an array of strings with the last one being 0x00. You can use `x` or `memview` to verify this. All we need to do is use `environ` to loop through all the strings and add their lengths.
 
@@ -238,4 +238,4 @@ In the next post we will look at some GDB Python APIs and Python scripting to ai
 [^5]: [malloc_usable_size()](https://linux.die.net/man/3/malloc_usable_size)
 [^6]: [Convenience Variables](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Convenience-Vars.html#Convenience-Vars)
 [^7]: [GDB Scripting](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Command-Files.html#index-scripting-commands)
-
+[^8]: [define](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Define.html#index-define)
