@@ -78,7 +78,7 @@ To search within a string, we need to cast the string to a character array. `{ty
 
 ### Searching A Heap Allocated String
 
-If you have a block of memory allocated by malloc() you want to search, hopefully you have a variable with the length in it, but you can also use the function `malloc_usable_size()[^5]`.
+If you have a block of memory allocated by malloc() you want to search, hopefully you have a variable with the length in it, but you can also use the function `malloc_usable_size()` [^5].
 
 ```C
     char *s2 = malloc(0x100000); 
