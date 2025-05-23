@@ -37,7 +37,7 @@ int a1[] = {12,34,56,78,90,34,45,67,89};
 
 Some quick C basics. `a1` is a pointer to the first element in the array. `a1[0]` and `*a1` are the same. You can get hold of the 3rd element by `*(a1 + 2)`. `a1` used in `sizeof(a1)` gives the size of the whole array: 36.
 
-`&a` is the address to the whole array `int (*)[9]`. This time `&a1 + 1` points to the address directly after the array [^2][^3]. By comparison `sizeof(&a1)` gives us 8 on a 64 bit platform.
+`&a1` is the address to the whole array `int (*)[9]`. This time `&a1 + 1` points to the address directly after the array [^2][^3]. By comparison `sizeof(&a1)` gives us 8 on a 64 bit platform.
 
 This gives us two ways to define the address range for searching an array.
 
