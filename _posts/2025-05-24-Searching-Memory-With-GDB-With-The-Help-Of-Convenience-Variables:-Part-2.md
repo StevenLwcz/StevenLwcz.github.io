@@ -122,7 +122,7 @@ end
 Here we simply create our desired convenience variables from the regions dictionary.
 The only little trick we do here is merge data and bss into one area since they are contigous in memory.
 
-....python
+...python
 gdb.set_convenience_variable("text_start", int(regions[".text"][0], 16))
 gdb.set_convenience_variable("text_end", int(regions[".text"][1], 16))
      
@@ -149,7 +149,7 @@ $text_start = 366503855936
 
 Now we can start using them with other GDB commands.
 
-....
+...
 (gdb) printf "%x, %x", $data_start, $data_end
 (gdb) find $data_start, $data_end, {char[5]}"abcde"
 (gdb) find $text_start, $text_end, 0xkkkkkkk   # some instruction 
@@ -160,7 +160,7 @@ Now we can start using them with other GDB commands.
 I prefer to see my addresses in hex. It is how GDB presents them and many crash dumps, and stack traces also present them. Here we will use some GDB Python API manipulation to make our convenience variables display in hex, like you would if you printed one in GDB.
 
 ```
-$gdb) print(s2)
+(gdb) print(s2)
 x7ff7cff010 'x' <repeats 200 times>..
 ```
 
@@ -218,7 +218,6 @@ As we saw in the previous post convenience variables are useful for writing svri
 ### References
 
 [^1]: [Python Regular Expressions](https://docs.python.org/3/library/re.html)
-values in python
 [^2]: [Types in GDB](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Types-In-Python.html#Types-In-Python)
 [^3]: [Values in GDB](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Values-From-Inferior.html)
 [^4]: [Python Tutorial: re Module](https://www.youtube.com/watch?v=K8L6KVGG-7o)
