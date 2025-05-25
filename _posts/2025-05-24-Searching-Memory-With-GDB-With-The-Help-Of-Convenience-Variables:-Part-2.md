@@ -8,7 +8,7 @@ Searching Memory in GDB With the Help of Convenience Variables - Part 2
 
 ### Introduction
 
-In the previous post we explored using `find` in various scenarios. In this post we will streamline using find for some memory regions like .rodata, .text and .data. We will use GDB view of the memory and turn it into some handy to use convenience variables, all using Python and GDB Python API.
+In the previous post we explored using `find` in various scenarios. In this post we will streamline using `find` for some memory regions like .rodata, .text and .data. We will use GDB view of the memory and turn it into some handy to use convenience variables, all using Python and GDB Python API.
 
 ### maint info sections
 
@@ -66,7 +66,7 @@ Let's break this down:
 
 This means the regex will only match these data section and we only capture the addresses for them.
 
-See The Python Docs for more info on Python Regular expressions.
+See The Python Docs for more info on Python Regular expressions [^1]..
 
 
 ### Processing the Matches
@@ -91,7 +91,7 @@ Learn more about Python Regular Expressions and `finditer`[^4].
 
 ### Creating Convenience Variables
 
-We are going to create the following list of convenience variables which we will be able to use with find.
+We are going to create the following list of convenience variables which we will be able to use with `find`.
 
     $data_start
     $data_end
@@ -100,11 +100,12 @@ We are going to create the following list of convenience variables which we will
     $ro_start
     $ro_end
 
-In the GDB Python API we can read and create convenience variables with
+In the GDB Python API we can read and create convenience variables with:
 
 ```Python
 gdb.convenience_variable(name)
 gdb.set_convenience_variable
+```
 
 ```
 (gdb) python
@@ -156,7 +157,7 @@ Now we can start using them with other GDB commands.
 
 ### The Last Trick
 
-I prefer to see my addresses in hex. It is how GDB presents them and many crash dumps, and stack tracesalso present them. Here we will use some GDB Python API manipulation to make our convenience variables display in hex, like you would if you printed one in GDB.
+I prefer to see my addresses in hex. It is how GDB presents them and many crash dumps, and stack traces also present them. Here we will use some GDB Python API manipulation to make our convenience variables display in hex, like you would if you printed one in GDB.
 
 ```
 $gdb) print(s2)
@@ -193,7 +194,7 @@ gdb.set_convenience_variable("data_end", create_ptr(regions[".bss"][1]))
 
 ```
 
-When we run this new script in GDB and show conv
+When we run this new script in GDB and `show conv`:
 
 ```
 data_end = 0x55555700c8 ""
@@ -204,7 +205,7 @@ $text_end = 0x55555508e0 <_fini> "\037 \003\325\375{\277\251\375\003"
 $text_start = 0x5555550740 <_start> "\037 \003\325\035"
 ```
 
-Is it better? Hex values are nice from my pov. And learning to manipulate types could be handy in futures.
+Is it better? Hex values are nice from my pov. And learning to manipulate types could be handy in future.
 
 ### Conclusion
 
