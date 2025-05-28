@@ -217,7 +217,4 @@ As we saw in the previous post convenience variables are useful for writing svri
 
 ### References
 
-[^1]: [Python Regular Expressions](https://docs.python.org/3/library/re.html)
-[^2]: [Types in GDB](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Types-In-Python.html#Types-In-Python)
-[^3]: [Values in GDB](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Values-From-Inferior.html)
-[^4]: [Python Tutorial: re Module](https://www.youtube.com/watch?v=K8L6KVGG-7o)
+[^1]: [Python Regular Expressions](https://docs.python.org/3/library/re.html) [^2]: [Types in GDB](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Types-In-Python.html#Types-In-Python) [^3]: [Values in GDB](https://sourceware.org/gdb/current/onlinedocs/gdb.html/Values-From-Inferior.html) [^4]: [Python Tutorial: re Module](https://www.youtube.com/watch?v=K8L6KVGG-7o)
