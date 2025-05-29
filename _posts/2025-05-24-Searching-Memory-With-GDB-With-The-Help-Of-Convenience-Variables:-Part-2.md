@@ -149,7 +149,7 @@ show conv
 
 Now we can start using them with other GDB commands.
 
-...
+```
 (gdb) printf "%x, %x", $data_start, $data_end
 (gdb) find $data_start, $data_end, {char[5]}"abcde"
 (gdb) find $text_start, $text_end, 0xkkkkkkk   # some instruction 
