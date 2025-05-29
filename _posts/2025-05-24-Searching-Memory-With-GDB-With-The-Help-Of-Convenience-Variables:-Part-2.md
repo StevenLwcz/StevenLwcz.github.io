@@ -122,7 +122,7 @@ end
 Here we simply create our desired convenience variables from the regions dictionary.
 The only little trick we do here is merge data and bss into one area since they are contigous in memory.
 
-...python
+```python
 gdb.set_convenience_variable("text_start", int(regions[".text"][0], 16))
 gdb.set_convenience_variable("text_end", int(regions[".text"][1], 16))
      
@@ -138,14 +138,14 @@ Lets run the script and use the GDB command to display all convenience variables
 ```
 so conv.py
 show conv
-
-$data_end = 366503985264
-$data_start = 366503985216
-$ro_end = 366503856659
-$ro_start = 366503856640
-$text_end = 366503856620
-$text_start = 366503855936
 ```
+
+    $data_end = 366503985264
+    $data_start = 366503985216
+    $ro_end = 366503856659
+    $ro_start = 366503856640
+    $text_end = 366503856620
+    $text_start = 366503855936
 
 Now we can start using them with other GDB commands.
 
@@ -196,14 +196,12 @@ gdb.set_convenience_variable("data_end", create_ptr(regions[".bss"][1]))
 
 When we run this new script in GDB and `show conv`:
 
-```
-data_end = 0x55555700c8 ""
-$data_start = 0x5555570040 ""
-$ro_end = 0x55555508f8 "\001\033\003;D"
-$ro_start = 0x55555508fc "D"
-$text_end = 0x55555508e0 <_fini> "\037 \003\325\375{\277\251\375\003"
-$text_start = 0x5555550740 <_start> "\037 \003\325\035"
-```
+    data_end = 0x55555700c8 ""
+    $data_start = 0x5555570040 ""
+    $ro_end = 0x55555508f8 "\001\033\003;D"
+    $ro_start = 0x55555508fc "D"
+    $text_end = 0x55555508e0 <_fini> "\037 \003\325\375{\277\251\375\003"
+    $text_start = 0x5555550740 <_start> "\037 \003\325\035"
 
 Is it better? Hex values are nice from my pov. And learning to manipulate types could be handy in future.
 
