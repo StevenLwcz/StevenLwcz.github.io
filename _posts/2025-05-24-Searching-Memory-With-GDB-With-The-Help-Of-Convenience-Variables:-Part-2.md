@@ -46,11 +46,12 @@ From the output of `maint info sections` we want to collect the start and end ad
 
 Python has a powerful modern regex syntax. We will use named captures `(?P{<name>regex)`. The advantage over the index based version is more readability and flexibility in constructing the regex. You don't have to update indexes as you develop it. It also makes the code which processes the results more readable [^1].
 
-```python
+
+{% highlight python %}
 import re
 
 pattern = re.compile(r'(?P<first>0x[0-9a-f]{10})->(?P<second>0x[0-9a-f]{10}).*(?P<region>\.text|\.rodata|\.data|\.bss)')
-```
+{% endhighlight %}
 
 Let's break this down:
 
@@ -74,8 +75,7 @@ See The Python Docs for more info on Python Regular expressions [^1]..
 Here we capture all the matched addresses with the region they belong to and store in a dictionary.
 The key is the region and the value is a tuple for the start and end address.
 
-```python
-
+{% highlight python %}
 i = pattern.finditer(output)
 
 regions = {}
@@ -85,7 +85,7 @@ for m in i:
     r = m.group('region')
     print(f"{s} {e} {r}")
     regions[r] = (s, e)
-```
+{% endhighlight %}
 
 Learn more about Python Regular Expressions and `finditer`[^4].
 
