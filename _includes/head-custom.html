@@ -1,3 +1,5 @@
+<script src="{{ '/assets/copy-code.js' | relative_url }}"></script>
+
 <style type="text/css">
 nav {
   padding-top: 0.3em;
@@ -9,5 +11,24 @@ nav ul {
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+.copy-code-button {
+    position: absolute; /* Or adjust based on your layout */
+    top: 5px;
+    right: 5px;
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.8em;
+    z-index: 10; /* Ensure it's above the code block */
+}
+
+pre {
+    position: relative; /* Needed for absolute positioning of the button */
+    padding-top: 30px; /* Make space for the button if positioned inside */
 }
 </style>
