@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const copyButton = document.createElement('button');
         copyButton.className = 'copy-code-button'; 
-        copyButton.textContent = 'Copy';
+        copyButton.textContent = '⎘';
 
         codeBlock.parentNode.insertBefore(copyButton, codeBlock);
 
@@ -12,13 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const codeToCopy = codeBlock.innerText;
             navigator.clipboard.writeText(codeToCopy)
                 .then(() => {
-                    copyButton.textContent = 'Copied!';
+                    copyButton.textContent = '✅!';
                     setTimeout(() => {
-                        copyButton.textContent = 'Copy';
+                        copyButton.textContent = '⎘';
                     }, 2000); 
                 })
                 .catch(err => {
                     console.error('Failed to copy text: ', err);
+                    copyButton.textContent = '❌';
                 });
         });
     });
