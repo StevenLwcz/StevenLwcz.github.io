@@ -1,12 +1,12 @@
 <nav>
   <ul>
   {% if page.previous %}
-    <li><a href="{{ site.url }}{{ page.previous.url }}">&langle; {{ page.previous.title }}</a></li> &bull;
+    <li><a href="{{ site.url }}{{ page.previous.url }}">&langle; {{ page.previous.title }}</a></li> &#x23D0;
   {% endif %}
-    <li><a href="https://stevenlwcz.github.io/">Home</a></li> &bull; 
+    <li><a href="https://stevenlwcz.github.io/">Home</a></li> &#x23D0; 
     <li><a href="https://github.com/{{ site.github_username }}">GitHub</a></li>
   {% if page.next %}
-    &bull; <li><a href="{{ site.url }}{{ page.next.url }}">{{ page.next.title }} &RightAngleBracket;</a></li>
+    &#x23D0; <li><a href="{{ site.url }}{{ page.next.url }}">{{ page.next.title }} &RightAngleBracket;</a></li>
   {% endif %}
   </ul>
 </nav>
