@@ -24,9 +24,7 @@ If you are interested in GDB, Python and Arm Assembler, RISC-V and other low lev
 
 <nav>
   <ul>
-    <li><a href="{{ site.github_url }}">GitHub</a></li> |
+    <li><a href="{{ site.github_url }}">GitHub</a></li> &#x23D0;
     <li><a href="{{ site.url }}/about">About & Contact</a></li>
   </ul>
 </nav>
-
-
