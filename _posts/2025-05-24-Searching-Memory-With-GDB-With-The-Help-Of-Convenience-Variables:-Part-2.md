@@ -120,7 +120,7 @@ end
 ### Creating Our Script
 
 Here we simply create our desired convenience variables from the regions dictionary.
-The only little trick we do here is merge data and bss into one area since they are contigous in memory.
+The only little trick we do here is merge data and bss into one area since they are contiguous in memory.
 
 ```python
 gdb.set_convenience_variable("text_start", int(regions[".text"][0], 16))
@@ -211,7 +211,7 @@ In this post we have looked at 'maint info sections` and how it differs from `in
 we learned how to use capture group regex to collect information we are interested in.
 Finally We have looked at how to create conveniance variables using the GDB Python API from our collected info to create coneniance variables tailored to our specific needs.
 
-As we saw in the previous post convenience variables are useful for writing svripts in GDB and now we can create them via the Python GDB API on more complex data.
+As we saw in the previous post convenience variables are useful for writing scripts in GDB and now we can create them via the Python GDB API on more complex data.
 
 ### References
 
