@@ -72,6 +72,6 @@ To remove all the specifiers:
 F-Strings in Python are highly versatile and offer a lot of formatting options but they do not work well with `gdb.Value` objects because they don’t implement the `__format__()` method and if you try it you can get: `TypeError: unsupported format string passed to gdb.Value.__format__`.  
 
 You can convert the `gdb.Value` object to a Python object but this starts to get messy.
-Since we want the Auto WIndow to reflect similar functionality as `print` `format_string()` works out fine and the string object can then be used in any F-String with padding if desired.
+Since we want the Auto Window to reflect similar functionality as `print` `format_string()` works out fine and the string object can then be used in any F-String with padding if desired.
 
 In Part 2 we will continue to work on the Auto Window and add horizontal scrolling which will also provide a framework which can work for any other Tui Window Python program.

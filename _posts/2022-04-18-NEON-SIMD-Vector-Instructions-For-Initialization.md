@@ -262,11 +262,11 @@ In this format all the top bits are set to zero. The `mov` alias can also be use
 
 ### Summary
 
-NEON SIMD instructions offer a lot of flexibility in setting up and moving data around in the vector registers. This post gives an overview of these instructions and shows the differenes between Armv8a and AArch64.
+NEON SIMD instructions offer a lot of flexibility in setting up and moving data around in the vector registers. This post gives an overview of these instructions and shows the differences between Armv8a and AArch64.
 
 AArch64 has more instructions but offers the ability to use `mov` as an alias but not quite the replacement for `vmov`. AArch64 also introduces in the `ins` instruction which allows direct element to element moves for all data sizes.
 
-Instructions which use immediates are quite fiddly since only 8 bits plus various shift modes are avaliable to construct values. Using the OR logical operation can help expand the range before needing to use a literal pool. The immediate forms are also avaliable for a compiler to optimise the assembler code for certain values.
+Instructions which use immediates are quite fiddly since only 8 bits plus various shift modes are available to construct values. Using the OR logical operation can help expand the range before needing to use a literal pool. The immediate forms are also available for a compiler to optimise the assembler code for certain values.
 
 In AArch64 normal instruction mnemonics are often aliases for other instructions to reduce the overall instruction set. The assembler may do other tricks. To see how your assembler may have been transformed you can use the objdump utility.
 
