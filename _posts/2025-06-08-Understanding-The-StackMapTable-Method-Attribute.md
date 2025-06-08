@@ -50,7 +50,7 @@ $ javap -l -s -c -verbose -private Example1 > Example1.asm
 ```
 
 The stack reaches a depth of 2 (at offset 2), and `args=3` are the parameters *this*, i & j. 
-The method has 4 local variables starting at 0: this (Example1), i, j, & k. 
+The method has 4 local variables starting at 0: *this* (Example1), i, j, & k. 
 
 StackMapTable has 1 frame entry. Control flow statements cause StackMapTable entries to be produced. These entries contain frames which describe the stack operands and local variables at certain offsets. 
 
@@ -127,7 +127,6 @@ In the following example p is not initialized until the `if` statement.
 
 ```java
 public class Example2 {
-
     public void method1(int i, int j) {
         int p, q = 0;
         if (i > j)
@@ -286,7 +285,7 @@ same_frame, means only the number of locals is the same and that the operand sta
 
 This frame type has the tag 247 and is the same as same_locals1_stack_item_frame with an explicit delta_offset. This is useful when the offset is greater than 63.
 
-In the previous example, if the try block was large enough, this frame type will  come into play.
+In the previous example, if the try block was large enough, this frame type will come into play.
 
 ### chop_frame
 
@@ -388,8 +387,8 @@ Integer_variable_info {
 This frame adds one new local of the specified type integer. Working out the byte sequence we have `fc 00 0d 01`. Looking at a hex dump of the class file, we find it here:
 
 ```
-000110:  00 06 00 0d 00 07 00 0d 00 00 00 06 00 01>fc 00 
-000120:  0d 01<00 01 00 0e 00 00 00 02 00 0f
+000110: 00 06 00 0d 00 07 00 0d 00 00 00 06 00 01&#x23D0;fc 00 
+000120: 0d 01&langle;00 01 00 0e 00 00 00 02 00 0f
 ```
 
 Lets change that type to something else, say a float:
@@ -399,7 +398,7 @@ Float_variable_info {
     u1 tag = ITEM_Float; /* 2 */
 }
 
-000120:  0d 𝟎𝟐<00 01 00 0e 00 00 00 02 00 0f
+000120: 0d 𝟎𝟐&langle;00 01 00 0e 00 00 00 02 00 0f
 ```
 
 One modified class file later (xxd was used):
@@ -439,11 +438,9 @@ This is only one possible type of error, but now if you encounter one, it should
 
 Given the amount of posts on StackOverflow[^2] this is a topic which a lot of people have to deal with in some respect in their projects.
 
-This post has used practical examples to explain the concepts around StackMapTable and the various frame types.
+This post has used practical examples to explain the concepts around StackMapTable and the various frame types. Now reading javap's output and the JVM Virtual Machine Specification should be much more straight forward, as well as help you in your compiler and bytecode manipulation projects.
 
-Now reading javap's output and the JVM Virtual Machine Specification should be much more straight forward, as well as help you in your compiler and bytecode manipulation projects.
-
-Hopefully you will combat these `VerifyErrors` with ease.
+Now you will combat these `VerifyErrors` with ease!
 
 ### References
 
