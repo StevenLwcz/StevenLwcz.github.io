@@ -178,6 +178,7 @@ If you initialized p, you could save a few bytecodes!
 The next example will show a full frame if the number of locals introduced is greater than 3.
 
 ```java
+public class Example3 {
     public void method1(int i, int j) {
         int p = 0, q = 0, r = 0, s = 0;
         if (i > j)
@@ -186,6 +187,7 @@ The next example will show a full frame if the number of locals introduced is gr
             p = 30;
         q += p;
     }
+}
 ```
 ```nasm
   public void method1(int, int);
