@@ -365,7 +365,7 @@ These tags are reserved for future use. Just in case you noticed the gap.
 
 This post would not be complete if we did not highlight a verification error. Going back to our first example:
 
-```
+```java
       StackMapTable: number_of_entries = 1
         frame_type = 252 /* append */
           offset_delta = 13
@@ -374,7 +374,7 @@ This post would not be complete if we did not highlight a verification error. Go
 
 And looking this up in the JVM Virtual Machine Specification.
 
-```
+```java
 append_frame {
     u1 frame_type = APPEND; /* 252-254 */
     u2 offset_delta;
@@ -395,17 +395,21 @@ This frame adds one new local of the specified type integer. Working out the byt
 
 Lets change that type to something else, say a float:
 
-```
+```java
 Float_variable_info {
     u1 tag = ITEM_Float; /* 2 */
 }
-
+```
+```
 000120: 0d>𝟎𝟐<00 01 00 0e 00 00 00 02 00 0f
 ```
-
-One modified class file later (xxd was used):
-
 ```bash
+$ xxd Example1.class > Example1.hex
+$ vi Example1.hex
+$ xxd -r Example1.hex > Example1.class
+```
+```bash
+# One modified class file later
 $ java Example1
 ```
 ```
