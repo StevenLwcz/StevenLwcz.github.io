@@ -6,7 +6,7 @@ description: Understanding StackMapTable and the frame types from the JVM Virtua
 
 ### Introduction
 
-If you use the Java disassembler javap on a class file you will see the StackMapTable attribute on many methods. It is easy to ignore as it does not look relevant to the execution of the method bytecode.
+If you use the Java disassembler, javap on a class file you will see the StackMapTable attribute on many methods. It is easy to ignore as it does not look relevant to the execution of the method bytecode.
 
 It has an important function however. It is used by the bytecode verification process and since Java 7 it is a mandatory part of any method which requires it. This now means compiler writers and people creating and using libraries for bytecode manipulation need to understand how it works. If you ever see a `java.lang.VerifyError` it is most likely an issue with this attribute.
 
@@ -49,8 +49,8 @@ $ javap -l -s -c -verbose -private Example1 > Example1.asm
           locals = [ int ]    
 ```
 
-The stack reaches a depth of 2 (at offset 2), and `args=3` are the parameters *this*, i & j. 
-The method has 4 local variables starting at 0: *this* (Example1), i, j, & k. 
+The stack reaches a depth of 2 (at offset 2), and `args=3` are the parameters *this*, *i* & *j*. 
+The method has 4 local variables starting at 0: *this* (Example1), *i*, *j*, & *k*. 
 
 StackMapTable has 1 frame entry. Control flow statements cause StackMapTable entries to be produced. These entries contain frames which describe the stack operands and local variables at certain offsets. 
 
@@ -60,7 +60,7 @@ The frame belongs to the byte offset at offset_delta. This is added to the previ
 
 Each frame starts with an initial frame state composed of the arguments to the method. Local variable holds *this* and subsequent parameters follow. The initial offset is of course 0.
 
-```
+```java
           delta_offset = 0
           locals = [ class Example1, int, int]
 ```
@@ -123,7 +123,7 @@ A full frame (tag  255) is generated when the state of locals and stack at a spe
 
 A full frame describes a delta offset, all the locals at that offset in the method and all stack operands. If either the locals or stack are empty this is indicated by an empty array `[]`.
 
-In the following example p is not initialized until the `if` statement. 
+In the following example *p* is not initialized until the `if` statement. 
 
 ```java
 public class Example2 {
@@ -173,7 +173,7 @@ public class Example2 {
 
 At offset 16, an integer is required. As the various frame types are explored, it will become apparent, there are no optimized frame types for this transition *top*->*int* and a full frame must be used.
 
-If you initialized p, you could save a few bytecodes!
+If you initialized *p*, you could save a few bytecodes!
 
 The next example will show a full frame if the number of locals introduced is greater than 3.
 
@@ -231,7 +231,7 @@ and the full frame format is used.
 
 This frame type (tag 0 - 63) is used as the name implied when the number of local variables are the same as the previous frame. The tag value is the implied delta_offset for the frame. 
 
-```
+```java
         frame_type = 2 /* same */   // delta offset = 2
 ```
 
@@ -348,7 +348,7 @@ This frame has tag 252 - 254 and is used to append 1 - 3 local variables to the 
 
 From the examples in this post, it is the most common used. From Example 5:
 
-```
+```java
       StackMapTable: number_of_entries = 2
         frame_type = 253 /* append */        // 253 - 251 = 2 locals to add
           offset_delta = 21
@@ -372,7 +372,7 @@ This post would not be complete if we did not highlight a verification error. Go
           locals = [ int ]      // local variable 3
 ```
 
-And looking this up in the JVM Virtual Machine Specification.
+And looking this up in the JVM Virtual Machine Specification[^1].
 
 ```java
 append_frame {
