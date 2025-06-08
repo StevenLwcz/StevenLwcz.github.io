@@ -101,7 +101,9 @@ Of course this makes compilers and bytecode modifier libraries take up the burde
 
 As noted previously a method will start with an initial frame comprised on the method parameters.
 
-As more control flow instructions are encountered a new frame is created. In order to optimise how much information is stored for a frame, special frame types are used to express a delta between the previous frame and the new one. If no convenient optimized frame type can use used, then a full frame will be used instead.
+As more control flow instructions (if, switch, loops, exceptions, etc) are encountered new frames are required. The bytecode verifier needs to know the stack and locals state after branches and when two paths join together (merge points).
+
+In order to optimise how much information is stored for a frame, special frame types are used to express a delta between the previous frame and the new one. If no convenient optimized frame type can use used, then a full frame will be used instead.
 
 There are 7 types of frame entries in the JVM Virtual Machine Specification.
 
@@ -163,13 +165,14 @@ public class Example2 {
           locals = [ top, int ]             // p, q
         frame_type = 255 /* full_frame */
           offset_delta = 2
-          locals = [ class Example2, int, int, int, int ]  // local 3 must be an integer, the frame state is updated and causes a full fram
+          locals = [ class Example2, int, int, int, int ]  // local 3 must be an integer, 
+                                                           // top must be replaced by int
           stack = []
 ```
 
 *top* is used if a local is uninitialized or not important to the verifier or the 2nd slot for a long or double. This explains *top* in the frame at offset 14.
 
-At offset 16, an integer is required. As the various frame types are explored, it will become apparent, there are no optimized frame types for this transition and so a full frame must be used.
+At offset 16, an integer is required. As the various frame types are explored, it will become apparent, there are no optimized frame types for this transition *top*->*int* and a full frame must be used.
 
 If you initialized p, you could save a few bytecodes!
 
@@ -248,7 +251,6 @@ public class Example4 {
     }
 }
 ```
-
 ```nasm
   public void method1(int, int);
     descriptor: (II)V
@@ -305,7 +307,6 @@ public class Example5 {
     }
 }
 ```
-
 ```nasm
   public void method1(int, int);
     descriptor: (II)V
@@ -401,11 +402,10 @@ Float_variable_info {
 000120:  0d 𝟎𝟐<00 01 00 0e 00 00 00 02 00 0f
 ```
 
-One modified class file later (I used xxd):
+One modified class file later (xxd was used):
 
 ```bash
 $ java Example1
-
 ```
 ```
 Error: Unable to initialize main class Example1
@@ -431,7 +431,9 @@ Exception Details:
     append_frame(@13,Float)
 ```
 
-The bytecode verifier threw our class out right at the start. The stackmap entry says the local variable 3 should be a float but the `istore_3` instruction specifies an integer.
+The bytecode verifier threw our class out right at the start. The current frame shows an integer for local variable 3 and the stackmap frame (from the attribute) says it should be a float. That does not match and it is not happy.
+
+This is only one possible type of error, but now if you encounter one, it should be easier to identify what the underlying issue is.
 
 ### Conclusion
 
