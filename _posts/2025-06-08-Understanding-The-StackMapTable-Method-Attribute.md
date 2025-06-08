@@ -1,5 +1,6 @@
 ---
 layout: post
+title: Understanding the StackMapTable Method Attribute
 author: StevenLwcz
 description: Understanding StackMapTable and the frame types from the JVM Virtual Machine Specification. Concepts and practical examples.
 ---
