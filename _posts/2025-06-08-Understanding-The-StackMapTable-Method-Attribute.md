@@ -387,8 +387,8 @@ Integer_variable_info {
 This frame adds one new local of the specified type integer. Working out the byte sequence we have `fc 00 0d 01`. Looking at a hex dump of the class file, we find it here:
 
 ```
-000110: 00 06 00 0d 00 07 00 0d 00 00 00 06 00 01&#x23D0;fc 00 
-000120: 0d 01&langle;00 01 00 0e 00 00 00 02 00 0f
+000110: 00 06 00 0d 00 07 00 0d 00 00 00 06 00 0>fc 00 
+000120: 0d 01<00 01 00 0e 00 00 00 02 00 0f
 ```
 
 Lets change that type to something else, say a float:
@@ -398,7 +398,7 @@ Float_variable_info {
     u1 tag = ITEM_Float; /* 2 */
 }
 
-000120: 0d 𝟎𝟐&langle;00 01 00 0e 00 00 00 02 00 0f
+000120: 0d>𝟎𝟐<00 01 00 0e 00 00 00 02 00 0f
 ```
 
 One modified class file later (xxd was used):
