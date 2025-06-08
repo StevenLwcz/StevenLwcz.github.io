@@ -6,15 +6,15 @@ description: Understanding StackMapTable and the frame types from the JVM Virtua
 
 ### Introduction
 
-If you use the Java disassembler javap on a class file you will see the StackMapTable attribute on many methods. It is easy to ignore as it does not look relevant to the execution of the method byte code.
+If you use the Java disassembler javap on a class file you will see the StackMapTable attribute on many methods. It is easy to ignore as it does not look relevant to the execution of the method bytecode.
 
-It has an important function however, it is used by the bytecode verification process and since Java 7 it is a mandatory part of any method which requires it. This now means compiler writer and people creating and using libraries for bytecode manipulation need to understand how it works. If you ever see a `java.lang.VerifyError` it is most likely an issue with this attribute.
+It has an important function however. It is used by the bytecode verification process and since Java 7 it is a mandatory part of any method which requires it. This now means compiler writers and people creating and using libraries for bytecode manipulation need to understand how it works. If you ever see a `java.lang.VerifyError` it is most likely an issue with this attribute.
 
-This post will explain the concepts and build up understanding of StackMapTable to help you understand the technical specification and help solve your VerifyError issues.
+This post will explain the concepts and build up understanding of StackMapTable to help you understand the JVM Virtual Machine Specification[^1] and help solve your `VerifyError` issues.
 
 ### JVM - A Stack Based Virtual Machine
 
-Java bytecode runs on a stack based virtual machine. Instructions like `load` place operands onto the stack. Others like `add` consume operands from the stack, process them and push the result back. 'store' instructions pop operands from the stack and place them into fields or local variables.
+Java bytecode runs on a stack based virtual machine. Instructions like `load` place operands onto the stack. Others like `add` consume operands from the stack, process them and push the result back. `store` instructions pop operands from the stack and place them into fields or local variables.
 
 ```java
 public class Example1 {
@@ -24,10 +24,11 @@ public class Example1 {
             k = 20;
     }
 }
+```
+```bash
 $ javac Example1.java
 $ javap -l -s -c -verbose -private Example1 > Example1.asm
 ```
-
 ```nasm
   public void method1(int, int);
     Code:
@@ -48,7 +49,7 @@ $ javap -l -s -c -verbose -private Example1 > Example1.asm
           locals = [ int ]    
 ```
 
-The stack reaches a depth of 2 (at offset 2), and `args=3` are the parameters `this`, i & j. 
+The stack reaches a depth of 2 (at offset 2), and `args=3` are the parameters *this*, i & j. 
 The method has 4 local variables starting at 0: this (Example1), i, j, & k. 
 
 StackMapTable has 1 frame entry. Control flow statements cause StackMapTable entries to be produced. These entries contain frames which describe the stack operands and local variables at certain offsets. 
@@ -57,7 +58,7 @@ In the example is 1 frame entry at offset 13 which is after the `if`. It adds an
 
 The frame belongs to the byte offset at offset_delta. This is added to the previous frame's offset_delta.
 
-Each frame starts with an initial frame state composed of the arguments to the method. Local variable holds `this` and subsequent parameters follow. The initial offset is of course 0.
+Each frame starts with an initial frame state composed of the arguments to the method. Local variable holds *this* and subsequent parameters follow. The initial offset is of course 0.
 
 ```
           delta_offset = 0
@@ -104,19 +105,19 @@ As more control flow instructions are encountered a new frame is created. In ord
 
 There are 7 types of frame entries in the JVM Virtual Machine Specification.
 
-    full_frame;
-    same_frame;
-    same_locals_1_stack_item_frame;
-    same_locals_1_stack_item_frame_extended;
-    chop_frame;
-    same_frame_extended;
-    append_frame;
+    full_frame
+    same_frame
+    same_locals_1_stack_item_frame
+    same_locals_1_stack_item_frame_extended
+    chop_frame
+    same_frame_extended
+    append_frame
 
 We will briefly show the concepts of each frame type with some examples.
 
 ### full_frame
 
-A full frame (tag  255) is generated when the state of locals and stack at a specified offset can't be described efficiently using the more specialized "delta" frame types. This can happen when more than 3 local variables are introduced or a local's type or initialization state changes. 
+A full frame (tag  255) is generated when the state of locals and stack at a specified offset can't be described efficiently using the more specialized *delta* frame types. This can happen when more than 3 local variables are introduced or a local's type or initialization state changes. 
 
 A full frame describes a delta offset, all the locals at that offset in the method and all stack operands. If either the locals or stack are empty this is indicated by an empty array `[]`.
 
@@ -135,7 +136,6 @@ public class Example2 {
     }
 }
 ```
-
 ```nasm
   public void method1(int, int);
     descriptor: (II)V
@@ -167,7 +167,7 @@ public class Example2 {
           stack = []
 ```
 
-`top` is used if a local is uninitialized or not important to the verifier or the 2nd slot for a long or double. This explains `top` in the frame at offset 14.
+*top* is used if a local is uninitialized or not important to the verifier or the 2nd slot for a long or double. This explains *top* in the frame at offset 14.
 
 At offset 16, an integer is required. As the various frame types are explored, it will become apparent, there are no optimized frame types for this transition and so a full frame must be used.
 
@@ -225,13 +225,13 @@ and the full frame format is used.
 
 ### same_frame
 
+This frame type (tag 0 - 63) is used as the name implied when the number of local variables are the same as the previous frame. The tag value is the implied delta_offset for the frame. 
+
 ```
         frame_type = 2 /* same */   // delta offset = 2
 ```
 
 In the previous example at offset 24 a new frame was introduced. Since no new local variables were added and importantly there are no stack operands, the same_frame type is used.
-
-The frame type is used as the delta offset. The tag range is 0 - 63.
 
 ### same_locals_1_stack_item_frame
 
@@ -279,10 +279,6 @@ The byte offset for frame 1 is 71 - 64 = 7. For frame 2 it is 7 + 7 = 14.
 The Exception table shows that instructions 0-4 could put a ArithmeticException object on the stack and if that happens execution will jump to offset 7 where it is stored in local variable 3. The verifier will check local 3 is correct.
 
 same_frame, means only the number of locals is the same and that the operand stack is empty.
-
-### Frame Tags 128 - 246
-
-These tags are reserved for future use. Just in case you noticed the gap.
 
 ### same_locals_1_stack_item_frame_extended
 
@@ -359,6 +355,10 @@ From the examples in this post, it is the most common used. From Example 5:
 
 If more than 3 local variables are added then a full frame is required. 
 
+### Frame Tags 128 - 246
+
+These tags are reserved for future use. Just in case you noticed the gap.
+
 ### Verification Errors
 
 This post would not be complete if we did not highlight a verification error. Going back to our first example:
@@ -403,9 +403,11 @@ Float_variable_info {
 
 One modified class file later (I used xxd):
 
-```
+```bash
 $ java Example1
 
+```
+```
 Error: Unable to initialize main class Example1
 Caused by: java.lang.VerifyError: Inconsistent stackmap frames at branch target 13
 Exception Details:
@@ -443,5 +445,5 @@ Hopefully you will combat these `VerifyErrors` with ease.
 
 ### References
 
-[^1]: [Java Virtual Machine Specification](https://docs.oracle.com/javase/specs/jvms/se21/html)
+[^1]: [Java Virtual Machine Specification - StackMapAttribute](https://docs.oracle.com/javase/specs/jvms/se21/html/jvms-4.html#jvms-4.7.4)
 [^2]: [Articles about StackMapTable on StackOverflow](https://stackoverflow.com/search?q=StackMapTable)
