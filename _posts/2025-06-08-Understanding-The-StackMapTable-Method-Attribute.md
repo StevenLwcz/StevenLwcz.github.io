@@ -86,14 +86,13 @@ Here is an annotated version:
         13: return              
       StackMapTable: number_of_entries = 1
         frame_type = 252 /* append */
-          offset_delta = 13
+          offset_delta = 13     // frame for target of if_icmple
           locals = [ int ]      // local variable 3 added to the stack frame
 ```
 
 ### Byte Code Verification
 
 Prior to Java 6 the Java Virtual Machine would verify the stack was correct for all instructions. This is a very intensive process as it would infer the types of local variables and make sure they are correct for the instructions. Compiler bugs or tools which can modify class files, may cause the stack to be in an incorrect state leading to incorrect behaviour. 
-
 In order to ease the process the JVM architects came up with the StackMapTable. This details the expected stack and local state at certain points in the method, namely around control flow. This means the Java bytecode verifier can use this information to check the stack state rather than have to infer it.
 
 Of course this makes compilers and bytecode modifier libraries take up the burden. In the next section we will look into the main concept in StackMapTable, the frame types.
@@ -104,7 +103,7 @@ As noted previously a method will start with an initial frame comprised on the m
 
 As more control flow instructions (if, switch, loops, exceptions, etc) are encountered new frames are required. The bytecode verifier needs to know the stack and locals state after branches and when two paths join together (merge points).
 
-In order to optimise how much information is stored for a frame, special frame types are used to express a delta between the previous frame and the new one. If no convenient optimized frame type can use used, then a full frame will be used instead.
+In order to optimise how much information is stored for a frame, special frame types are used to express a delta between the previous frame and the new one. If no convenient optimized frame type can be used, then a full frame will be used instead.
 
 There are 7 types of frame entries in the JVM Virtual Machine Specification.
 
@@ -120,7 +119,7 @@ We will briefly show the concepts of each frame type with some examples.
 
 ### full_frame
 
-A full frame (tag  255) is generated when the state of locals and stack at a specified offset can't be described efficiently using the more specialized *delta* frame types. This can happen when more than 3 local variables are introduced or a local's type or initialization state changes. 
+A full frame (tag 255) is generated when the state of locals and stack at a specified offset can't be described efficiently using the more specialized *delta* frame types. This can happen when more than 3 local variables are introduced or a local's type or initialization state changes. 
 
 A full frame describes a delta offset, all the locals at that offset in the method and all stack operands. If either the locals or stack are empty this is indicated by an empty array `[]`.
 
@@ -148,10 +147,10 @@ public class Example2 {
          1: istore        4
          3: iload_1
          4: iload_2
-         5: if_icmple     14
+         5: if_icmple     14                // frame required for offset 14
          8: bipush        20 // if i > j
         10: istore_3
-        11: goto          17
+        11: goto          17                // frame required for offset 17
         14: bipush        30 // if i <= j   // append [p, q] p uninitialized
         16: istore_3                        // p is required to be an int
         17: iload         4
@@ -164,17 +163,19 @@ public class Example2 {
           offset_delta = 14
           locals = [ top, int ]             // p, q
         frame_type = 255 /* full_frame */
-          offset_delta = 2
-          locals = [ class Example2, int, int, int, int ]  // local 3 must be an integer, 
+          offset_delta = 2                                 // offset = 14 + 2 + 1 = 17
+          locals = [ class Example2, int, int, int, int ]  // local 3 is integer
                                                            // top must be replaced by int
           stack = []
 ```
 
 *top* is used if a local is uninitialized or not important to the verifier or the 2nd slot for a long or double. This explains *top* in the frame at offset 14.
 
-At offset 16, an integer is required. As the various frame types are explored, it will become apparent, there are no optimized frame types for this transition *top*->*int* and a full frame must be used.
+At offset 17 at a merge point, the frame tells the verifier local 3 is an integer. As the various frame types are explored, it will become apparent, there are no optimized frame types for this transition *top*->*int* and a full frame must be used.
 
 If you initialized *p*, you could save a few bytecodes!
+
+We need to note an important point about delta_offset. In the first frame, the byte offset for the frame is delta_offset. For subsequent frames it is the previous offset + delta_offset + 1. The + 1 ensures no two frames have the same byte offset in the method. Read the specification[^1] for more detail.
 
 The next example will show a full frame if the number of locals introduced is greater than 3.
 
@@ -206,13 +207,13 @@ public class Example3 {
          9: istore        6
         11: iload_1
         12: iload_2
-        13: if_icmple     22
+        13: if_icmple     22   // new frame for offset 22 required
         16: bipush        20
         18: istore_3
-        19: goto          25
+        19: goto          25   // new frame for offset 25 required
         22: bipush        30   // i <= j      - frame 1
-        24: istore_3           // end of else - frame 2
-        25: iload         4   
+        24: istore_3           // end of else 
+        25: iload         4    // merge point - frame 2
         27: iload_3
         28: iadd
         29: istore        4
@@ -222,10 +223,10 @@ public class Example3 {
           offset_delta = 22
           locals = [ class Example3, int, int, int, int, int, int ]
           stack = []
-        frame_type = 2 /* same */
+        frame_type = 2 /* same */   // offset 22 + 2 + 1 = 25
 ```
 
-At offset 22 4 more local variables are now in scope. There is no optimal frame type for this change
+At offset 25 4 more local variables are now in scope. There is no optimal frame type for this change
 and the full frame format is used.
 
 ### same_frame
@@ -233,10 +234,10 @@ and the full frame format is used.
 This frame type (tag 0 - 63) is used as the name implied when the number of local variables are the same as the previous frame. The tag value is the implied delta_offset for the frame. 
 
 ```java
-        frame_type = 2 /* same */   // delta offset = 2
+        frame_type = 2 /* same */   // delta offset = 2 + 1 (subsequent frame)
 ```
 
-In the previous example at offset 24 a new frame was introduced. Since no new local variables were added and importantly there are no stack operands, the same_frame type is used.
+In the previous example at offset 25 a new frame was introduced. Since the local variables are the same as the previous and importantly there are no stack operands, the same_frame type is used.
 
 ### same_locals_1_stack_item_frame
 
@@ -263,7 +264,7 @@ public class Example4 {
          1: iload_2
          2: iadd
          3: istore_1
-         4: goto          15
+         4: goto          15                  // new frame for offset 15 required
          7: astore_3
          8: getstatic     #9                  // Field java/lang/System.out:Ljava/io/PrintStream;
         11: aload_3
@@ -278,7 +279,7 @@ public class Example4 {
         frame_type = 7 /* same */
 ```
 
-The byte offset for frame 1 is 71 - 64 = 7. For frame 2 it is 7 + 7 = 14.
+The byte offset for frame 1 is 71 - 64 = 7. For frame 2 it is 7 + 7 + 1 = 15.
 
 The Exception table shows that instructions 0-4 could put a ArithmeticException object on the stack and if that happens execution will jump to offset 7 where it is stored in local variable 3. The verifier will check local 3 is correct.
 
@@ -317,14 +318,14 @@ public class Example5 {
       stack=2, locals=5, args_size=3   // this, i, j
          0: iload_1
          1: bipush        20
-         3: if_icmple     24
+         3: if_icmple     24           // frame for offset 24 required
          6: fconst_0
          7: fstore_3                   // q local 3
          8: iload_1
          9: istore        4            // p local 4
         11: iload         4
         13: bipush        30
-        15: if_icmple     21
+        15: if_icmple     21           // frame for offset 21 required
         18: iinc          4, 1         // p++
         21: iload         4            // p <= 30
         23: istore_2                   // locals 3 & 4 go out of scope
@@ -334,10 +335,10 @@ public class Example5 {
           offset_delta = 21
           locals = [ float, int ]
         frame_type = 249 /* chop */    // 251 - 249 = 2 locals to remove
-          offset_delta = 2             // offset 23 = 21 + 2 (frame_type)
+          offset_delta = 2             // offset 24 = 21 + 2 + 1 (frame_type)
 ```
 
-Here two local items go out of scope at offset 23 and can be dropped from the frame data. The compiler will also be free to reuse local 3 and 4 if required later in the method.
+Here two local items go out of scope at offset 24 and can be dropped from the frame data. The compiler will also be free to reuse local 3 and 4 if required later in the method.
 
 ### same_frame_extended
 
@@ -347,7 +348,7 @@ This has tag 251. This is the same as same_frame with an explicit delta offset f
 
 This frame has tag 252 - 254 and is used to append 1 - 3 local variables to the frame (frame_type - 251). An explicit offset_delta is also specified.
 
-From the examples in this post, it is the most common used. From Example 5:
+From the examples in this post, it is the most commonly used. From Example 5:
 
 ```java
       StackMapTable: number_of_entries = 2
