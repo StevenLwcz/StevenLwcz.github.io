@@ -59,7 +59,7 @@ In the example is 1 frame entry at offset 13 which is after the `if`. It adds an
 
 The frame belongs to the byte offset at offset_delta. This is added to the previous frame's offset_delta.
 
-Each frame starts with an initial frame state composed of the arguments to the method. Local variable holds *this* and subsequent parameters follow. The initial offset is of course 0.
+Each frame starts with an initial frame state composed of the arguments to the method. Local variable 0 holds *this* and subsequent parameters follow. The initial offset is 0.
 
 ```java
           delta_offset = 0
@@ -226,7 +226,7 @@ public class Example3 {
         frame_type = 2 /* same */   // offset 22 + 2 + 1 = 25
 ```
 
-At offset 25 4 more local variables are now in scope. There is no optimal frame type for this change
+At offset 25, 4 more local variables are now in scope. There is no optimal frame type for this change
 and the full frame format is used.
 
 ### same_frame
@@ -365,7 +365,7 @@ These tags are reserved for future use. Just in case you noticed the gap.
 
 ### Verification Errors
 
-This post would not be complete if we did not highlight a verification error. Going back to our first example:
+This post would not be complete if it did not highlight a verification error. Going back to our first example:
 
 ```java
       StackMapTable: number_of_entries = 1
