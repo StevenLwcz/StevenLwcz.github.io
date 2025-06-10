@@ -103,6 +103,18 @@ As noted previously a method will start with an initial frame comprised on the m
 
 As more control flow instructions (if, switch, loops, exceptions, etc) are encountered new frames are required. The bytecode verifier needs to know the stack and locals state after branches and when two paths join together (merge points).
 
+Here are some examles where a new frame is required.
+
+```nasm
+         7: if_icmple     13   // a frame is required for offset 13
+
+        11: goto          17   // a frame is required for offset 17
+
+      Exception table:
+         from    to  target type
+             0     4     7   Class java/lang/ArithmeticException   // a frame is required for offset 7
+```
+
 In order to optimise how much information is stored for a frame, special frame types are used to express a delta between the previous frame and the new one. If no convenient optimized frame type can be used, then a full frame will be used instead.
 
 There are 7 types of frame entries in the JVM Virtual Machine Specification.
