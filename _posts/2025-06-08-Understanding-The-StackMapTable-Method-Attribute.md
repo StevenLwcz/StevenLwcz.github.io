@@ -125,6 +125,8 @@ A full frame describes a delta offset, all the locals at that offset in the meth
 
 In the following example *p* is not initialized until the `if` statement. 
 
+#### Example 2
+
 ```java
 public class Example2 {
     public void method1(int i, int j) {
@@ -175,8 +177,13 @@ At offset 17 at a merge point, the frame tells the verifier local 3 is an intege
 
 If you initialized *p*, you could save a few bytecodes!
 
-We need to note an important point about delta_offset. In the first frame, the byte offset for the frame is delta_offset. For subsequent frames it is the previous offset + delta_offset + 1. The + 1 ensures no two frames have the same byte offset in the method. Read the specification[^1] for more detail.
+#### delta_offset
 
+There is an important element about delta_offset which may be missed when working out offsets from the StackMapTable attribute.
+
+In the first frame, the byte offset for the frame is delta_offset. For subsequent frames it is the previous offset + delta_offset + 1. The + 1 ensures no two frames have the same byte offset in the method. Read the specification[^1] for more detail.
+
+#### Example 3
 The next example will show a full frame if the number of locals introduced is greater than 3.
 
 ```java
