@@ -17,6 +17,8 @@ This post will explain the concepts and build up understanding of StackMapTable 
 
 Java bytecode runs on a stack based virtual machine. Instructions like `load` place operands onto the stack. Others like `add` consume operands from the stack, process them and push the result back. `store` instructions pop operands from the stack and place them into fields or local variables.
 
+#### Example 1
+
 ```java
 public class Example1 {
     public void method1(int i, int j) {
@@ -262,6 +264,8 @@ In the previous example at offset 25 a new frame was introduced. Since the local
 
 This frame type (tag  64 - 127) is used if the local variables are the same and 1 stack operand is present. The delta offset is the value (frame_type - 64).
 
+#### Example 4
+
 ```java
 public class Example4 {
     public void method1(int i, int j) {
@@ -315,6 +319,8 @@ In the previous example, if the try block was large enough, this frame type will
 This frame has tags 248 - 250, with an explicit delta_offset. It indicates the last 1 - 3 local variables are no longer present (251 - frame_type). In addition there are no stack operands.
 
 Locals used in conditional statements will go out of scope and may need the chop from the frame data!
+
+#### Example 5
 
 ```java
 public class Example5 {
