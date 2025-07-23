@@ -168,7 +168,7 @@ define calc_env_size
     set $env_size += (int)strlen(environ[$i]) + 1
     set $i += 1
   end
-  printf "Number of environment variables=%d\n", $i - 1
+  printf "Number of environment variables=%d\n", $i
   printf "$env_size=%d\n", $env_size
 end
 ```
